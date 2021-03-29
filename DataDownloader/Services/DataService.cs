@@ -1,6 +1,8 @@
-﻿using DataDownloader.Interfaces;
+﻿using DataDownloader.Helpers;
+using DataDownloader.Interfaces;
 using DataDownloader.Models;
-using System;
+using MongoDB.Bson;
+using MongoDB.Driver;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
@@ -16,6 +18,14 @@ namespace DataDownloader.Services
     public class DataService : IDataService
     {
         private readonly HttpClient _httpClient = new HttpClient();
+        private readonly MongoHelper _mongoHelper;
+        private readonly MongoClient _mongoClient;
+
+        public DataService()
+        {
+            _mongoHelper = new MongoHelper();
+            _mongoClient = new MongoClient(_mongoHelper.ConnectionString);
+        }
 
         public async Task<DrinkItem> GetDrinkByIdAsync(int id)
         {
@@ -86,9 +96,12 @@ namespace DataDownloader.Services
             return ingredients;
         }
 
-        public Task SaveDrink(DrinkBsonItem item)
+        public async Task SaveDrinkAsync(DrinkBsonItem item)
         {
-            throw new NotImplementedException();
+            var database = _mongoClient.GetDatabase(_mongoHelper.DatabaseName);
+            var drinks = database.GetCollection<BsonDocument>(_mongoHelper.CollectionName);
+
+            await drinks.InsertOneAsync(item.ToBsonDocument());
         }
     }
 }

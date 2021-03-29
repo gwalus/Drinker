@@ -25,6 +25,6 @@ namespace DataDownloader.Interfaces
         /// Save drink to the database.
         /// </summary>
         /// <returns></returns>
-        Task SaveDrink(DrinkBsonItem item);
+        Task SaveDrinkAsync(DrinkBsonItem item);
     }
 }
