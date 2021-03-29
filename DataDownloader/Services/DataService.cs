@@ -77,7 +77,7 @@ namespace DataDownloader.Services
                 var ingredient = new Ingredient
                 {
                     Name = ingradientNames.ElementAtOrDefault(i),
-                    Measure = ingradientMeasures.ElementAtOrDefault(i).TrimEnd()
+                    Measure = ingradientMeasures.ElementAtOrDefault(i)?.TrimEnd()
                 };
 
                 ingredients.Add(ingredient);
