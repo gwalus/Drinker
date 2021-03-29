@@ -7,9 +7,9 @@ namespace DataDownloader.Models
     /// </summary>
     public class Ingredient
     {
-        [BsonElement]
+        [BsonElement("name")]
         public string Name { get; set; }
-        [BsonElement]
+        [BsonElement("measure")]
         public string Measure { get; set; }
     }
 }

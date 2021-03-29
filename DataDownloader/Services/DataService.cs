@@ -31,14 +31,15 @@ namespace DataDownloader.Services
         {
             var request = await _httpClient.GetAsync($"https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i={id}");
 
-            if (request.Content == null) 
-                return null;
+            if (request.Content == null) return null;
 
             var response = await request.Content.ReadAsStringAsync();
 
             var drink = JsonSerializer.Deserialize<CoctailDbResponseModel>(response)
                 ?.drinks
                 ?.FirstOrDefault();
+
+            if (drink == null) return null;
 
             return drink;
         }
