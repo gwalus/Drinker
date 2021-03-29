@@ -30,8 +30,10 @@ namespace DataDownloader
 
                 var ingredients = _dataService.CreateIngredients(onedrink);
 
+                bsonDrinkItems = new List<BsonDocument>();
+                
                 foreach (var item in ingredients)
-                {
+                {                    
                     var bsonItem = item.ToBsonDocument();
                     bsonDrinkItems.Add(bsonItem);
                 }
