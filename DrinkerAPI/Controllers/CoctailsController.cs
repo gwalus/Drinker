@@ -6,11 +6,14 @@ using System.Threading.Tasks;
 
 namespace DrinkerAPI.Controllers
 {
-    public class CoctailController : Controller
+    [Route("api/")]
+    [ApiController]
+    public class CoctailsController : ControllerBase
     {
-        public IActionResult Index()
+        [HttpGet("CheckDrinByName")]
+        public string Get()
         {
-            return View();
+            return "Test";
         }
     }
 }

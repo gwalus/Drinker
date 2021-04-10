@@ -2,7 +2,7 @@
 
 namespace DrinkerAPI.Models
 {
-    public class CoctailDbResponseModel
+    public class Coctails
     {
         public ICollection<DrinkItem> drinks { get; set; }
     }
