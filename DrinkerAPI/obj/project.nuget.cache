@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "eK90yEBI6ak/xMPPeBlGGq8X+hVbLqpAQBCRVIPGOrhlJT81X+siuqrpbN9qVQ4SEFixeLV8QOCw0a1jzvqVJg==",
+  "dgSpecHash": "GT58i5vzHDFHTVLjDuadBq557S+uVPP67wdAzCfiSLm5renkgwFtXissqLC42kZaGWZAs6MIz2KvJvqZt8n71A==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Kubag\\source\\repos\\gwalus\\Drinker\\DrinkerAPI\\DrinkerAPI.csproj",
+  "projectFilePath": "C:\\Users\\Kubag\\Source\\Repos\\gwalus\\Drinker\\DrinkerAPI\\DrinkerAPI.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Kubag\\.nuget\\packages\\microsoft.extensions.apidescription.server\\3.0.0\\microsoft.extensions.apidescription.server.3.0.0.nupkg.sha512",
     "C:\\Users\\Kubag\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
