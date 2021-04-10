@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Programy\\DrinkerAPI\\DrinkerAPI\\DrinkerAPI.csproj": {}
+    "C:\\Users\\Kubag\\source\\repos\\gwalus\\Drinker\\DrinkerAPI\\DrinkerAPI.csproj": {}
   },
   "projects": {
-    "D:\\Programy\\DrinkerAPI\\DrinkerAPI\\DrinkerAPI.csproj": {
+    "C:\\Users\\Kubag\\source\\repos\\gwalus\\Drinker\\DrinkerAPI\\DrinkerAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Programy\\DrinkerAPI\\DrinkerAPI\\DrinkerAPI.csproj",
+        "projectUniqueName": "C:\\Users\\Kubag\\source\\repos\\gwalus\\Drinker\\DrinkerAPI\\DrinkerAPI.csproj",
         "projectName": "DrinkerAPI",
-        "projectPath": "D:\\Programy\\DrinkerAPI\\DrinkerAPI\\DrinkerAPI.csproj",
+        "projectPath": "C:\\Users\\Kubag\\source\\repos\\gwalus\\Drinker\\DrinkerAPI\\DrinkerAPI.csproj",
         "packagesPath": "C:\\Users\\Kubag\\.nuget\\packages\\",
-        "outputPath": "D:\\Programy\\DrinkerAPI\\DrinkerAPI\\obj\\",
+        "outputPath": "C:\\Users\\Kubag\\source\\repos\\gwalus\\Drinker\\DrinkerAPI\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Kubag\\AppData\\Roaming\\NuGet\\NuGet.Config",
