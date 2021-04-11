@@ -13,6 +13,12 @@ namespace DataDownloader.Helpers
     {
         private readonly HttpClient _httpClient = new HttpClient();
 
+
+        /// <summary>Gets the drink by identifier asynchronous.</summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns>
+        ///   <br />
+        /// </returns>
         public async Task<DrinkItem> GetDrinkByIdAsync(int id)
         {
             var request = await _httpClient.GetAsync($"https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i={id}");
@@ -30,7 +36,13 @@ namespace DataDownloader.Helpers
             return drink;
         }
 
-        public static IList<Ingredient> CreateIngredients(DrinkItem drink)
+
+        /// <summary>Creates the ingredients.</summary>
+        /// <param name="drink">The drink.</param>
+        /// <returns>
+        ///   <br />
+        /// </returns>
+        public IList<Ingredient> CreateIngredients(DrinkItem drink)
         {
             IList<string> ingradientNames = new List<string>();
             IList<string> ingradientMeasures = new List<string>();
@@ -84,6 +96,9 @@ namespace DataDownloader.Helpers
             return ingredients;
         }
 
+
+        /// <summary>Saves to json file.</summary>
+        /// <param name="coctails">The coctails.</param>
         public void SaveToJsonFile(IList<Coctail> coctails)
         {
             var currentDirectory = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
