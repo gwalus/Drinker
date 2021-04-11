@@ -70,9 +70,11 @@ namespace DrinkerAPI.Data.Migrations
 
             modelBuilder.Entity("DrinkerAPI.Models.Ingredient", b =>
                 {
-                    b.HasOne("DrinkerAPI.Models.Coctail", null)
+                    b.HasOne("DrinkerAPI.Models.Coctail", "Coctail")
                         .WithMany("Ingradients")
                         .HasForeignKey("CoctailId");
+
+                    b.Navigation("Coctail");
                 });
 
             modelBuilder.Entity("DrinkerAPI.Models.Coctail", b =>

@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DrinkerAPI.Data.Migrations
 {
     [DbContext(typeof(CoctailContext))]
-    [Migration("20210411110912_Initial")]
+    [Migration("20210411132503_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -72,9 +72,11 @@ namespace DrinkerAPI.Data.Migrations
 
             modelBuilder.Entity("DrinkerAPI.Models.Ingredient", b =>
                 {
-                    b.HasOne("DrinkerAPI.Models.Coctail", null)
+                    b.HasOne("DrinkerAPI.Models.Coctail", "Coctail")
                         .WithMany("Ingradients")
                         .HasForeignKey("CoctailId");
+
+                    b.Navigation("Coctail");
                 });
 
             modelBuilder.Entity("DrinkerAPI.Models.Coctail", b =>
