@@ -12,6 +12,6 @@ namespace DrinkerAPI.Models
         public string Instructions { get; set; }
         public string PhotoUrl { get; set; }
         public string DateModified { get; set; }
-        public ICollection<Ingredient> Ingradients { get; set; }
+        public virtual ICollection<Ingredient> Ingradients { get; set; }
     }
 }
