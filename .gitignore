@@ -446,6 +446,9 @@ $RECYCLE.BIN/
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+<<<<<<< HEAD
 /DataDownloader/appsettings.json
 /.editorconfig
 *.db
+=======
+>>>>>>> 38d3f2df9d924e7daa09d887212fa4eab42a8a65
