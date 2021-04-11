@@ -1,5 +1,4 @@
 ﻿using DataDownloader.Models;
-using DrinkerAPI.Models;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -42,7 +41,7 @@ namespace DataDownloader.Helpers
         /// <returns>
         ///   <br />
         /// </returns>
-        public IList<Ingredient> CreateIngredients(DrinkItem drink)
+        public IList<IngredientToSeed> CreateIngredients(DrinkItem drink)
         {
             IList<string> ingradientNames = new List<string>();
             IList<string> ingradientMeasures = new List<string>();
@@ -79,13 +78,12 @@ namespace DataDownloader.Helpers
 
             ingradientMeasures = ingradientMeasures.Where(mea => mea != null).ToList();
 
-            IList<Ingredient> ingredients = new List<Ingredient>();
+            IList<Models.IngredientToSeed> ingredients = new List<Models.IngredientToSeed>();
 
             for (int i = 0; i < ingradientNames.Count; i++)
             {
-                var ingredient = new Ingredient
+                var ingredient = new Models.IngredientToSeed
                 {
-                    Id = i,
                     Name = ingradientNames.ElementAtOrDefault(i),
                     Measure = ingradientMeasures.ElementAtOrDefault(i)?.TrimEnd()
                 };
@@ -99,7 +97,7 @@ namespace DataDownloader.Helpers
 
         /// <summary>Saves to json file.</summary>
         /// <param name="coctails">The coctails.</param>
-        public void SaveToJsonFile(IList<Coctail> coctails)
+        public void SaveToJsonFile(IList<CoctailToSeed> coctails)
         {
             var currentDirectory = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
 

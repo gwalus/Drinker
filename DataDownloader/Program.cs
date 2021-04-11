@@ -1,5 +1,5 @@
 ﻿using DataDownloader.Helpers;
-using DrinkerAPI.Models;
+using DataDownloader.Models;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -18,7 +18,7 @@ namespace DataDownloader
             const int MAXID = 17841;
             int count = 0;
 
-            IList<Coctail> coctails = new List<Coctail>();
+            IList<CoctailToSeed> coctails = new List<CoctailToSeed>();
 
             Console.WriteLine("Downloading data...");
 
@@ -27,7 +27,7 @@ namespace DataDownloader
                 var drink = await dataProvider.GetDrinkByIdAsync(i);
                 if (drink == null) continue;
 
-                var coctail = new Coctail
+                var coctail = new CoctailToSeed
                 {
                     Alcoholic = drink.strAlcoholic,
                     Category = drink.strCategory,
