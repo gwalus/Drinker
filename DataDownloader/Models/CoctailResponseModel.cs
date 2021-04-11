@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
-namespace DrinkerAPI.Models
+namespace DataDownloader.Models
 {
-    public class Coctails
+    public class CoctailResponseModel
     {
         public ICollection<DrinkItem> drinks { get; set; }
     }
+
     public class DrinkItem
     {
         public string idDrink { get; set; }

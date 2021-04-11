@@ -442,3 +442,4 @@ $RECYCLE.BIN/
 !.vscode/extensions.json
 /DataDownloader/appsettings.json
 /.editorconfig
+*.db
