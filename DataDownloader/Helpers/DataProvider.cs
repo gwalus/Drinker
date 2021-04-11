@@ -1,6 +1,7 @@
 ﻿using DataDownloader.Models;
 using DrinkerAPI.Models;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Text.Json;
@@ -81,6 +82,17 @@ namespace DataDownloader.Helpers
             }
 
             return ingredients;
+        }
+
+        public void SaveToJsonFile(IList<Coctail> coctails)
+        {
+            var currentDirectory = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
+
+            var filePath = Path.Combine(currentDirectory, "Coctails.json");
+
+            var jsonFile = JsonSerializer.Serialize(coctails);
+
+            File.WriteAllText(filePath, jsonFile);
         }
     }
 }
