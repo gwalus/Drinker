@@ -9,5 +9,7 @@ namespace DrinkerAPI.Interfaces
     public interface ICoctailRepository
     {
         Task<ICollection<Coctail>> GetListOfCoctailsAsync();
+        Task<IList<Coctail>> GetCoctailsByIngredient(string keyword);
+        Task<Coctail> GetCoctailByName(string keyword);
     }
 }

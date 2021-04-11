@@ -19,7 +19,7 @@ namespace DrinkerAPI.Controllers
         /// Method answear Get request for List of every coctail that is in db
         /// </summary>
         /// <returns>list of coctails / errorMessage </returns>
-        [HttpGet("listAll")]
+        [HttpGet("list/all")]
         public async Task<ActionResult<ICollection<Coctail>>> GetCoctailsAsync()
         {
             var coctails = await _coctailRepository.GetListOfCoctailsAsync();
@@ -28,6 +28,19 @@ namespace DrinkerAPI.Controllers
 
             return BadRequest("Unable to connect...");
         }
-        
+        //[HttpGet("search/byIngredient/{keyword}")]
+        //public async Task<ActionResult<IList<Coctail>>> GetCoctailsByIngredient(string keyword)
+        //{
+
+        //}
+        [HttpGet("search/byName/{keyword}")]
+        public async Task<ActionResult<Coctail>> GetCoctailByName(string keyword)
+        {
+            var coctail = await _coctailRepository.GetCoctailByName(keyword);
+            if (coctail != null)
+                return Ok(coctail);
+
+            return BadRequest("Coctail not found");
+        }
     }
 }
