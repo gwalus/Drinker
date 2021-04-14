@@ -23,9 +23,15 @@ namespace DrinkerAPI.Services
             return await _context.Coctails.Where(x => x.Name.Equals(keyword)).FirstOrDefaultAsync();
         }
 
-        public Task<IList<Coctail>> GetCoctailsByIngredient(string keyword)
+        public async Task<IList<Coctail>> GetCoctailsByIngredient(string keyword)
         {
-            throw new NotImplementedException();
+            var ingredient = _context.Ingredients.Where(x => x.Name
+            .Equals(keyword))
+                .First();
+            if (ingredient == null)
+                return null;
+            else
+                return await _context.Coctails.Include(i => i.Ingradients.Where(x => x.Name == keyword)).ToListAsync();
         }
 
         public async Task<ICollection<Coctail>> GetListOfCoctailsAsync()
