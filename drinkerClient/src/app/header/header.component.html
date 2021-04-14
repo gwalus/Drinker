@@ -1,0 +1,54 @@
+<div class="navbar-light bg-light">
+  <div class="row">
+
+    <div class="col-sm-4 align-self-center">
+      <img class="navbar-brand" src="https://png.pngtree.com/png-vector/20190811/ourlarge/pngtree-wine-glass-icon-png-image_1658935.jpg" />
+      <a class="navbar-brand h1" href="/">Drinker</a>
+    </div>
+
+    <div class="col-sm-6 align-self-center">
+      <div class="group">
+        <form class="form-inline justify-content-center">
+          <input class="form-control w-75 p-3" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success btn-i" type="submit">
+            <mat-icon class=""  aria-hidden="false" aria-label="Log in">search</mat-icon>
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <div class="col-sm-2">
+      <div class="btn-group bg-secondary float-right mr-5" role="group">
+        <button class="btn btn-secondary btn-i">
+          <mat-icon aria-hidden="false" aria-label="Log in">account_circle</mat-icon>
+        </button>
+
+        <div ngbDropdown class="d-inline-block">
+          <button class="btn btn-secondary" id="dropdownBasic1" ngbDropdownToggle>PL</button>
+          <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+            <button ngbDropdownItem>PL</button>
+            <button ngbDropdownItem>Eg</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row border-top border-secondary">
+    <div class="col">
+      <ul ngbNav #nav="ngbNav" class="nav-tabs">
+        <li ngbNavItem>
+          <a ngbNavLink>First</a>
+          <ng-template ngbNavContent>First content</ng-template>
+        </li>
+        <li ngbNavItem>
+          <a ngbNavLink>Second</a>
+          <ng-template ngbNavContent>Second content</ng-template>
+        </li>
+      </ul>
+    </div>
+    
+
+  </div>
+
+</div>
