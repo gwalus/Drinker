@@ -1,30 +1,32 @@
 <div class="container">
   <header class="blog-header py-3">
     <div class="row flex-nowrap justify-content-between align-items-center">
-      <div class="col-3 pt-1">
-        <mat-icon aria-hidden="false" aria-label="Log in">local_bar</mat-icon>
+      <div class="col-4 pt-1 pr-0">
+        <mat-icon class="blog-header-logo-icon pr-1" aria-hidden="false" aria-label="Log in">local_bar</mat-icon>
         <a class="blog-header-logo text-dark" href="">Drinker</a>
       </div>
-      <div class="col-6 text-center">
+      <div class="col-4 p-0 text-center">
         <form class="form-inline justify-content-center">
-          <input class="form-control w-50 p-3" type="search" placeholder="Search" aria-label="Search">
+          <input class="form-control w-50  ds-input" type="search" placeholder="Search" aria-label="Search">
           <a class="text-muted" href="">
-            <mat-icon class="ml-2"  aria-hidden="false" aria-label="Log in">search</mat-icon>
+            <mat-icon class="ml-2 blog-header-logo-icon" aria-hidden="false" aria-label="search">search</mat-icon>
           </a>
         </form>
       </div>
-      <div class="col-3 d-flex justify-content-end align-items-center">
-        <a class="btn btn-sm btn-outline-secondary" href="">Sign up</a>
+      <div class="col-4 pl-0 d-flex justify-content-end align-items-center">
+        <a class="text-muted" href="">
+          <mat-icon class="blog-header-logo-icon" aria-hidden="false" aria-label="Log in">account_circle</mat-icon>
+        </a>
       </div>
     </div>
   </header>
 
   <div class="nav-scroller py-1 mb-2">
     <nav class="nav d-flex justify-content-between">
-      <a class="p-2 text-muted" href="">Coctail Builder</a>
-      <a class="p-2 text-muted" href="">Coctail & Mixed Drinks</a>
+      <a class="p-2 text-muted" href="/coctailBuilder">Coctail Builder</a>
+      <a class="p-2 text-muted" routerLink="/test">Coctail & Mixed Drinks</a>
       <a class="p-2 text-muted" href="">Game</a>
-      <a class="p-2 text-muted" href="">Drinks Calculator</a> 
+      <a class="p-2 text-muted" href="">Drinks Calculator</a>
     </nav>
   </div>
 </div>
