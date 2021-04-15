@@ -28,14 +28,13 @@ namespace DrinkerAPI.Controllers
 
             return BadRequest("Unable to connect...");
         }
-        [HttpGet("search/byIngredient/{keyword}")]
-        public async Task<ActionResult<IList<Coctail>>> GetCoctailsByIngredient(string keyword)
+        [HttpGet("search/byIngredients")]
+        public async Task<ActionResult<IList<Coctail>>> GetCoctailsByIngredient([FromQuery] IList<string> ingredients)
         {
-            var coctail = await _coctailRepository.GetCoctailsByIngredient(keyword);
-            if (coctail != null)
-                return Ok(coctail);
+            if (ingredients.Count == 0) 
+                return BadRequest("Please to add minimum one ingredient");
 
-            return BadRequest("Coctail not found");
+            return Ok(await _coctailRepository.GetCoctailsByIngredientsAsync(ingredients));
 
         }
         [HttpGet("search/byName/{keyword}")]
