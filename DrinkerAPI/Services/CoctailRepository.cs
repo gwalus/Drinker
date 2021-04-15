@@ -1,17 +1,20 @@
 ﻿using DrinkerAPI.Data;
+using DrinkerAPI.Helpers;
 using DrinkerAPI.Interfaces;
 using DrinkerAPI.Models;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace DrinkerAPI.Services
-{
+{  
+    /// <summary>
+    /// inheridoc
+    /// </summary>
     public class CoctailRepository : ICoctailRepository
     {
-        private CoctailContext _context;
+        private readonly CoctailContext _context;
 
         public CoctailRepository(CoctailContext context)
         {
@@ -22,23 +25,18 @@ namespace DrinkerAPI.Services
         {
             return await _context.Coctails.Where(x => x.Name.Equals(keyword)).FirstOrDefaultAsync();
         }
-
-        public async Task<IList<Coctail>> GetCoctailsByIngredient(string keyword)
+        public async Task<IList<Coctail>> GetCoctailsByIngredientsAsync(IList<string> ingredients)
         {
-            var ingredient = _context.Ingredients.Where(x => x.Name
-            .Equals(keyword))
-                .First();
-            if (ingredient == null)
-                return null;
-            else
-                return await _context.Coctails.Include(i => i.Ingradients.Where(x => x.Name == keyword)).ToListAsync();
+            var coctailsQueryable = _context.Coctails.AsQueryable();
+
+            var query = QueryBuilder.BuildIngredientsQuery(coctailsQueryable, ingredients);
+
+            return await query.ToListAsync();
         }
 
         public async Task<ICollection<Coctail>> GetListOfCoctailsAsync()
         {
             return await _context.Coctails.ToListAsync();
         }
-
     }
-
 }
