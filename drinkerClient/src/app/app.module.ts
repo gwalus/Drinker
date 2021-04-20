@@ -9,14 +9,21 @@ import { FooterComponent } from './footer/footer.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatIconModule } from '@angular/material/icon';
 import { CoctailBuilderComponent } from './content/coctail-builder/coctail-builder.component';
+import { DrinksComponent } from './content/drinks/drinks.component';
+import { GameComponent } from './content/game/game.component';
+import { CalculatorComponent } from './content/calculator/calculator.component';
 import { HttpClientModule } from '@angular/common/http';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     FooterComponent,
-    CoctailBuilderComponent
+    CoctailBuilderComponent,
+    DrinksComponent,
+    GameComponent,
+    CalculatorComponent
   ],
   imports: [
     BrowserModule,
