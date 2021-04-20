@@ -9,13 +9,15 @@ import { FooterComponent } from './footer/footer.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatIconModule} from '@angular/material/icon';
 import { CoctailBuilderComponent } from './content/coctail-builder/coctail-builder.component';
+import { DrinksComponent } from './content/drinks/drinks.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     FooterComponent,
-    CoctailBuilderComponent
+    CoctailBuilderComponent,
+    DrinksComponent
   ],
   imports: [
     BrowserModule,
