@@ -3,6 +3,7 @@ import { TestBed } from '@angular/core/testing';
 import { RouterModule, Routes } from '@angular/router';
 import { CoctailBuilderComponent } from './content/coctail-builder/coctail-builder.component';
 import { DrinksComponent } from './content/drinks/drinks.component';
+import { GameComponent } from './content/game/game.component';
 
 const routes: Routes = [
   {
@@ -12,8 +13,11 @@ const routes: Routes = [
   {
     path: 'drinks',
     component: DrinksComponent
+  },
+  {
+    path: 'game',
+    component: GameComponent
   }
-
 ];
 
 @NgModule({
