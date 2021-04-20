@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { CoctailBuilderComponent } from './content/coctail-builder/coctail-builder.component';
 import { DrinksComponent } from './content/drinks/drinks.component';
 import { GameComponent } from './content/game/game.component';
+import { CalculatorComponent } from './content/calculator/calculator.component';
 
 const routes: Routes = [
   {
@@ -17,7 +18,12 @@ const routes: Routes = [
   {
     path: 'game',
     component: GameComponent
+  },
+  {
+    path: 'calculator',
+    component: CalculatorComponent
   }
+  
 ];
 
 @NgModule({

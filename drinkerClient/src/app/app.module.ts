@@ -11,6 +11,7 @@ import {MatIconModule} from '@angular/material/icon';
 import { CoctailBuilderComponent } from './content/coctail-builder/coctail-builder.component';
 import { DrinksComponent } from './content/drinks/drinks.component';
 import { GameComponent } from './content/game/game.component';
+import { CalculatorComponent } from './content/calculator/calculator.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { GameComponent } from './content/game/game.component';
     FooterComponent,
     CoctailBuilderComponent,
     DrinksComponent,
-    GameComponent
+    GameComponent,
+    CalculatorComponent
   ],
   imports: [
     BrowserModule,
