@@ -8,6 +8,39 @@
   font-size: 50px;
 }
 
+.btn-result-calculate {
+  position: absolute;
+  top: 95%;
+  left: -40px;
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%);
+  width: 80px;
+  text-align: center;
+  padding: 0;
+  -webkit-box-shadow: 0 0 10px rgb(0 0 0 / 10%);
+  box-shadow: 0 0 10px rgb(0 0 0 / 10%);
+  -webkit-transition: background .2s ease-in-out;
+  transition: background .2s ease-in-out;
+}
+
+.result-calculate {
+  background-color: #dae1e7 !important;
+  height: 100%;
+}
+
+.text-result-calculate {
+  top: 50%;
+  margin: 0px;
+  font-size: larger;
+  font-weight: 900;
+  text-align: center;
+}
+
+.text-result-calculate {
+  position: relative;
+
+}
+
 @media (min-width: 768px) {
   .display-4 {
     font-size: 3rem;
@@ -17,5 +50,12 @@
     height: 100px;
     width: 100px;
     font-size: 100px;
+  }
+
+  .btn-result-calculate {
+    top: 50%;
+    height: 60px;
+    border-radius: 10%;
+
   }
 }
