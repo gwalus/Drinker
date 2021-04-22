@@ -1,4 +1,5 @@
-﻿using DrinkerAPI.Extensions;
+﻿using DrinkerAPI.Dtos;
+using DrinkerAPI.Extensions;
 using DrinkerAPI.Helpers;
 using DrinkerAPI.Interfaces;
 using DrinkerAPI.Models;
@@ -67,7 +68,7 @@ namespace DrinkerAPI.Controllers
         ///   <br />
         /// </returns>
         [HttpGet("search/byName/{keyword}")]
-        public async Task<ActionResult<Coctail>> GetCoctailByName(string keyword)
+        public async Task<ActionResult<CoctailDto>> GetCoctailByName(string keyword)
         {
             var coctail = await _coctailRepository.GetCoctailByNameAsync(keyword);
             if (coctail != null)

@@ -1,4 +1,4 @@
-﻿using DrinkerAPI.Models;
+﻿using DrinkerAPI.Dtos;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -13,7 +13,7 @@ namespace DrinkerAPI.Helpers
         /// <returns>
         ///   <br />
         /// </returns>
-        public static IQueryable<Coctail> BuildIngredientsQuery(IQueryable<Coctail> query, IList<string> ingredients)
+        public static IQueryable<CoctailDto> BuildIngredientsQuery(IQueryable<CoctailDto> query, IList<string> ingredients)
         {
             foreach (var ingredient in ingredients)
             {
@@ -30,7 +30,7 @@ namespace DrinkerAPI.Helpers
         /// <returns>
         ///   <br />
         /// </returns>
-        public static IQueryable<Coctail> AddFiltersQuery(IQueryable<Coctail> query, CoctailParams coctailParams)
+        public static IQueryable<CoctailDto> AddFiltersQuery(IQueryable<CoctailDto> query, CoctailParams coctailParams)
         {
             if(!string.IsNullOrEmpty(coctailParams.Glass))
                 query = query.Where(c => c.Glass == coctailParams.Glass);
