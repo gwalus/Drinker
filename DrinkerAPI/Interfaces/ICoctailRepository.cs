@@ -7,7 +7,12 @@ namespace DrinkerAPI.Interfaces
 {
     public interface ICoctailRepository
     {
-        Task<ICollection<Coctail>> GetListOfCoctailsAsync();
+        /// <summary>Gets the list of coctails asynchronous.</summary>
+        /// <param name="coctailParams">The coctail parameters.</param>
+        /// <returns>
+        ///   <br />
+        /// </returns>
+        Task<PagedList<Coctail>> GetListOfCoctailsAsync(PaginationParams paginationParams);
 
         /// <summary>Gets the coctails by ingredients asynchronous.</summary>
         /// <param name="ingredients">The ingredients.</param>
@@ -15,6 +20,12 @@ namespace DrinkerAPI.Interfaces
         ///   <br />
         /// </returns>
         Task<PagedList<Coctail>> GetCoctailsByIngredientsAsync(IList<string> ingredients, CoctailParams coctailParams);
-        Task<Coctail> GetCoctailByName(string keyword);
+
+        /// <summary>Gets the coctail by name asynchronous.</summary>
+        /// <param name="keyword">The keyword.</param>
+        /// <returns>
+        ///   <br />
+        /// </returns>
+        Task<Coctail> GetCoctailByNameAsync(string keyword);
     }
 }

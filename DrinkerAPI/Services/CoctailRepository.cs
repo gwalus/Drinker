@@ -21,10 +21,11 @@ namespace DrinkerAPI.Services
             _context = context;
         }
 
-        public async Task<Coctail> GetCoctailByName(string keyword)
+        public async Task<Coctail> GetCoctailByNameAsync(string keyword)
         {
             return await _context.Coctails.Where(x => x.Name.Equals(keyword)).FirstOrDefaultAsync();
         }
+
         public async Task<PagedList<Coctail>> GetCoctailsByIngredientsAsync(IList<string> ingredients, CoctailParams coctailParams)
         {
             var coctailsQueryable = _context.Coctails.AsQueryable();
@@ -36,9 +37,11 @@ namespace DrinkerAPI.Services
             return await PagedList<Coctail>.CreateAsync(query, coctailParams.PageNumber, coctailParams.PageSize);
         }
 
-        public async Task<ICollection<Coctail>> GetListOfCoctailsAsync()
+        public async Task<PagedList<Coctail>> GetListOfCoctailsAsync(PaginationParams paginationParams)
         {
-            return await _context.Coctails.ToListAsync();
+            var query = _context.Coctails.AsQueryable();
+
+            return await PagedList<Coctail>.CreateAsync(query, paginationParams.PageNumber, paginationParams.PageSize);
         }
     }
 }

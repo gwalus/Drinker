@@ -23,6 +23,13 @@ namespace DrinkerAPI.Helpers
             return query;
         }
 
+
+        /// <summary>Adds the filters query.</summary>
+        /// <param name="query">The query.</param>
+        /// <param name="coctailParams">The coctail parameters.</param>
+        /// <returns>
+        ///   <br />
+        /// </returns>
         public static IQueryable<Coctail> AddFiltersQuery(IQueryable<Coctail> query, CoctailParams coctailParams)
         {
             if(!string.IsNullOrEmpty(coctailParams.Glass))
@@ -30,7 +37,7 @@ namespace DrinkerAPI.Helpers
 
             return query
                 .Where(c => c.Alcoholic == coctailParams.Alcoholic)
-                .Where(c => c.Category == coctailParams.Category);             
+                .Where(c => c.Category == coctailParams.Category);        
         }
     }
 }
