@@ -1,4 +1,5 @@
-﻿using DrinkerAPI.Models;
+﻿using DrinkerAPI.Helpers;
+using DrinkerAPI.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -13,7 +14,7 @@ namespace DrinkerAPI.Interfaces
         /// <returns>
         ///   <br />
         /// </returns>
-        Task<IList<Coctail>> GetCoctailsByIngredientsAsync(IList<string> ingredients);
+        Task<PagedList<Coctail>> GetCoctailsByIngredientsAsync(IList<string> ingredients, CoctailParams coctailParams);
         Task<Coctail> GetCoctailByName(string keyword);
     }
 }

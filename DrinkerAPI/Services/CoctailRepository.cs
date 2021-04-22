@@ -25,13 +25,15 @@ namespace DrinkerAPI.Services
         {
             return await _context.Coctails.Where(x => x.Name.Equals(keyword)).FirstOrDefaultAsync();
         }
-        public async Task<IList<Coctail>> GetCoctailsByIngredientsAsync(IList<string> ingredients)
+        public async Task<PagedList<Coctail>> GetCoctailsByIngredientsAsync(IList<string> ingredients, CoctailParams coctailParams)
         {
             var coctailsQueryable = _context.Coctails.AsQueryable();
 
             var query = QueryBuilder.BuildIngredientsQuery(coctailsQueryable, ingredients);
 
-            return await query.ToListAsync();
+            query = QueryBuilder.AddFiltersQuery(query, coctailParams);
+
+            return await PagedList<Coctail>.CreateAsync(query, coctailParams.PageNumber, coctailParams.PageSize);
         }
 
         public async Task<ICollection<Coctail>> GetListOfCoctailsAsync()

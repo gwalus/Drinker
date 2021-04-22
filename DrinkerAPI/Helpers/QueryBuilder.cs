@@ -25,13 +25,10 @@ namespace DrinkerAPI.Helpers
 
         public static IQueryable<Coctail> AddFiltersQuery(IQueryable<Coctail> query, CoctailParams coctailParams)
         {
-            query = query.Where(c => c.Alcoholic == coctailParams.Alcoholic);
-
-            query = query.Where(c => c.Category == coctailParams.Category);
-
-            query = query.Where(c => c.Glass == coctailParams.Glass);
-
-            return query;
+            return query
+                .Where(c => c.Alcoholic == coctailParams.Alcoholic)
+                .Where(c => c.Category == coctailParams.Category)
+                .Where(c => c.Glass == coctailParams.Glass);
         }
     }
 }
