@@ -1,4 +1,5 @@
-﻿using DrinkerAPI.Interfaces;
+﻿using DrinkerAPI.Helpers;
+using DrinkerAPI.Interfaces;
 using DrinkerAPI.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -29,12 +30,12 @@ namespace DrinkerAPI.Controllers
             return BadRequest("Unable to connect...");
         }
         [HttpGet("search/byIngredients")]
-        public async Task<ActionResult<IList<Coctail>>> GetCoctailsByIngredient([FromQuery] IList<string> ingredients)
+        public async Task<ActionResult<IList<Coctail>>> GetCoctailsByIngredient([FromQuery] IList<string> ingredients, [FromQuery] CoctailParams coctailParams)
         {
             if (ingredients.Count == 0) 
                 return BadRequest("Please to add minimum one ingredient");
 
-            return Ok(await _coctailRepository.GetCoctailsByIngredientsAsync(ingredients));
+            return Ok(await _coctailRepository.GetCoctailsByIngredientsAsync(ingredients, coctailParams));
 
         }
         [HttpGet("search/byName/{keyword}")]
