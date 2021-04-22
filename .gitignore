@@ -443,3 +443,5 @@ $RECYCLE.BIN/
 /DataDownloader/appsettings.json
 /.editorconfig
 *.db
+/DrinkerAPI/coctaildb.db-shm
+/DrinkerAPI/coctaildb.db-wal
