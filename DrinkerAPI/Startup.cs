@@ -1,4 +1,5 @@
 using DrinkerAPI.Data;
+using DrinkerAPI.Helpers;
 using DrinkerAPI.Interfaces;
 using DrinkerAPI.Services;
 using Microsoft.AspNetCore.Builder;
@@ -26,6 +27,7 @@ namespace DrinkerAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);
             services.AddScoped<ICoctailRepository, CoctailRepository>();
             services.AddDbContext<CoctailContext>(options => options.UseSqlite("Data source = coctaildb.db").UseLazyLoadingProxies());
             services.AddControllers();
