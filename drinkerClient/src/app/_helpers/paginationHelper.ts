@@ -8,9 +8,9 @@ export function getPaginationHeaders(coctailParams: CoctailParams) {
 
     params.append('pageNumber', coctailParams.pageNumber.toString());
     params.append('pageSize', coctailParams.pageSize.toString());
-    params.append('category', coctailParams.category.toString());
-    params.append('alcoholic', coctailParams.alcoholic.toString());
-    params.append('glass', coctailParams.glass.toString());
+    params.append('category', coctailParams.category?.toString());
+    params.append('alcoholic', coctailParams.alcoholic?.toString());
+    params.append('glass', coctailParams.glass?.toString());
 
     return params;
 }

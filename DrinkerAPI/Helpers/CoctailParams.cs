@@ -2,8 +2,8 @@
 {
     public class CoctailParams : PaginationParams
     {
-        public string Category { get; set; } = "Ordinary Drink";
-        public string Alcoholic { get; set; } = "Alcoholic";
+        public string Category { get; set; }
+        public string Alcoholic { get; set; }
         public string Glass { get; set; }
     }
 }

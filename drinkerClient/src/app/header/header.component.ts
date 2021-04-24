@@ -35,6 +35,7 @@ export class HeaderComponent implements OnInit {
     ];
 
     let coctailParams: CoctailParams = new CoctailParams();
+    console.log(coctailParams);
 
     this.coctailService.getCoctailsByIngredients(ingredients, coctailParams).subscribe(coctails => {
       this.coctails = coctails.result;
