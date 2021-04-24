@@ -29,4 +29,12 @@ export class CoctailService {
 
     return getPaginatedResult<Coctail[]>(this.baseUrl + 'Coctail/search/byIngredients/', params, this.http);
   }
+
+  getAll(coctailParams: CoctailParams) {
+    let params = new HttpParams();
+
+    params = getPaginationHeaders(coctailParams);
+
+    return getPaginatedResult<Coctail[]>(this.baseUrl + 'Coctail/list/all/', params, this.http);
+  }
 }

@@ -12,7 +12,9 @@ import { CoctailService } from '../_services/coctail.service';
 export class HeaderComponent implements OnInit {
   coctail: Coctail;
   coctails: Coctail[] = [];
+  allCoctails: Coctail[] = [];
   pagination: Pagination;
+  paginationForAll: Pagination;
 
   constructor(private coctailService: CoctailService) { }
 
@@ -31,16 +33,28 @@ export class HeaderComponent implements OnInit {
 
   testByIngredients() {
     const ingredients: string[] = [
-      'Vodka'
+      'Vodka', 'Gin'
     ];
 
     let coctailParams: CoctailParams = new CoctailParams();
+    // coctailParams.alcoholic = 'Alcoholic';
+    // coctailParams.category = 'Ordinary Drink';
     console.log(coctailParams);
 
     this.coctailService.getCoctailsByIngredients(ingredients, coctailParams).subscribe(coctails => {
       this.coctails = coctails.result;
       this.pagination = coctails.pagination
       console.log(this.coctails);
+    })
+  }
+
+  testAll() {
+    let coctailParams: CoctailParams = new CoctailParams();
+
+    this.coctailService.getAll(coctailParams).subscribe(coctails => {
+      this.allCoctails = coctails.result;
+      this.paginationForAll = coctails.pagination
+      console.log(this.allCoctails);
     })
   }
 }
