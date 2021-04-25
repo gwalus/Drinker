@@ -13,6 +13,8 @@ import { DrinksComponent } from './content/drinks/drinks.component';
 import { GameComponent } from './content/game/game.component';
 import { CalculatorComponent } from './content/calculator/calculator.component';
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
+
 
 
 @NgModule({
@@ -31,7 +33,8 @@ import { HttpClientModule } from '@angular/common/http';
     NgbModule,
     MatIconModule,
     BrowserAnimationsModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
