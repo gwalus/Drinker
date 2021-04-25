@@ -83,7 +83,7 @@
     <div class="col-sm-5 col-3 pl-0 text-center">
       <div class="result-calculate text-center ">
         <span class="text-result-calculate">0 ‰</span>
-        <button class="btn btn-danger btn-result-calculate" type="button">Oblicz</button>
+        <button [disabled]="calcForm.form.invalid" class="btn btn-danger btn-result-calculate" type="submit">Oblicz</button>
       </div>
     </div>
 
