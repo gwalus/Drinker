@@ -1,7 +1,11 @@
 export class Calculator {
+
     weight: number;
-    sex: string;
+    sex: number;
     quantity: number;
     percentage: number;
+    gram: number;
     timePassed: number;
+    permile: number;
+
 }

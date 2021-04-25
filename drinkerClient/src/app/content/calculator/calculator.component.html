@@ -12,8 +12,8 @@
   </div>
 </div>
 
-<form #calcForm="ngForm">
-  {{ calcForm.value | json}}
+<form #calcForm="ngForm" (ngSubmit)="calculate()" >
+
   <div class="row mb-4">
     <div class="col-sm-7 col-9 pr-0">
 
@@ -22,8 +22,8 @@
         <div class="d-flex flex-row">
           <div class="form-group">
             <div class="input-group mb-3">
-              <input ngModel #weight="ngModel" [class.is-invalid]="weight.invalid && weight.touched"
-                     name="weight"  type="number" class="form-control" required>
+              <input [(ngModel)]="calcModel.weight" #weight="ngModel" [class.is-invalid]="weight.invalid && weight.touched"
+                     name="weight" type="number" class="form-control" required pattern="^([1-9]|[1-9][0-9]|[1-3][0-9][0-9])$">
               <div class="input-group-append">
                 <span class="input-group-text" id="weight">Kg</span>
               </div>
@@ -33,9 +33,9 @@
 
           <div class="form-group ml-3">
             <div class="input-group">
-              <select ngModel #sex="ngModel" [class.is-invalid]="sex.invalid && sex.touched" 
+              <select [(ngModel)]="calcModel.sex" #sex="ngModel" [class.is-invalid]="sex.invalid && sex.touched" 
                       name="sex" class="form-control" required>
-                <option selected value="1">mężczyzna</option>
+                <option value="1">mężczyzna</option>
                 <option value="2">kobieta</option>
               </select>
             </div>
@@ -46,8 +46,8 @@
         <div class="d-flex flex-row">
           <div class="form-group">
             <div class="input-group mb-3">
-              <input ngModel #quantity="ngModel" [class.is-invalid]="quantity.invalid && quantity.touched" 
-                     name="quantity" type="number" class="form-control" required>
+              <input [(ngModel)]="calcModel.quantity" #quantity="ngModel" [class.is-invalid]="quantity.invalid && quantity.touched" 
+                     name="quantity" type="number" class="form-control" required pattern="^([1-9]|[1-9][0-9]|[1-9][0-9][0-9]|[1-9][0-9][0-9][0-9])$">
               <div class="input-group-append">
                 <span class="input-group-text" id="quantity">ml</span>
               </div>
@@ -56,8 +56,8 @@
 
           <div class="form-group ml-3">
             <div class="input-group mb-3">
-              <input ngModel #percentage="ngModel" [class.is-invalid]="percentage.invalid && percentage.touched" 
-                     name="percentage" type="number" class="form-control" required>
+              <input [(ngModel)]="calcModel.percentage" #percentage="ngModel" [class.is-invalid]="percentage.invalid && percentage.touched" 
+                     name="percentage" type="number" class="form-control" required pattern="^([1-9]|[1-9][0-9]|100)$">
               <div class="input-group-append">
                 <span class="input-group-text" id="percentage">%</span>
               </div>
@@ -69,8 +69,8 @@
         <div class="d-flex flex-row">
           <div class="form-group">
             <div class="input-group mb-3">
-              <input ngModel #timePassed="ngModel" [class.is-invalid]="timePassed.invalid && timePassed.touched"  
-                     name="timePassed" type="number" class="form-control" required>
+              <input [(ngModel)]="calcModel.timePassed" #timePassed="ngModel" [class.is-invalid]="timePassed.invalid && timePassed.touched"  
+                     name="timePassed" type="number" class="form-control" required pattern="^([1-9]|[1-9][0-9])$">
               <div class="input-group-append">
                 <span class="input-group-text" id="time-passed">h</span>
               </div>
@@ -82,7 +82,7 @@
 
     <div class="col-sm-5 col-3 pl-0 text-center">
       <div class="result-calculate text-center ">
-        <span class="text-result-calculate">0 ‰</span>
+        <span name="permile" class="text-result-calculate">{{calcModel.permile}} ‰</span>
         <button [disabled]="calcForm.form.invalid" class="btn btn-danger btn-result-calculate" type="submit">Oblicz</button>
       </div>
     </div>
