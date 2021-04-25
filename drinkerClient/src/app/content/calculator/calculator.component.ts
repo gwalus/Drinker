@@ -5,11 +5,10 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './calculator.component.html',
   styleUrls: ['./calculator.component.css']
 })
-export class CalculatorComponent implements OnInit {
+export class CalculatorComponent {
 
-  constructor() { }
-
-  ngOnInit(): void {
+  log(x: any){
+    console.log(x); 
   }
 
 }

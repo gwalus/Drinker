@@ -12,75 +12,80 @@
   </div>
 </div>
 
-<div class="row mb-4">
-  <div class="col-sm-7 col-9 pr-0">
+<form #calcForm="ngForm">
+  {{ calcForm.value | json}}
+  <div class="row mb-4">
+    <div class="col-sm-7 col-9 pr-0">
 
-    <div class="bg-light border p-3">
-      <h3>Podaj wagę i płeć</h3>
-      <div class="d-flex flex-row">
-        <div class="form-group">
-          <div class="input-group mb-3">
-            <input type="number" class="form-control" aria-label="weight" aria-describedby="weight" min="0" max="300"
-              required="">
-            <div class="input-group-append">
-              <span class="input-group-text" id="weight">Kg</span>
+      <div class="bg-light border p-3">
+        <h3>Podaj wagę i płeć</h3>
+        <div class="d-flex flex-row">
+          <div class="form-group">
+            <div class="input-group mb-3">
+              <input ngModel #weight="ngModel" [class.is-invalid]="weight.invalid && weight.touched"
+                     name="weight"  type="number" class="form-control" required>
+              <div class="input-group-append">
+                <span class="input-group-text" id="weight">Kg</span>
+              </div>
+            </div>
+            <div class="alert alert-danger" *ngIf="">Wagę jest wymagana</div>
+          </div>
+
+          <div class="form-group ml-3">
+            <div class="input-group">
+              <select ngModel #sex="ngModel" [class.is-invalid]="sex.invalid && sex.touched" 
+                      name="sex" class="form-control" required>
+                <option selected value="1">mężczyzna</option>
+                <option value="2">kobieta</option>
+              </select>
             </div>
           </div>
         </div>
 
-        <div class="form-group ml-3">
-          <div class="input-group">
-            <select name="sex" class="form-control" required="">
-              <option selected="selected" value="1">mężczyzna</option>
-              <option value="2">kobieta</option>
-            </select>
+        <h3>Podaj ilość i moc wypitego alkohulu</h3>
+        <div class="d-flex flex-row">
+          <div class="form-group">
+            <div class="input-group mb-3">
+              <input ngModel #quantity="ngModel" [class.is-invalid]="quantity.invalid && quantity.touched" 
+                     name="quantity" type="number" class="form-control" required>
+              <div class="input-group-append">
+                <span class="input-group-text" id="quantity">ml</span>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
 
-      <h3>Podaj ilość i moc wypitego alkohulu</h3>
-      <div class="d-flex flex-row">
-        <div class="form-group">
-          <div class="input-group mb-3">
-            <input type="number" class="form-control" aria-label="quantity" aria-describedby="quantity" min="0"
-              max="10000" required="">
-            <div class="input-group-append">
-              <span class="input-group-text" id="quantity">ml</span>
+          <div class="form-group ml-3">
+            <div class="input-group mb-3">
+              <input ngModel #percentage="ngModel" [class.is-invalid]="percentage.invalid && percentage.touched" 
+                     name="percentage" type="number" class="form-control" required>
+              <div class="input-group-append">
+                <span class="input-group-text" id="percentage">%</span>
+              </div>
             </div>
           </div>
         </div>
 
-        <div class="form-group ml-3">
-          <div class="input-group mb-3">
-            <input type="number" class="form-control" aria-label="percentage" aria-describedby="percentage" min="0"
-              max="100" required="">
-            <div class="input-group-append">
-              <span class="input-group-text" id="percentage">%</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <h3>Od spożycia alkoholu minęło</h3>
-      <div class="d-flex flex-row">
-        <div class="form-group">
-          <div class="input-group mb-3">
-            <input type="number" class="form-control" aria-label="time-passed" aria-describedby="time-passed"
-              name="time-passed" required="">
-            <div class="input-group-append">
-              <span class="input-group-text" id="time-passed">h</span>
+        <h3>Od spożycia alkoholu minęło</h3>
+        <div class="d-flex flex-row">
+          <div class="form-group">
+            <div class="input-group mb-3">
+              <input ngModel #timePassed="ngModel" [class.is-invalid]="timePassed.invalid && timePassed.touched"  
+                     name="timePassed" type="number" class="form-control" required>
+              <div class="input-group-append">
+                <span class="input-group-text" id="time-passed">h</span>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <div class="col-sm-5 col-3 pl-0 text-center">
-    <div class="result-calculate text-center ">
-      <span class="text-result-calculate">0 ‰</span>
-      <button class="btn btn-danger btn-result-calculate" type="button">Oblicz</button>
+    <div class="col-sm-5 col-3 pl-0 text-center">
+      <div class="result-calculate text-center ">
+        <span class="text-result-calculate">0 ‰</span>
+        <button class="btn btn-danger btn-result-calculate" type="button">Oblicz</button>
+      </div>
     </div>
-  </div>
 
-</div>
+  </div>
+</form>
