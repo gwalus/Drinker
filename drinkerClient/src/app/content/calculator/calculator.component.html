@@ -70,7 +70,7 @@
           <div class="form-group">
             <div class="input-group mb-3">
               <input [(ngModel)]="calcModel.timePassed" #timePassed="ngModel" [class.is-invalid]="timePassed.invalid && timePassed.touched"  
-                     name="timePassed" type="number" class="form-control" required pattern="^([1-9]|[1-9][0-9])$">
+                     name="timePassed" type="number" class="form-control" required pattern="^([0-9]|[1-9][0-9])$">
               <div class="input-group-append">
                 <span class="input-group-text" id="time-passed">h</span>
               </div>
