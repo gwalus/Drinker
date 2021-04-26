@@ -130,5 +130,10 @@
       }
     }
   },
+  "schematics": {
+    "@schematics/angular:component": {
+      "styleext": "sass"
+    }
+  },
   "defaultProject": "drinkerClient"
 }

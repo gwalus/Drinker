@@ -14,6 +14,8 @@ import { GameComponent } from './content/game/game.component';
 import { CalculatorComponent } from './content/calculator/calculator.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { LoginComponent } from './account/login/login.component';
+import { RegistrationComponent } from './account/registration/registration.component';
 
 
 
@@ -25,7 +27,9 @@ import { FormsModule } from '@angular/forms';
     CoctailBuilderComponent,
     DrinksComponent,
     GameComponent,
-    CalculatorComponent
+    CalculatorComponent,
+    LoginComponent,
+    RegistrationComponent
   ],
   imports: [
     BrowserModule,
@@ -34,7 +38,8 @@ import { FormsModule } from '@angular/forms';
     MatIconModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]
