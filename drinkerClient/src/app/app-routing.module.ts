@@ -5,6 +5,7 @@ import { CoctailBuilderComponent } from './content/coctail-builder/coctail-build
 import { DrinksComponent } from './content/drinks/drinks.component';
 import { GameComponent } from './content/game/game.component';
 import { CalculatorComponent } from './content/calculator/calculator.component';
+import { RegistrationComponent } from './registration/registration.component';
 
 const routes: Routes = [
   {
@@ -22,6 +23,10 @@ const routes: Routes = [
   {
     path: 'calculator',
     component: CalculatorComponent
+  },
+  {
+    path: 'registration',
+    component: RegistrationComponent
   }
   
 ];
