@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace DrinkerAPI.Extensions
 {
-    public class InstallerExtensions
+    public static class InstallerExtensions
     {
         public static void InstallServicesInAssemby(this IServiceCollection services, IConfiguration configuration)
         {
