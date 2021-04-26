@@ -15,6 +15,7 @@ import { CalculatorComponent } from './content/calculator/calculator.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { LoginComponent } from './login/login.component';
+import { RegistrationComponent } from './registration/registration.component';
 
 
 
@@ -27,7 +28,8 @@ import { LoginComponent } from './login/login.component';
     DrinksComponent,
     GameComponent,
     CalculatorComponent,
-    LoginComponent
+    LoginComponent,
+    RegistrationComponent
   ],
   imports: [
     BrowserModule,
