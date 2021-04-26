@@ -21,7 +21,7 @@ namespace DrinkerAPI.Controllers
         /// Method answear Get request for List of every coctail that is in db
         /// </summary>
         /// <returns>list of coctails / errorMessage </returns>
-        [HttpGet("list/all")]
+        [HttpGet(ApiRoutes.Coctails.ListAll)]
         public async Task<ActionResult<ICollection<Coctail>>> GetCoctailsAsync([FromQuery] PaginationParams paginationParams)
         {
             var coctails = await _coctailRepository.GetListOfCoctailsAsync(paginationParams);
@@ -43,7 +43,7 @@ namespace DrinkerAPI.Controllers
         /// <returns>
         ///   <br />
         /// </returns>
-        [HttpGet("search/byIngredients")]
+        [HttpGet(ApiRoutes.Coctails.ByIngredients)]
         public async Task<ActionResult<IList<Coctail>>> GetCoctailsByIngredient([FromQuery] IList<string> ingredients, [FromQuery] CoctailParams coctailParams)
         {
             if (ingredients.Count == 0) 
@@ -67,7 +67,7 @@ namespace DrinkerAPI.Controllers
         /// <returns>
         ///   <br />
         /// </returns>
-        [HttpGet("search/byName/{keyword}")]
+        [HttpGet(ApiRoutes.Coctails.ByName)]
         public async Task<ActionResult<CoctailDto>> GetCoctailByName(string keyword)
         {
             var coctail = await _coctailRepository.GetCoctailByNameAsync(keyword);
