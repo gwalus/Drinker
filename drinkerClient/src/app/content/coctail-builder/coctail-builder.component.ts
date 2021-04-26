@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-coctail-builder',
   templateUrl: './coctail-builder.component.html',
-  styleUrls: ['./coctail-builder.component.css']
+  styleUrls: ['./coctail-builder.component.css', '../style.css']
 })
 export class CoctailBuilderComponent implements OnInit {
 

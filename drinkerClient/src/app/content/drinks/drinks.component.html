@@ -7,3 +7,33 @@
     <p class="lead my-3"></p>
   </div>
 </div>
+<div class="container py-5">
+  <div class="card-columns">
+    <div class="card" *ngFor="let coctail of allCoctails">
+      <a href="#">
+        <img class="card-img-top"
+          src="{{coctail.photoUrl}}"
+          alt="Card image cap">
+        <div class="card-body">
+          <h2 class="card-title">{{coctail.name}}</h2>
+          <p class="card-text">
+            {{coctail.instructions}}
+          </p>
+          <p class="card-text"><small class="text-muted">
+              <i></i>
+              {{coctail.category}}
+              <i></i>
+              {{coctail.dateModified | date:'mediumDate'}}
+            </small>
+          </p>
+        </div>
+      </a>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12 pt-5">
+      <div class="d-flex justify-content-center">
+        <ngb-pagination [collectionSize]="pagination.totalPages" [(page)]="pagination.currentPage" aria-label="Default pagination" ></ngb-pagination>
+      </div>
+    </div>
+  </div>
