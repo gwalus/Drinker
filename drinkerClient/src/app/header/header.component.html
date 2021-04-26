@@ -15,7 +15,7 @@
         </form>
       </div>
       <div class="col-4 pl-0 d-flex justify-content-end align-items-center">
-        <a class="text-muted" href="/login">
+        <a class="text-muted" (click)="openScrollableContent(loginContent)">
           <mat-icon class="blog-header-logo-icon" aria-hidden="false" aria-label="Log in">account_circle</mat-icon>
         </a>
       </div>
@@ -34,3 +34,8 @@
     </nav>
   </div>
 </div>
+
+
+<ng-template #loginContent let-modal>
+  <app-login></app-login>
+</ng-template>

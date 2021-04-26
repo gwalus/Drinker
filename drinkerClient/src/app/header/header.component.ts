@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Coctail } from '../_models/coctail';
 import { CoctailParams } from '../_models/coctailParams';
 import { Pagination } from '../_models/pagination';
@@ -16,9 +17,13 @@ export class HeaderComponent implements OnInit {
   pagination: Pagination;
   paginationForAll: Pagination;
 
-  constructor(private coctailService: CoctailService) { }
+  constructor(private coctailService: CoctailService, private modalService: NgbModal) { }
 
   ngOnInit(): void {
+  }
+
+  openLoginContent(loginContent: any) {
+    this.modalService.open(loginContent, { scrollable: true });
   }
 
   testByName(name: string = 'Mojito') {

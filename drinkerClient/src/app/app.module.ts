@@ -38,7 +38,8 @@ import { RegistrationComponent } from './registration/registration.component';
     MatIconModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]
