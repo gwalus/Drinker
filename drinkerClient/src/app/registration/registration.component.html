@@ -1,43 +1,25 @@
-﻿<div class="card">
-  <h4 class="card-header">Register</h4>
-  <div class="card-body">
-    <form>
-      <div class="form-group">
-        <label for="firstName">First Name</label>
-        <input type="text" formControlName="firstName" class="form-control" />
-        <div class="invalid-feedback">
-          <div>First Name is required</div>
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="lastName">Last Name</label>
-        <input type="text" formControlName="lastName" class="form-control" />
-        <div class="invalid-feedback">
-          <div>Last Name is required</div>
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="username">Username</label>
-        <input type="text" formControlName="username" class="form-control" />
-        <div class="invalid-feedback">
-          <div>Username is required</div>
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="password">Password</label>
-        <input type="password" formControlName="password" class="form-control" />
-        <div class="invalid-feedback">
-          <div>Password is required</div>
-          <div>Password must be at least 6 characters</div>
-        </div>
-      </div>
-      <div class="form-group">
-        <button class="btn btn-primary">
-          <span class="spinner-border spinner-border-sm mr-1"></span>
-          Register
-        </button>
-        <a routerLink="../login" class="btn btn-link">Cancel</a>
-      </div>
-    </form>
+﻿<div class="registration-form">
+  <form>
+    <div class="form-icon">
+      <span><mat-icon class="icon icon-user" aria-hidden="false" aria-label="Log in">account_circle</mat-icon></span>
+    </div>
+    <div class="form-group">
+      <input type="text" class="form-control item" id="username" placeholder="Username">
+    </div>
+    <div class="form-group">
+      <input type="password" class="form-control item" id="password" placeholder="Password">
+    </div>
+    <div class="form-group">
+      <input type="text" class="form-control item" id="email" placeholder="Email">
+    </div>
+    <div class="form-group">
+      <button type="button" class="btn btn-block create-account">Create Account</button>
+    </div>
+  </form>
+  <div class="social-media">
+    <h5>Sign up with social media</h5>
+    <div class="social-icons">
+      <a href="#"><mat-icon class="icon-social-facebook" aria-label="Log in">facebook</mat-icon></a>
+    </div>
   </div>
 </div>
