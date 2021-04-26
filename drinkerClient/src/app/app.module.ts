@@ -14,6 +14,7 @@ import { GameComponent } from './content/game/game.component';
 import { CalculatorComponent } from './content/calculator/calculator.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { LoginComponent } from './login/login.component';
 
 
 
@@ -25,7 +26,8 @@ import { FormsModule } from '@angular/forms';
     CoctailBuilderComponent,
     DrinksComponent,
     GameComponent,
-    CalculatorComponent
+    CalculatorComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
