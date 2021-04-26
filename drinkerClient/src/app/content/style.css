@@ -1,3 +1,7 @@
+.bg-dark {
+  background-color: rgba(0, 0, 0, 0.9) !important;
+}
+
 .display-4 {
   font-size: 2.5rem;
 }
