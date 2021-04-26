@@ -5,8 +5,8 @@ import { CoctailBuilderComponent } from './content/coctail-builder/coctail-build
 import { DrinksComponent } from './content/drinks/drinks.component';
 import { GameComponent } from './content/game/game.component';
 import { CalculatorComponent } from './content/calculator/calculator.component';
-import { RegistrationComponent } from './registration/registration.component';
-import { LoginComponent } from './login/login.component';
+import { RegistrationComponent } from './account/registration/registration.component';
+import { LoginComponent } from './account/login/login.component';
 
 const routes: Routes = [
   {
