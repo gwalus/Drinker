@@ -16,19 +16,22 @@ export class DrinksComponent implements OnInit {
 
   allCoctails: Coctail[] = [];
   pagination: Pagination;
-  paginationForAll: Pagination;
+  page = 4;
+  coctailParams: CoctailParams = new CoctailParams();
   
   ngOnInit(): void {
     this.getCoctails();
   }
 
   getCoctails() {
-    let coctailParams: CoctailParams = new CoctailParams();
-
-    this.coctailService.getAll(coctailParams).subscribe(coctails => {
+    this.coctailService.getAll(this.coctailParams).subscribe(coctails => {
       this.allCoctails = coctails.result;
-      this.paginationForAll = coctails.pagination
+      this.pagination = coctails.pagination
       console.log(this.allCoctails);
+      console.log(this.pagination);
     })
   }
+
+
+
 }
