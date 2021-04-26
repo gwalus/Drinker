@@ -52,14 +52,4 @@ export class HeaderComponent implements OnInit {
       console.log(this.coctails);
     })
   }
-
-  testAll() {
-    let coctailParams: CoctailParams = new CoctailParams();
-
-    this.coctailService.getAll(coctailParams).subscribe(coctails => {
-      this.allCoctails = coctails.result;
-      this.paginationForAll = coctails.pagination
-      console.log(this.allCoctails);
-    })
-  }
 }
