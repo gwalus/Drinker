@@ -16,6 +16,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { LoginComponent } from './account/login/login.component';
 import { RegistrationComponent } from './account/registration/registration.component';
+import { DrinkComponent } from './content/drink/drink.component';
 
 
 
@@ -29,7 +30,8 @@ import { RegistrationComponent } from './account/registration/registration.compo
     GameComponent,
     CalculatorComponent,
     LoginComponent,
-    RegistrationComponent
+    RegistrationComponent,
+    DrinkComponent
   ],
   imports: [
     BrowserModule,
