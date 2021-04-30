@@ -1,6 +1,6 @@
-export class CoctailParams {
-    pageNumber = 1;
-    pageSize = 8;
+import { PaginationParams } from "./paginationParams";
+
+export class CoctailParams extends PaginationParams {
     category: string;
     alcoholic: string;
     glass: string;
