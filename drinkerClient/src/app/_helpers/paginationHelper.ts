@@ -1,16 +1,11 @@
 import { HttpClient, HttpParams } from "@angular/common/http";
 import { PaginatedResult } from "../_models/pagination";
 import { map } from 'rxjs/operators';
-import { CoctailParams } from "../_models/coctailParams";
+import { PaginationParams } from "../_models/paginationParams";
 
-export function getPaginationHeaders(coctailParams: CoctailParams) {
-    let params = new HttpParams();
-
-    params.append('pageNumber', coctailParams.pageNumber.toString());
-    params.append('pageSize', coctailParams.pageSize.toString());
-    params.append('category', coctailParams.category?.toString());
-    params.append('alcoholic', coctailParams.alcoholic?.toString());
-    params.append('glass', coctailParams.glass?.toString());
+export function getPaginationHeaders(params: HttpParams, paginationParams: PaginationParams) {
+    params = params.append('pageNumber', paginationParams.pageNumber.toString());
+    params = params.append('pageSize', paginationParams.pageSize.toString());
 
     return params;
 }

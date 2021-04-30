@@ -38,18 +38,21 @@ export class HeaderComponent implements OnInit {
 
   testByIngredients() {
     const ingredients: string[] = [
-      'Vodka', 'Gin'
+      'Vodka'
     ];
 
     let coctailParams: CoctailParams = new CoctailParams();
-    // coctailParams.alcoholic = 'Alcoholic';
-    // coctailParams.category = 'Ordinary Drink';
-    console.log(coctailParams);
+
+    coctailParams.alcoholic = 'Alcoholic';
+    coctailParams.category = 'Ordinary Drink';
+    coctailParams.pageSize = 3;
+    coctailParams.pageNumber = 3;
 
     this.coctailService.getCoctailsByIngredients(ingredients, coctailParams).subscribe(coctails => {
       this.coctails = coctails.result;
       this.pagination = coctails.pagination
-      console.log(this.coctails);
+
+      console.log(this.coctails)
     })
   }
 }
