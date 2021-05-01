@@ -27,6 +27,10 @@ export class HeaderComponent implements OnInit {
     this.coctailService.getCoctailCategories().subscribe(categories => {
       console.log(categories);
     })
+
+    this.coctailService.getCoctailGlasses().subscribe(glasses => {
+      console.log(glasses);
+    })
   }
 
   openLoginContent(loginContent: any) {

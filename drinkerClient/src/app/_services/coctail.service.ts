@@ -52,4 +52,8 @@ export class CoctailService {
   getCoctailCategories() {
     return this.http.get<string[]>(this.baseUrl + 'categories');
   }
+
+  getCoctailGlasses() {
+    return this.http.get<string[]>(this.baseUrl + 'glasses');
+  }
 }
