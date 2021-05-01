@@ -3,14 +3,16 @@ using System;
 using DrinkerAPI.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DrinkerAPI.Data.Migrations
 {
     [DbContext(typeof(CoctailContext))]
-    partial class CoctailContextModelSnapshot : ModelSnapshot
+    [Migration("20210501125629_IdentityDbContext")]
+    partial class IdentityDbContext
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
