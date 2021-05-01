@@ -5,6 +5,7 @@ using DrinkerAPI.Dtos;
 using DrinkerAPI.Helpers;
 using DrinkerAPI.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -53,6 +54,26 @@ namespace DrinkerAPI.Services
                 .AsQueryable();
 
             return await PagedList<CoctailDto>.CreateAsync(query, paginationParams.PageNumber, paginationParams.PageSize);
+        }
+
+        public async Task<List<CoctailDto>> GetRandomCoctailsAsync(int count)
+        {
+            count = Math.Abs(count) > 8 ? 8 : count;
+
+            // SQLITE DOESN'T SUPPORT ORDERING BY NEW GUID
+            return await _context.Coctails
+                .FromSqlRaw($"SELECT * FROM Coctails ORDER BY RANDOM() LIMIT {count}")
+                .ProjectTo<CoctailDto>(_mapper.ConfigurationProvider)
+                .ToListAsync();
+
+            // QUERY FOR POSTRESS
+            //var postgresquery = _context.Coctails
+            //    .OrderBy(r => Guid.NewGuid())
+            //    .ProjectTo<CoctailDto>(_mapper.ConfigurationProvider)
+            //    .Take(count)
+            //    .ToListAsync();
+
+            //return await PagedList<CoctailDto>.CreateAsync(postgresquery, paginationParams.PageNumber, paginationParams.PageSize);
         }
     }
 }
