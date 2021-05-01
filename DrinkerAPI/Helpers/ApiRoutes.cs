@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace DrinkerAPI.Helpers
+﻿namespace DrinkerAPI.Helpers
 {
     public class ApiRoutes
     {
@@ -13,8 +8,9 @@ namespace DrinkerAPI.Helpers
         public static class Coctails
         {
             public const string ListAll = Base + "/coctails";
-            public const string ByIngredients = Base + "/Ingredients";
+            public const string ByIngredients = Base + "/ingredients";
             public const string ByName = Base + "/{keyword}";
+            public const string Random = Base + "/coctails/random";
         }
     }
 }

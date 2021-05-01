@@ -76,5 +76,15 @@ namespace DrinkerAPI.Controllers
 
             return BadRequest("Coctail not found");
         }
+
+        [HttpGet(ApiRoutes.Coctails.Random)]
+        public async Task<ActionResult<CoctailDto>> GetRandomCoctails(int count = 1)
+        {
+            var coctail = await _coctailRepository.GetRandomCoctailsAsync(count);
+            if (coctail != null)
+                return Ok(coctail);
+
+            return NotFound("Coctail not found");
+        }
     }
 }
