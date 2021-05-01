@@ -1,5 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { environment } from 'src/environments/environment';
 import { getCoctailFiltersParams } from '../_helpers/coctailParamsHelper';
 import { getPaginatedResult, getPaginationHeaders } from '../_helpers/paginationHelper';
@@ -14,7 +15,7 @@ export class CoctailService {
   baseUrl = environment.apiUrl + 'cocktails/';
   coctailParams: CoctailParams;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private toastr: ToastrService) { }
 
   searchCoctailByName(name: string) {
     return this.http.get<Coctail>(this.baseUrl + name);
@@ -43,6 +44,10 @@ export class CoctailService {
   }
 
   getRandomCoctails(count: number = 1) {
+    if (count > 8 || count <= 0) {
+      this.toastr.info('We can return only 8 coctails.', 'Info');
+    }
+
     let params = new HttpParams();
     params = params.append('count', count.toString());
 

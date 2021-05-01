@@ -17,6 +17,7 @@ import { FormsModule } from '@angular/forms';
 import { LoginComponent } from './account/login/login.component';
 import { RegistrationComponent } from './account/registration/registration.component';
 import { DrinkComponent } from './content/drink/drink.component';
+import { ToastrModule } from 'ngx-toastr';
 
 
 
@@ -41,7 +42,11 @@ import { DrinkComponent } from './content/drink/drink.component';
     BrowserAnimationsModule,
     HttpClientModule,
     FormsModule,
-    NgbModule
+    NgbModule,
+    ToastrModule.forRoot({
+      closeButton: true,
+      positionClass: 'toast-bottom-right'
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]

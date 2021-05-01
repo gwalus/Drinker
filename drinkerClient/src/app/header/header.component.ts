@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ToastrService } from 'ngx-toastr';
 import { Coctail } from '../_models/coctail';
 import { CoctailParams } from '../_models/coctailParams';
 import { Pagination } from '../_models/pagination';
@@ -17,10 +18,10 @@ export class HeaderComponent implements OnInit {
   pagination: Pagination;
   paginationForAll: Pagination;
 
-  constructor(private coctailService: CoctailService, private modalService: NgbModal) { }
+  constructor(private coctailService: CoctailService, private modalService: NgbModal, private toastr: ToastrService) { }
 
   ngOnInit(): void {
-    this.coctailService.getRandomCoctails(3).subscribe(randomCoctails => {
+    this.coctailService.getRandomCoctails(9).subscribe(randomCoctails => {
       console.log(randomCoctails as Coctail);
     })
 
@@ -49,7 +50,7 @@ export class HeaderComponent implements OnInit {
 
   testByIngredients() {
     const ingredients: string[] = [
-      'Vodka'
+      // 'Vodka'
     ];
 
     let coctailParams: CoctailParams = new CoctailParams();
@@ -64,6 +65,6 @@ export class HeaderComponent implements OnInit {
       this.pagination = coctails.pagination
 
       console.log(this.coctails)
-    })
+    }, error => this.toastr.warning(error.error, 'Warning'))
   }
 }
