@@ -1,11 +1,12 @@
 ﻿using DrinkerAPI.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace DrinkerAPI.Data
 {
-    public class CoctailContext : DbContext
+    public class CoctailContext : IdentityDbContext
     {
-        public CoctailContext(DbContextOptions options) : base(options)
+        public CoctailContext(DbContextOptions <CoctailContext>options) : base(options)
         {
         }
 
