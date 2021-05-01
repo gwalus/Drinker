@@ -48,4 +48,8 @@ export class CoctailService {
 
     return this.http.get(this.baseUrl + 'random', { params });
   }
+
+  getCoctailCategories() {
+    return this.http.get<string[]>(this.baseUrl + 'categories');
+  }
 }

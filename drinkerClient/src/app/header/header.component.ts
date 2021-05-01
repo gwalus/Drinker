@@ -23,6 +23,10 @@ export class HeaderComponent implements OnInit {
     this.coctailService.getRandomCoctails(3).subscribe(randomCoctails => {
       console.log(randomCoctails as Coctail);
     })
+
+    this.coctailService.getCoctailCategories().subscribe(categories => {
+      console.log(categories);
+    })
   }
 
   openLoginContent(loginContent: any) {
