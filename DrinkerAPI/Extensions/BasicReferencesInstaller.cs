@@ -32,6 +32,23 @@ namespace DrinkerAPI.Extensions
                     Scheme = "Bearer"
 
                 });
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement()
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference=new OpenApiReference
+                            {
+                                Type= ReferenceType.SecurityScheme,
+                                Id= "Bearer"
+                            },
+                            Scheme="oauth2",
+                            Name="Bearer",
+                            In=ParameterLocation.Header,
+                        },
+                        new List<string>()
+                    }
+                });
             });
             //Mapper
             services.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);
