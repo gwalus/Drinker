@@ -86,5 +86,27 @@ namespace DrinkerAPI.Controllers
 
             return NotFound("Coctail not found");
         }
+
+        [HttpGet(ApiRoutes.Coctails.categories)]
+        public async Task<ActionResult<List<string>>> GetCoctailCategories()
+        {
+            var categories = await _coctailRepository.GetCoctailCategories();
+
+            if (categories != null)
+                return Ok(categories);
+
+            return BadRequest();
+        }
+
+        [HttpGet(ApiRoutes.Coctails.glasses)]
+        public async Task<ActionResult<List<string>>> GetCoctailGlasses()
+        {
+            var glasses = await _coctailRepository.GetCoctailGlasses();
+
+            if (glasses != null)
+                return Ok(glasses);
+
+            return BadRequest();
+        }
     }
 }
