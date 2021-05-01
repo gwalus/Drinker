@@ -35,6 +35,16 @@ namespace DrinkerAPI.Interfaces
         /// </returns>
         Task<List<CoctailDto>> GetRandomCoctailsAsync(int count);
 
+        /// <summary>Gets the coctail categories.</summary>
+        /// <returns>
+        ///   <br />
+        /// </returns>
         Task<List<string>> GetCoctailCategories();
+
+        /// <summary>Gets the coctail glasses.</summary>
+        /// <returns>
+        ///   <br />
+        /// </returns>
+        Task<List<string>> GetCoctailGlasses();
     }
 }
