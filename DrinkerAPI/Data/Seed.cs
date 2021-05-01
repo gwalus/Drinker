@@ -17,7 +17,14 @@ namespace DrinkerAPI.Data
             if (await context.Coctails.AnyAsync()) return;
 
             var coctailsData = await File.ReadAllTextAsync(Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory()).FullName, "DataDownloader/Coctails.json"));
-            var coctails = JsonSerializer.Deserialize<List<Coctail>>(coctailsData);
+
+            var options = new JsonSerializerOptions
+            {
+                NumberHandling = System.Text.Json.Serialization.JsonNumberHandling.AllowReadingFromString
+            };
+
+            var coctails = JsonSerializer.Deserialize<List<Coctail>>(coctailsData, options);
+
             if (coctails == null) return;
 
             foreach (var item in coctails)
