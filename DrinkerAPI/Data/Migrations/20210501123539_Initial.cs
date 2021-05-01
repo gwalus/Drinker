@@ -10,7 +10,8 @@ namespace DrinkerAPI.Data.Migrations
                 name: "Coctails",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "TEXT", nullable: false),
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
                     Name = table.Column<string>(type: "TEXT", nullable: true),
                     Category = table.Column<string>(type: "TEXT", nullable: true),
                     Alcoholic = table.Column<string>(type: "TEXT", nullable: true),
@@ -32,7 +33,7 @@ namespace DrinkerAPI.Data.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     Name = table.Column<string>(type: "TEXT", nullable: true),
                     Measure = table.Column<string>(type: "TEXT", nullable: true),
-                    CoctailId = table.Column<string>(type: "TEXT", nullable: true)
+                    CoctailId = table.Column<int>(type: "INTEGER", nullable: true)
                 },
                 constraints: table =>
                 {

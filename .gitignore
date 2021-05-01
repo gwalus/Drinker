@@ -445,3 +445,4 @@ $RECYCLE.BIN/
 *.db
 /DrinkerAPI/coctaildb.db-shm
 /DrinkerAPI/coctaildb.db-wal
+/gw code.txt
