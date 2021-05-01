@@ -34,6 +34,11 @@ namespace DrinkerAPI.Services
                 .FirstOrDefaultAsync();
         }
 
+        public async Task<List<string>> GetCoctailCategories()
+        {
+            return await _context.Coctails.Select(c => c.Category).Distinct().ToListAsync();
+        }
+
         public async Task<PagedList<CoctailDto>> GetCoctailsByIngredientsAsync(IList<string> ingredients, CoctailParams coctailParams)
         {
             var coctailsQueryable = _context.Coctails

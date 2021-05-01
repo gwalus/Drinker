@@ -34,5 +34,7 @@ namespace DrinkerAPI.Interfaces
         ///   <br />
         /// </returns>
         Task<List<CoctailDto>> GetRandomCoctailsAsync(int count);
+
+        Task<List<string>> GetCoctailCategories();
     }
 }
