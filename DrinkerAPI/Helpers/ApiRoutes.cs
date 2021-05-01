@@ -7,7 +7,7 @@
         public const string Base = Root + Version;
         public static class Coctails
         {
-            private const string _controllerName = Base + "coctails/";
+            private const string _controllerName = Base + "cocktails/";
 
             public const string ListAll = _controllerName;
             public const string ByIngredients = _controllerName + "ingredients";

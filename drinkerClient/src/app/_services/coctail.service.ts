@@ -11,7 +11,7 @@ import { PaginationParams } from '../_models/paginationParams';
   providedIn: 'root'
 })
 export class CoctailService {
-  baseUrl = environment.apiUrl;
+  baseUrl = environment.apiUrl + 'cocktails/';
   coctailParams: CoctailParams;
 
   constructor(private http: HttpClient) { }
@@ -39,6 +39,13 @@ export class CoctailService {
 
     params = getPaginationHeaders(params, paginationParams);
 
-    return getPaginatedResult<Coctail[]>(this.baseUrl + 'coctail', params, this.http);
+    return getPaginatedResult<Coctail[]>(this.baseUrl, params, this.http);
+  }
+
+  getRandomCoctails(count: number = 1) {
+    let params = new HttpParams();
+    params = params.append('count', count.toString());
+
+    return this.http.get(this.baseUrl + 'random', { params });
   }
 }

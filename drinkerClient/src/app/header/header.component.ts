@@ -20,6 +20,9 @@ export class HeaderComponent implements OnInit {
   constructor(private coctailService: CoctailService, private modalService: NgbModal) { }
 
   ngOnInit(): void {
+    this.coctailService.getRandomCoctails(3).subscribe(randomCoctails => {
+      console.log(randomCoctails as Coctail);
+    })
   }
 
   openLoginContent(loginContent: any) {
