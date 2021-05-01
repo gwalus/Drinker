@@ -97,5 +97,16 @@ namespace DrinkerAPI.Controllers
 
             return BadRequest();
         }
+
+        [HttpGet(ApiRoutes.Coctails.glasses)]
+        public async Task<ActionResult<List<string>>> GetCoctailGlasses()
+        {
+            var glasses = await _coctailRepository.GetCoctailGlasses();
+
+            if (glasses != null)
+                return Ok(glasses);
+
+            return BadRequest();
+        }
     }
 }

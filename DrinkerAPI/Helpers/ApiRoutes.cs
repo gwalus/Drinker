@@ -14,6 +14,7 @@
             public const string ByName = _controllerName + "{keyword}";
             public const string Random = _controllerName + "random";
             public const string categories = _controllerName + "categories";
+            public const string glasses = _controllerName + "glasses";
         }
     }
 }
