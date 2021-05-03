@@ -46,7 +46,29 @@ namespace DrinkerAPI.Services
 
         public Task<AuthentiactionResult> RegisterAsync(string email, string password)
         {
-            throw new NotImplementedException();
+            var user = await _userManager.FindByEmailAsync(email);
+            if (user != null)
+            {
+                return new AuthentiactionResult
+                {
+                    Errors = new[] { "User with this email address already exists" }
+                };
+            }
+            var newUser = new IdentityUser
+            {
+                Email = email,
+                UserName = email,
+
+            };
+            var createdUser = await _userManager.CreateAsync(newUser, password);
+            if (!createdUser.Succeeded)
+            {
+                return new AuthentiactionResult
+                {
+                    Errors = createdUser.Errors.Select(x => x.Description)
+                };
+            }
+            return GenerateAuthenticationResultForUser(newUser);
         }
         private AuthentiactionResult GenerateAuthenticationResultForUser(IdentityUser newUser)
         {
