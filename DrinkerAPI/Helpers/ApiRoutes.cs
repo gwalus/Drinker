@@ -16,5 +16,12 @@
             public const string categories = _controllerName + "categories";
             public const string glasses = _controllerName + "glasses";
         }
+        public static class Identity
+        {
+            private const string _controllerName = Base + "identity/";
+
+            public const string Login = _controllerName + "login";
+            public const string Register = _controllerName + "register";
+        }
     }
 }

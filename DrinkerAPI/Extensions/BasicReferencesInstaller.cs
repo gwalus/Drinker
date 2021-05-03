@@ -54,6 +54,7 @@ namespace DrinkerAPI.Extensions
             services.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);
             //Repositories
             services.AddScoped<ICoctailRepository, CoctailRepository>();
+            services.AddScoped<IIdentityService, IdentityService>();
             //Jwt
             var jwtSettings = new JwtSettings();
             configuration.Bind(nameof( jwtSettings), jwtSettings);
