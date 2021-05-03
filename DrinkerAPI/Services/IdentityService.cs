@@ -22,9 +22,26 @@ namespace DrinkerAPI.Services
             _userManager = userManager;
             _jwtSettings = jwtSettings;
         }
-        public Task<AuthentiactionResult> LoginAsync(string email, string password)
+        public async Task<AuthentiactionResult> LoginAsync(string email, string password)
         {
-            throw new NotImplementedException();
+            var user = await _userManager.FindByEmailAsync(email);
+            if (user == null)
+            {
+                return new AuthentiactionResult
+                {
+                    Errors = new[] { "User does not exist" }
+                };
+            }
+            var userHasValidPassword = await _userManager.CheckPasswordAsync(user, password);
+            if (!userHasValidPassword)
+            {
+                return new AuthentiactionResult
+                {
+                    Errors = new[] { "User/password combination is wrong" }
+                };
+            }
+
+            return GenerateAuthenticationResultForUser(user);
         }
 
         public Task<AuthentiactionResult> RegisterAsync(string email, string password)
