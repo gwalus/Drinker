@@ -18,5 +18,20 @@ namespace DrinkerAPI.Controllers
         {
             return View();
         }
+        public async Task<ActionResult> Register([FromBody] UserRegistrationRequest request)
+        {
+            var authResponse = await _identityService.RegisterAsync(request.Email, request.Password);
+            if (!authResponse.Success)
+            {
+                return BadRequest(new AuthFailedResponse
+                {
+                    Errors = authResponse.Errors
+                });
+            }
+            return Ok(new AuthSuccessResponse
+            {
+                Token = authResponse.Token
+            });
+        }
     }
 }
