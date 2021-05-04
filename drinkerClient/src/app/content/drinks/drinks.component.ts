@@ -3,6 +3,7 @@ import { Coctail } from 'src/app/_models/coctail';
 import { CoctailParams } from 'src/app/_models/coctailParams';
 import { Pagination } from 'src/app/_models/pagination';
 import { CoctailService } from 'src/app/_services/coctail.service';
+import {PageEvent} from '@angular/material/paginator';
 
 @Component({
   selector: 'app-drinks',
@@ -15,8 +16,6 @@ export class DrinksComponent implements OnInit {
   constructor(private coctailService: CoctailService) { }
 
   allCoctails: Coctail[] = [];
-  pagination: Pagination;
-  page = 4;
   coctailParams: CoctailParams = new CoctailParams();
   
   ngOnInit(): void {
@@ -25,10 +24,13 @@ export class DrinksComponent implements OnInit {
 
   getCoctails() {
     this.coctailService.getAll(this.coctailParams).subscribe(coctails => {
-      this.allCoctails = coctails.result;
-      this.pagination = coctails.pagination
+      this.allCoctails = this.allCoctails.concat(coctails.result);
       console.log(this.allCoctails);
-      console.log(this.pagination);
     })
+  }
+
+  LoadMoreCoctails(){
+    this.coctailParams.pageNumber++;
+    this.getCoctails();
   }
 }
