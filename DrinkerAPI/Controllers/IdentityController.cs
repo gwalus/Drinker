@@ -1,13 +1,14 @@
-﻿using DrinkerAPI.Helpers;
+﻿using DrinkerAPI.Contracts.Requests;
+using DrinkerAPI.Contracts.Responses;
+using DrinkerAPI.Helpers;
 using DrinkerAPI.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using TweetBook.Contract.v1.Requests;
-using TweetBook.Contract.v1.Responses;
-using TweetBook.Controllers.v1;
+
+
 
 namespace DrinkerAPI.Controllers
 {
