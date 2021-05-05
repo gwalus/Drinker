@@ -33,4 +33,8 @@ export class DrinksComponent implements OnInit {
     this.coctailParams.pageNumber++;
     this.getCoctails();
   }
+
+  onScroll() {
+    console.log('scrolled!!');
+  }
 }
