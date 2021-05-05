@@ -15,6 +15,7 @@
             public const string Random = _controllerName + "random";
             public const string categories = _controllerName + "categories";
             public const string glasses = _controllerName + "glasses";
+            public const string byId = _controllerName + "byId";
         }
         public static class Identity
         {
