@@ -52,6 +52,8 @@ namespace DrinkerAPI.Extensions
             });
             //Mapper
             services.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);
+            //Lowercase routing
+            services.AddRouting(options => options.LowercaseUrls = true);
             //Repositories
             services.AddScoped<ICoctailRepository, CoctailRepository>();
             services.AddScoped<IIdentityService, IdentityService>();

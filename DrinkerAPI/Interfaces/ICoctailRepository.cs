@@ -46,5 +46,9 @@ namespace DrinkerAPI.Interfaces
         ///   <br />
         /// </returns>
         Task<List<string>> GetCoctailGlasses();
+        /// <summary>Get coctail by Id  </summary>
+        /// <param name="Id"></param>
+        /// <returns></returns>
+        Task<CoctailDto> GetCoctailByIdAsync(int Id);
     }
 }
