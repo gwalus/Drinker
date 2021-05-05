@@ -11,11 +11,11 @@
 
             public const string ListAll = _controllerName;
             public const string ByIngredients = _controllerName + "ingredients";
-            public const string ByName = _controllerName + "{keyword}";
+            public const string ByName = _controllerName + "byName/{keyword}";
             public const string Random = _controllerName + "random";
             public const string categories = _controllerName + "categories";
             public const string glasses = _controllerName + "glasses";
-            public const string byId = _controllerName + "byId";
+            public const string byId = _controllerName + "byId/{id}";
         }
         public static class Identity
         {
