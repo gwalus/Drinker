@@ -63,6 +63,6 @@ export class CoctailService {
   }
 
   getCoctailById(id: number) {
-    return this.http.get<Coctail>(this.baseUrl + 'byId/' + id.toString);
+    return this.http.get<Coctail>(this.baseUrl + 'byId/' + id);
   }
 }

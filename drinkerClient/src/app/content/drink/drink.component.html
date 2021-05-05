@@ -3,10 +3,10 @@
     <div class="p-2 pl-3 pr-3">
       <div class="d-flex justify-content-between">
         <div>
-          <small class="text-muted">Cocktail</small>
+          <small class="text-muted">{{coctail.category}}</small>
         </div>
         <div>
-          <small class="text-muted">Nov 4, 2016</small>
+          <small class="text-muted">{{coctail.dateModified | date:'mediumDate'}}</small>
         </div>
       </div>
     </div>
@@ -15,31 +15,28 @@
 
 <div class="card mb-3 border-0">
   <div class="row g-0">
-    <div class="col-md-4">
-      <img src="https://www.thecocktaildb.com/images/media/drink/metwgh1606770327.jpg" width="100%" alt="...">
+    <div class="col-md-4 align-self-center">
+      <img class="rounded" src="{{coctail.photoUrl}}" alt="Card image cap" width="100%" alt="...">
     </div>
     <div class="col-md-8">
       <div class="card-body">
-        <h1 class="m-0">Mojito</h1>
-        <p class="card-title ">Instructions</p>
-        <p class="card-text">Muddle mint leaves with sugar and lime juice. Add a splash of soda water and fill the glass
-          with cracked ice. Pour the rum and top with soda water. Garnish and serve with straw.</p>
-        <div class="d-flex justify-content-start">
-          <div class="pl-3 pt-3 pr-3">
-            <p class="card-text">Glass:</p>
-            <ul class="pl-4">
-              <li>Highball glass</li>
-            </ul>
-          </div>
-          <div class="pl-3 pt-3 pr-3">
-            <p class="card-text">Glass:</p>
-            <ul class="pl-4">
-              <li>Coffee</li>
-              <li>Tea</li>
-              <li>Milk</li>
-            </ul>
-          </div>
-        </div>
+        <h1 class="m-0 font-weight-bold">{{coctail.name}}</h1>
+        <p class="card-title font-weight-bold">Instructions</p>
+        <p class="card-text">{{coctail.instructions}}</p>
+
+        <p class="card-text font-weight-bold mb-2">Glass:  </p>
+        <p class="card-text ml-2"> {{coctail.glass}}</p>
+        <p class="card-text font-weight-bold mb-2">Ingredients:</p>
+
+        <table class="ml-2">
+          <tbody>
+            <tr *ngFor="let item of coctail.ingradients">
+              <td class="">{{item.name}}</td>
+              <td class="pl-2">{{item.measure}}</td>
+            </tr>
+          </tbody>
+        </table>
+
       </div>
     </div>
   </div>
