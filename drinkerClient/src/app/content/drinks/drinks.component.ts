@@ -1,25 +1,36 @@
 import { Component, OnInit } from '@angular/core';
 import { Coctail } from 'src/app/_models/coctail';
 import { CoctailParams } from 'src/app/_models/coctailParams';
-import { Pagination } from 'src/app/_models/pagination';
 import { CoctailService } from 'src/app/_services/coctail.service';
-import {PageEvent} from '@angular/material/paginator';
+import { Router,ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-drinks',
   templateUrl: './drinks.component.html',
   styleUrls: ['./drinks.component.scss', '../style.css']
-
 })
+
 export class DrinksComponent implements OnInit {
 
-  constructor(private coctailService: CoctailService) { }
+  constructor(private coctailService: CoctailService,
+              private _Activatedroute:ActivatedRoute,
+              private _router:Router) { }
 
+  sub: Subscription;
+  searchKeyword: string;
   allCoctails: Coctail[] = [];
   coctailParams: CoctailParams = new CoctailParams();
   
   ngOnInit(): void {
-    this.getCoctails();
+    
+    this.sub=this._Activatedroute.paramMap.subscribe(params => { 
+      console.log(params);
+       this.searchKeyword = params.get('keyword'); 
+   });
+
+   if(!this.searchKeyword)this.getCoctails();
+   else this.getCoctailByName();
   }
 
   getCoctails() {
@@ -29,8 +40,16 @@ export class DrinksComponent implements OnInit {
     })
   }
 
+  getCoctailByName() {
+    this.coctailService.searchCoctailByName(this.searchKeyword).subscribe(coctails => {
+      this.allCoctails = this.allCoctails.concat(coctails);
+    })
+  }
+
   LoadMoreCoctails(){
-    this.coctailParams.pageNumber++;
-    this.getCoctails();
+    if(!this.searchKeyword){
+      this.coctailParams.pageNumber++;
+      this.getCoctails();
+    }
   }
 }
