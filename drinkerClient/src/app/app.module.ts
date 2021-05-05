@@ -18,6 +18,7 @@ import { LoginComponent } from './account/login/login.component';
 import { RegistrationComponent } from './account/registration/registration.component';
 import { DrinkComponent } from './content/drink/drink.component';
 import { ToastrModule } from 'ngx-toastr';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 
 
@@ -43,6 +44,7 @@ import { ToastrModule } from 'ngx-toastr';
     HttpClientModule,
     FormsModule,
     NgbModule,
+    InfiniteScrollModule,
     ToastrModule.forRoot({
       closeButton: true,
       positionClass: 'toast-bottom-right'
