@@ -7,9 +7,8 @@
       </div>
       <div class="col-4 p-0 text-center">
         <form class="form-inline justify-content-center">
-          <input class="form-control form-control-sm w-50  ds-input" type="search" placeholder="Search"
-            aria-label="Search">
-          <a class="text-muted" href="">
+          <input class="form-control form-control-sm w-50  ds-input" type="text" placeholder="Search" name="searchValued" [(ngModel)]="searchedValue" (keydown.enter)="onKeyDownEvent($event)">
+          <a class="text-muted" (click)="onKeyDownEvent($event)">
             <mat-icon class="ml-2 blog-header-logo-icon" aria-hidden="false" aria-label="search">search</mat-icon>
           </a>
         </form>
@@ -28,7 +27,6 @@
       <a class="p-2 text-muted" routerLink="/drinks">Coctail & Mixed Drinks</a>
       <a class="p-2 text-muted" href="/game">Game</a>
       <a class="p-2 text-muted" href="/calculator">Drinks Calculator</a>
-      <a class="p-2 text-muted" (click)="testByName()">TestByName</a>
       <a class="p-2 text-muted" (click)="testByIngredients()">TestByIngredients</a>
     </nav>
   </div>

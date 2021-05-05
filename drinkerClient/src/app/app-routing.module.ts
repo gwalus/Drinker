@@ -37,6 +37,10 @@ const routes: Routes = [
   {
     path: 'drink/:id',
     component: DrinkComponent,
+  },
+  {
+    path: 'search/:keyword',
+    component: DrinksComponent,
   }
 ];
 

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { Coctail } from '../_models/coctail';
@@ -12,13 +13,19 @@ import { CoctailService } from '../_services/coctail.service';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
+
+  public searchedValue: string;
   coctail: Coctail;
   coctails: Coctail[] = [];
   allCoctails: Coctail[] = [];
   pagination: Pagination;
   paginationForAll: Pagination;
 
-  constructor(private coctailService: CoctailService, private modalService: NgbModal, private toastr: ToastrService) { }
+  constructor(private coctailService: CoctailService, 
+              private modalService: NgbModal, 
+              private toastr: ToastrService,
+              private router: Router,
+              private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.coctailService.getRandomCoctails(9).subscribe(randomCoctails => {
@@ -36,16 +43,6 @@ export class HeaderComponent implements OnInit {
 
   openLoginContent(loginContent: any) {
     this.modalService.open(loginContent, { scrollable: true });
-  }
-
-  testByName(name: string = 'Mojito') {
-    this.coctailService.searchCoctailByName(name).subscribe(response => {
-      let coctail = response as Coctail;
-      this.coctail = coctail;
-      console.log(this.coctail);
-    }, error => {
-      console.log(error);
-    });
   }
 
   testByIngredients() {
@@ -66,5 +63,10 @@ export class HeaderComponent implements OnInit {
 
       console.log(this.coctails)
     }, error => this.toastr.warning(error.error, 'Warning'))
+  }
+
+  onKeyDownEvent(event: any) {
+    if(this.searchedValue) 
+      this.router.navigate(['/search/'+ this.searchedValue]);
   }
 }
