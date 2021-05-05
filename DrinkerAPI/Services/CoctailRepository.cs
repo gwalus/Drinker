@@ -26,6 +26,8 @@ namespace DrinkerAPI.Services
             _mapper = mapper;
         }
 
+    
+
         public async Task<CoctailDto> GetCoctailByNameAsync(string keyword)
         {
             return await _context.Coctails
@@ -90,6 +92,13 @@ namespace DrinkerAPI.Services
             //    .ToListAsync();
 
             //return await PagedList<CoctailDto>.CreateAsync(postgresquery, paginationParams.PageNumber, paginationParams.PageSize);
+        }
+        public async Task<CoctailDto> GetCoctailById(int Id)
+        {
+            return await _context.Coctails
+              .ProjectTo<CoctailDto>(_mapper.ConfigurationProvider)
+              .Where(x => x.Id.Equals(Id))
+              .FirstOrDefaultAsync();
         }
     }
 }
