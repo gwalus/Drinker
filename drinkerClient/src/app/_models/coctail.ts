@@ -9,5 +9,5 @@ export interface Coctail {
     instructions: string;
     photoUrl: string;
     dateModified: Date,
-    ingredients: Ingredient[]
+    ingradients: Ingredient[]
 }

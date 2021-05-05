@@ -23,7 +23,6 @@ export class DrinksComponent implements OnInit {
   coctailParams: CoctailParams = new CoctailParams();
   
   ngOnInit(): void {
-    
     this.sub=this._Activatedroute.paramMap.subscribe(params => { 
       console.log(params);
        this.searchKeyword = params.get('keyword'); 
