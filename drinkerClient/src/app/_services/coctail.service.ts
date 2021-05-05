@@ -61,4 +61,8 @@ export class CoctailService {
   getCoctailGlasses() {
     return this.http.get<string[]>(this.baseUrl + 'glasses');
   }
+
+  getCoctailById(id: number) {
+    return this.http.get<Coctail>(this.baseUrl + 'byId/' + id.toString);
+  }
 }
