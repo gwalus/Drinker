@@ -35,8 +35,8 @@ const routes: Routes = [
     component: LoginComponent
   },
   {
-    path: 'drink',
-    component: DrinkComponent
+    path: 'drink/:id',
+    component: DrinkComponent,
   }
 ];
 
