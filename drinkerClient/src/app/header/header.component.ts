@@ -21,11 +21,11 @@ export class HeaderComponent implements OnInit {
   pagination: Pagination;
   paginationForAll: Pagination;
 
-  constructor(private coctailService: CoctailService, 
-              private modalService: NgbModal, 
-              private toastr: ToastrService,
-              private router: Router,
-              private route: ActivatedRoute) { }
+  constructor(private coctailService: CoctailService,
+    private modalService: NgbModal,
+    private toastr: ToastrService,
+    private router: Router,
+    private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.coctailService.getRandomCoctails(9).subscribe(randomCoctails => {
@@ -66,7 +66,15 @@ export class HeaderComponent implements OnInit {
   }
 
   onKeyDownEvent(event: any) {
-    if(this.searchedValue) 
-      this.router.navigate(['/search/'+ this.searchedValue]);
+    if (this.searchedValue)
+      this.router.navigate(['/search/' + this.searchedValue]);
   }
+
+  // register() {
+  //   this.accountService.register().subscribe(() => {
+  //     console.log('success');
+  //   }, error => {
+  //     this.toastr.error(error.error.errors[0]);
+  //   })
+  // }
 }

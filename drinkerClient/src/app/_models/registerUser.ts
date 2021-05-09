@@ -1,5 +1,4 @@
-export interface RegisterUser {
-    username: string;
+export interface AuthUser {
+    email: string;
     password: string;
-    confirmPassword: string;
 }

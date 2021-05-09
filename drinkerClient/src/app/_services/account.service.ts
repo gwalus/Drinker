@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-import { RegisterUser } from '../_models/registerUser';
+import { AuthUser } from '../_models/registerUser';
 import { User } from '../_models/user';
 
 @Injectable({
@@ -17,15 +17,7 @@ export class AccountService {
 
   constructor(private http: HttpClient) { }
 
-  register(model: RegisterUser) {
-    let registerUser: RegisterUser = {
-      username: 'user2',
-      password: 'Pa$$w0rd',
-      confirmPassword: 'Pa$$w0rd'
-    };
-
-    model = registerUser;
-
+  register(model: AuthUser) {
     return this.http.post(this.baseUrl + 'identity/register', model).pipe(
       map(response => {
         const user = response as User;
