@@ -1,0 +1,10 @@
+<h1 style="margin: 5%;">Welmowe in drinker app</h1>
+
+<div class="row" *ngIf="(accountService.currentUser$ | async) as user">
+    <p>You are logged in as {{user.email}}</p>
+    <button class="btn btn-danger" (click)="logout()">Logout</button>
+</div>
+
+<div class="container" *ngIf="(accountService.currentUser$ | async) === null">
+    <p>If u want use this app, let's login or create an account!</p>
+</div>
