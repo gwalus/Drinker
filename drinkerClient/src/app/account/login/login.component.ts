@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { AuthUser } from 'src/app/_models/registerUser';
@@ -13,7 +14,8 @@ import { AccountService } from 'src/app/_services/account.service';
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
 
-  constructor(private modalService: NgbModal, private accountService: AccountService, private formBuilder: FormBuilder, private toastr: ToastrService) { }
+  constructor(private modalService: NgbModal, private accountService: AccountService, private formBuilder: FormBuilder, private toastr: ToastrService,
+    private router: Router) { }
 
   ngOnInit(): void {
     this.initializeForm();
@@ -30,6 +32,8 @@ export class LoginComponent implements OnInit {
     let loginUser = this.loginForm.value as AuthUser;
     this.accountService.login(loginUser).subscribe(() => {
       this.toastr.success('Login successfully');
+      this.modalService.dismissAll();
+      this.router.navigateByUrl('');
     }, error => {
       this.toastr.error(error.error.errors[0]);
     })

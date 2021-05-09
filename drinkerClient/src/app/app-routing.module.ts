@@ -8,8 +8,10 @@ import { CalculatorComponent } from './content/calculator/calculator.component';
 import { RegistrationComponent } from './account/registration/registration.component';
 import { LoginComponent } from './account/login/login.component';
 import { DrinkComponent } from './content/drink/drink.component';
+import { HomeComponent } from './home/home.component';
 
 const routes: Routes = [
+  { path: '', component: HomeComponent },
   {
     path: 'coctailBuilder',
     component: CoctailBuilderComponent
