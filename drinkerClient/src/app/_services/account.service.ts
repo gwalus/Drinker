@@ -28,6 +28,17 @@ export class AccountService {
     )
   }
 
+  login(model: AuthUser) {
+    return this.http.post(this.baseUrl + 'identity/login', model).pipe(
+      map(response => {
+        const user = response as User;
+        if (user) {
+          this.setCurrentUser(user);
+        }
+      })
+    )
+  }
+
   setCurrentUser(user: User) {
     localStorage.setItem('user', JSON.stringify(user));
     this.currentUserSource.next(user);
