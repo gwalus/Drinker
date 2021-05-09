@@ -9,40 +9,24 @@ import { RegistrationComponent } from './account/registration/registration.compo
 import { LoginComponent } from './account/login/login.component';
 import { DrinkComponent } from './content/drink/drink.component';
 import { HomeComponent } from './home/home.component';
+import { AuthGuard } from './_guards/auth.guard';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
+  { path: 'registration', component: RegistrationComponent },
+  { path: 'login', component: LoginComponent },
   {
-    path: 'coctailBuilder',
-    component: CoctailBuilderComponent
-  },
-  {
-    path: 'drinks',
-    component: DrinksComponent
-  },
-  {
-    path: 'game',
-    component: GameComponent
-  },
-  {
-    path: 'calculator',
-    component: CalculatorComponent
-  },
-  {
-    path: 'registration',
-    component: RegistrationComponent
-  },
-  {
-    path: 'login',
-    component: LoginComponent
-  },
-  {
-    path: 'drink/:id',
-    component: DrinkComponent,
-  },
-  {
-    path: 'search/:keyword',
-    component: DrinksComponent,
+    path: '',
+    runGuardsAndResolvers: 'always',
+    canActivate: [AuthGuard],
+    children: [
+      { path: 'coctailBuilder', component: CoctailBuilderComponent },
+      { path: 'drinks', component: DrinksComponent },
+      { path: 'game', component: GameComponent },
+      { path: 'calculator', component: CalculatorComponent },
+      { path: 'drink/:id', component: DrinkComponent },
+      { path: 'search/:keyword', component: DrinksComponent }
+    ]
   }
 ];
 

@@ -1,9 +1,15 @@
-<h1 style="margin: 5%;">Welmowe in drinker app</h1>
+<h1 style="text-align: center; padding: 3% 0 0 0;">Welmowe in drinker app</h1>
 
-<div class="row" *ngIf="(accountService.currentUser$ | async) as user">
-    <p>You are logged in as {{user.email}}</p>
+<p class="mb-5" style="text-align: center;">Dodałem domyślny komponent, jest tu info o zalogowanym użytkowniku i button
+    do wylogowania. Trzeba zabezpieczyć możliwość logowania i rejestracji jak sie jest już zalogowanym. Dodałem guarda,
+    który nie pozwala wejść
+    do komponentów jak sie nie jest zalogowanym.
+</p>
 
-    <button class="btn btn-danger ml-5" (click)="logout()">Logout</button>
+<div class="container" *ngIf="(accountService.currentUser$ | async) as user">
+    <p>You are logged in as <b> {{user.email}}</b></p>
+
+    <button class="btn btn-danger mb-2" (click)="logout()">Logout</button>
 </div>
 
 <div class="container" *ngIf="(accountService.currentUser$ | async) === null">

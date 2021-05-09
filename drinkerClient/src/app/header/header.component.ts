@@ -28,7 +28,7 @@ export class HeaderComponent implements OnInit {
     private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.coctailService.getRandomCoctails(9).subscribe(randomCoctails => {
+    this.coctailService.getRandomCoctails(8).subscribe(randomCoctails => {
       console.log(randomCoctails as Coctail);
     })
 
@@ -45,36 +45,28 @@ export class HeaderComponent implements OnInit {
     this.modalService.open(loginContent, { scrollable: true });
   }
 
-  testByIngredients() {
-    const ingredients: string[] = [
-      // 'Vodka'
-    ];
+  // testByIngredients() {
+  //   const ingredients: string[] = [
+  //     // 'Vodka'
+  //   ];
 
-    let coctailParams: CoctailParams = new CoctailParams();
+  //   let coctailParams: CoctailParams = new CoctailParams();
 
-    coctailParams.alcoholic = 'Alcoholic';
-    coctailParams.category = 'Ordinary Drink';
-    coctailParams.pageSize = 3;
-    coctailParams.pageNumber = 3;
+  //   coctailParams.alcoholic = 'Alcoholic';
+  //   coctailParams.category = 'Ordinary Drink';
+  //   coctailParams.pageSize = 3;
+  //   coctailParams.pageNumber = 3;
 
-    this.coctailService.getCoctailsByIngredients(ingredients, coctailParams).subscribe(coctails => {
-      this.coctails = coctails.result;
-      this.pagination = coctails.pagination
+  //   this.coctailService.getCoctailsByIngredients(ingredients, coctailParams).subscribe(coctails => {
+  //     this.coctails = coctails.result;
+  //     this.pagination = coctails.pagination
 
-      console.log(this.coctails)
-    }, error => this.toastr.warning(error.error, 'Warning'))
-  }
+  //     console.log(this.coctails)
+  //   }, error => this.toastr.warning(error.error, 'Warning'))
+  // }
 
   onKeyDownEvent(event: any) {
     if (this.searchedValue)
       this.router.navigate(['/search/' + this.searchedValue]);
   }
-
-  // register() {
-  //   this.accountService.register().subscribe(() => {
-  //     console.log('success');
-  //   }, error => {
-  //     this.toastr.error(error.error.errors[0]);
-  //   })
-  // }
 }
