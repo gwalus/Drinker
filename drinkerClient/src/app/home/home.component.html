@@ -2,7 +2,8 @@
 
 <div class="row" *ngIf="(accountService.currentUser$ | async) as user">
     <p>You are logged in as {{user.email}}</p>
-    <button class="btn btn-danger" (click)="logout()">Logout</button>
+
+    <button class="btn btn-danger ml-5" (click)="logout()">Logout</button>
 </div>
 
 <div class="container" *ngIf="(accountService.currentUser$ | async) === null">
