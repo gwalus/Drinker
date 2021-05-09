@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import jwtDecode from 'jwt-decode';
 import { ReplaySubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
@@ -12,7 +13,7 @@ import { User } from '../_models/user';
 export class AccountService {
   baseUrl = environment.apiUrl;
 
-  private currentUserSource = new ReplaySubject(1);
+  private currentUserSource = new ReplaySubject<User>(1);
   currentUser$ = this.currentUserSource.asObservable();
 
   constructor(private http: HttpClient) { }
@@ -47,5 +48,9 @@ export class AccountService {
   setCurrentUser(user: User) {
     localStorage.setItem('user', JSON.stringify(user));
     this.currentUserSource.next(user);
+  }
+
+  getDecodedToken(token: string) {
+    return jwtDecode(token);
   }
 }
