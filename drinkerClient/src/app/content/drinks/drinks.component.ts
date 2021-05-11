@@ -71,4 +71,14 @@ export class DrinksComponent implements OnInit {
       this.glassesList = glass;
     })
   }
+
+  getCoctailByFilter(){
+    this.coctailParams.category = "Ordinary Drink";
+    this.categories.status;
+    this.coctailService.getAll(this.coctailParams).subscribe(coctails => {
+      this.allCoctails = coctails.result;
+    })
+  }
+
+
 }
