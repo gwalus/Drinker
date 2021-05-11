@@ -14,9 +14,6 @@ import { FormControl } from '@angular/forms';
 
 export class DrinksComponent implements OnInit {
 
-
-
-
   constructor(private coctailService: CoctailService,
               private _Activatedroute:ActivatedRoute,
               private _router:Router) { }
@@ -27,18 +24,20 @@ export class DrinksComponent implements OnInit {
   coctailParams: CoctailParams = new CoctailParams();
   categories = new FormControl();
   categoriesList: string[];
+  glasses = new FormControl();
+  glassesList: string[];
 
   
   ngOnInit(): void {
+    this.getCoctailCategories();
+    this.getCoctailGlasses();
+
     this.sub=this._Activatedroute.paramMap.subscribe(params => { 
-      console.log(params);
-       this.searchKeyword = params.get('keyword'); 
-   });
+      this.searchKeyword = params.get('keyword'); 
+    });
 
-   if(!this.searchKeyword)this.getCoctails();
-   else this.getCoctailByName();
-
-   this.getCoctailCategories();
+    if(!this.searchKeyword)this.getCoctails();
+    else this.getCoctailByName();
   }
 
   getCoctails() {
@@ -67,4 +66,9 @@ export class DrinksComponent implements OnInit {
     })
   }
 
+  getCoctailGlasses(){
+    this.coctailService.getCoctailGlasses().subscribe(glass => {
+      this.glassesList = glass;
+    })
+  }
 }
