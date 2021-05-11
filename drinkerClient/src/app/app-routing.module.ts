@@ -15,13 +15,13 @@ const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'registration', component: RegistrationComponent },
   { path: 'login', component: LoginComponent },
+  { path: 'drinks', component: DrinksComponent },
   {
     path: '',
     runGuardsAndResolvers: 'always',
     canActivate: [AuthGuard],
     children: [
       { path: 'coctailBuilder', component: CoctailBuilderComponent },
-      { path: 'drinks', component: DrinksComponent },
       { path: 'game', component: GameComponent },
       { path: 'calculator', component: CalculatorComponent },
       { path: 'drink/:id', component: DrinkComponent },
