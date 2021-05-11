@@ -4,6 +4,7 @@ import { CoctailParams } from 'src/app/_models/coctailParams';
 import { CoctailService } from 'src/app/_services/coctail.service';
 import { Router,ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-drinks',
@@ -13,6 +14,9 @@ import { Subscription } from 'rxjs';
 
 export class DrinksComponent implements OnInit {
 
+
+
+
   constructor(private coctailService: CoctailService,
               private _Activatedroute:ActivatedRoute,
               private _router:Router) { }
@@ -21,6 +25,9 @@ export class DrinksComponent implements OnInit {
   searchKeyword: string;
   allCoctails: Coctail[] = [];
   coctailParams: CoctailParams = new CoctailParams();
+  categories = new FormControl();
+  categoriesList: string[];
+
   
   ngOnInit(): void {
     this.sub=this._Activatedroute.paramMap.subscribe(params => { 
@@ -30,6 +37,8 @@ export class DrinksComponent implements OnInit {
 
    if(!this.searchKeyword)this.getCoctails();
    else this.getCoctailByName();
+
+   this.getCoctailCategories();
   }
 
   getCoctails() {
@@ -45,10 +54,17 @@ export class DrinksComponent implements OnInit {
     })
   }
 
-  LoadMoreCoctails(){
+  loadMoreCoctails(){
     if(!this.searchKeyword){
       this.coctailParams.pageNumber++;
       this.getCoctails();
     }
   }
+
+  getCoctailCategories(){
+    this.coctailService.getCoctailCategories().subscribe(category => {
+      this.categoriesList = category;
+    })
+  }
+
 }
