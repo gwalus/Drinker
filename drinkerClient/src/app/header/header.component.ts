@@ -5,6 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Coctail } from '../_models/coctail';
 import { CoctailParams } from '../_models/coctailParams';
 import { Pagination } from '../_models/pagination';
+import { AccountService } from '../_services/account.service';
 import { CoctailService } from '../_services/coctail.service';
 
 @Component({
@@ -25,7 +26,8 @@ export class HeaderComponent implements OnInit {
     private modalService: NgbModal,
     private toastr: ToastrService,
     private router: Router,
-    private route: ActivatedRoute) { }
+    private route: ActivatedRoute,
+    public accountService: AccountService) { }
 
   ngOnInit(): void {
     this.coctailService.getRandomCoctails(8).subscribe(randomCoctails => {
@@ -43,6 +45,10 @@ export class HeaderComponent implements OnInit {
 
   openLoginContent(loginContent: any) {
     this.modalService.open(loginContent, { scrollable: true });
+  }
+
+  openRegistraionContent(registrationContent: any) {
+    this.modalService.open(registrationContent, { scrollable: true });
   }
 
   // testByIngredients() {
@@ -68,5 +74,9 @@ export class HeaderComponent implements OnInit {
   onKeyDownEvent(event: any) {
     if (this.searchedValue)
       this.router.navigate(['/search/' + this.searchedValue]);
+  }
+
+  logout() {
+    this.accountService.logout();
   }
 }

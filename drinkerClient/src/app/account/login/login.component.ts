@@ -28,7 +28,6 @@ export class LoginComponent implements OnInit {
     })
   }
 
-  // convenience getter for easy access to form fields
   get getFormControl() { return this.loginForm.controls; }
 
   login() {
@@ -40,9 +39,5 @@ export class LoginComponent implements OnInit {
     }, error => {
       this.toastr.error(error.error.errors[0]);
     })
-  }
-
-  openRegistraionContent(registrationContent: any) {
-    this.modalService.open(registrationContent, { scrollable: true });
   }
 }

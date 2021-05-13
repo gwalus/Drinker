@@ -20,7 +20,7 @@ import { DrinkComponent } from './content/drink/drink.component';
 import { ToastrModule } from 'ngx-toastr';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { HomeComponent } from './home/home.component';
-import {MatSelectModule} from '@angular/material/select';
+import { MatSelectModule } from '@angular/material/select';
 
 
 
