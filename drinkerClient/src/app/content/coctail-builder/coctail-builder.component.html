@@ -1,4 +1,4 @@
-<div class="jumbotron p-3 p-md-5 text-white rounded bg-dark">
+<div class="jumbotron m-0 p-3 p-md-5 text-white rounded bg-dark">
   <div class="col-md-12 px-0 text-center">
     <mat-icon aria-hidden="false" aria-label="liquor" class="display-4  text-center f-100">liquor</mat-icon>
     <h1 class="">
@@ -6,4 +6,104 @@
     </h1>
     <p class="lead my-3"></p>
   </div>
+</div>
+
+<div class="container pt-5 pb-4 mb-3 bg-light border " >
+  <form [formGroup]="CreateCoctailForm" (ngSubmit)="onSubmit()">
+
+    <div class="row justify-content-center">
+      <div class="col-12 col-sm-10 col-md-6">
+        <div class="form-group">
+          <label for="coctailName">Coctail Name</label>
+          <input type="text" id="coctailName" name="coctailName" formControlName="coctailName" class="form-control item"
+            placeholder="" required>
+        </div>
+      </div>
+      <div class="col-12 col-sm-2 col-md-2">
+        <div class="form-group">
+          <label for="alcoholic">Alcoholic</label>
+          <input type="text" id="alcoholic" name="alcoholic" formControlName="alcoholic" class="form-control item"
+            placeholder="" required>
+        </div>
+      </div>
+    </div>
+
+    <div class="row justify-content-center">
+      <div class="col-12 col-sm-6 col-md-4">
+        <div class="form-group">
+          <label for="category">Category</label>
+          <input type="text" id="category" name="category" formControlName="category" class="form-control item"
+            placeholder="" required>
+        </div>
+      </div>
+      <div class="col-12 col-sm-6 col-md-4">
+        <div class="form-group">
+          <label for="glass">Glass</label>
+          <input type="text" id="glass" name="glass" formControlName="glass" class="form-control item" placeholder=""
+            required>
+        </div>
+      </div>
+    </div>
+
+    <div class="row justify-content-center pb-3">
+      <div class="col-12 col-md-8">
+        <label for="validatedCustomFile">Image</label>
+        <div class="custom-file">
+          <input type="file" class="custom-file-input" id="validatedCustomFile" required>
+          <label class="custom-file-label" for="validatedCustomFile">Choose file...</label>
+          <div class="invalid-feedback">Example invalid custom file feedback</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row justify-content-center">
+      <div class="col-12 col-md-8">
+        <div class="form-group">
+          <label for="instructions">Instructions</label>
+          <textarea rows="3" id="instructions" name="instructions" formControlName="instructions"
+            class="form-control item" placeholder="" required></textarea>
+        </div>
+      </div>
+    </div>
+
+    <div class="row justify-content-center">
+      <div class="col-12 col-md-8">
+        <h4 class="mb-1">
+          Add Ingredients:
+          <button type="button" (click)="addIngredient()" class="btn btn-sm">
+            <mat-icon>add</mat-icon>
+          </button>
+        </h4>
+      </div>
+    </div>
+
+    <div formArrayName="ingredients">
+      <div class="row justify-content-md-center pb-2" *ngFor="let ingredient of ingredients().controls; let i=index"
+        [formGroupName]="i">
+        <div class="col-10 col-sm-5 col-md-4 pb-2 pb-md-0">
+          <input type="text" formControlName="name" class="form-control item" placeholder="name">
+        </div>
+        <div class="col-10 col-sm-5 col-md-3">
+          <div class="input-group">
+            <input type="text" formControlName="measure" class="form-control item" placeholder="measure">
+            <div class="input-group-append">
+              <span class="input-group-text" id="measure">Oz</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-2 col-sm-2 col-md-1">
+          <button (click)="removeIngredient(i)" class="btn btn-danger delete-btn w-100">
+            -
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="row justify-content-center mb-4">
+      <div class="col-12 col-md-8">
+        <button type="submit" class="btn btn-success mt-4 w-100">Submit</button>
+        {{this.CreateCoctailForm.value | json}}
+      </div>
+    </div>
+  </form>
 </div>
