@@ -118,5 +118,16 @@ namespace DrinkerAPI.Controllers
 
             return BadRequest();
         }
+
+        [HttpGet(ApiRoutes.Coctails.Names)]
+        public async Task<ActionResult<CoctailDto>> GetCoctailNames()
+        {
+            var coctail = await _coctailRepository.GetCoctailNamesAsync();
+
+            if (coctail != null)
+                return Ok(coctail);
+
+            return BadRequest();
+        }
     }
 }

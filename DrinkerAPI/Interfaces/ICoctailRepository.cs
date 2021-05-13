@@ -50,5 +50,12 @@ namespace DrinkerAPI.Interfaces
         /// <param name="Id"></param>
         /// <returns></returns>
         Task<CoctailDto> GetCoctailByIdAsync(int Id);
+
+
+        /// <summary>Gets the coctails name asynchronous.</summary>
+        /// <returns>
+        ///   <br />
+        /// </returns>
+        Task<IList<string>> GetCoctailNamesAsync();
     }
 }

@@ -7,7 +7,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatIconModule } from '@angular/material/icon';
 import { CoctailBuilderComponent } from './content/coctail-builder/coctail-builder.component';
 import { DrinksComponent } from './content/drinks/drinks.component';
 import { GameComponent } from './content/game/game.component';
@@ -21,7 +20,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { HomeComponent } from './home/home.component';
 import { MatSelectModule } from '@angular/material/select';
-
+import { AppMaterialModule } from './app.material-modules';
 
 
 @NgModule({
@@ -42,7 +41,6 @@ import { MatSelectModule } from '@angular/material/select';
     BrowserModule,
     AppRoutingModule,
     NgbModule,
-    MatIconModule,
     BrowserAnimationsModule,
     HttpClientModule,
     FormsModule,
@@ -50,11 +48,11 @@ import { MatSelectModule } from '@angular/material/select';
     NgbModule,
     InfiniteScrollModule,
     FormsModule,
-    MatSelectModule,
     ToastrModule.forRoot({
       closeButton: true,
       positionClass: 'toast-bottom-right'
-    })
+    }),
+    AppMaterialModule
   ],
   providers: [],
   bootstrap: [AppComponent]
