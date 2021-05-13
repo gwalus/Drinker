@@ -7,8 +7,13 @@
       </div>
       <div class="col-4 p-0 text-center">
         <form class="form-inline justify-content-center">
-          <input class="form-control form-control-sm w-50  ds-input" type="text" placeholder="Search"
-            name="searchValued" [(ngModel)]="searchedValue" (keydown.enter)="onKeyDownEvent($event)">
+          <input class="form-control form-control-sm w-50  ds-input" type="text" placeholder="Find cocktail..." matInput
+            [formControl]="searchControl" [matAutocomplete]="auto" (keydown.enter)="onKeyDownEvent($event)">
+          <mat-autocomplete #auto="matAutocomplete">
+            <mat-option *ngFor="let name of filteredCocktailNames | async" [value]="name">
+              {{name}}
+            </mat-option>
+          </mat-autocomplete>
           <a class="text-muted" (click)="onKeyDownEvent($event)">
             <mat-icon class="ml-2 blog-header-logo-icon" aria-hidden="false" aria-label="search">search</mat-icon>
           </a>

@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
+import { Observable } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
 import { Coctail } from '../_models/coctail';
-import { CoctailParams } from '../_models/coctailParams';
 import { Pagination } from '../_models/pagination';
 import { CoctailService } from '../_services/coctail.service';
 
@@ -13,7 +15,6 @@ import { CoctailService } from '../_services/coctail.service';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-
   public searchedValue: string;
   coctail: Coctail;
   coctails: Coctail[] = [];
@@ -21,13 +22,23 @@ export class HeaderComponent implements OnInit {
   pagination: Pagination;
   paginationForAll: Pagination;
 
+  searchControl = new FormControl();
+  cocktailsAutoCompleteNames: string[] = [];
+  filteredCocktailNames: Observable<string[]>;
+
   constructor(private coctailService: CoctailService,
     private modalService: NgbModal,
-    private toastr: ToastrService,
-    private router: Router,
-    private route: ActivatedRoute) { }
+    private router: Router) { }
 
   ngOnInit(): void {
+    this.coctailService.getCoctailNames().subscribe(names => this.cocktailsAutoCompleteNames = names);
+
+    this.filteredCocktailNames = this.searchControl.valueChanges
+      .pipe(
+        startWith(''),
+        map(value => this._filter(value))
+      );
+
     this.coctailService.getRandomCoctails(8).subscribe(randomCoctails => {
       console.log(randomCoctails as Coctail);
     })
@@ -43,6 +54,12 @@ export class HeaderComponent implements OnInit {
 
   openLoginContent(loginContent: any) {
     this.modalService.open(loginContent, { scrollable: true });
+  }
+
+  private _filter(value: string): string[] {
+    const filterValue = value.toLowerCase();
+
+    return this.cocktailsAutoCompleteNames.filter(option => option.toLowerCase().includes(filterValue));
   }
 
   // testByIngredients() {
@@ -66,7 +83,7 @@ export class HeaderComponent implements OnInit {
   // }
 
   onKeyDownEvent(event: any) {
-    if (this.searchedValue)
-      this.router.navigate(['/search/' + this.searchedValue]);
+    const name = this.searchControl.value;
+    this.router.navigateByUrl('/search/' + name);
   }
 }
