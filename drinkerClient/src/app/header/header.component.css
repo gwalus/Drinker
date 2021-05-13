@@ -65,3 +65,23 @@ h6 {
   padding-bottom: .75rem;
   font-size: .875rem;
 }
+
+.dropdown-toggle::after{
+  content: none;
+}
+
+.login-menu-icon{
+  font-size: 19px;
+  width: auto;
+  height: auto;
+  padding-right: 10px;
+  vertical-align: middle;
+}
+
+.login-menu-text{
+  text-align: center;
+}
+
+.logout-icon{
+  color: rgb(95, 95, 95);
+}

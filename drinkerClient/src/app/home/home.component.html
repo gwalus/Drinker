@@ -1,3 +1,11 @@
+<div class="container" *ngIf="(accountService.currentUser$ | async) as user">
+    <p>You are logged in as <b> {{user.email}}</b></p>
+</div>
+
+<div class="container" *ngIf="(accountService.currentUser$ | async) === null">
+    <p>If u want use this app, let's login or create an account!</p>
+</div>
+
 <h1 style="text-align: center; padding: 3% 0 0 0;">Welmowe in drinker app</h1>
 
 <p class="mb-5" style="text-align: center;">Dodałem domyślny komponent, jest tu info o zalogowanym użytkowniku i button
@@ -5,13 +13,3 @@
     który nie pozwala wejść
     do komponentów jak sie nie jest zalogowanym.
 </p>
-
-<div class="container" *ngIf="(accountService.currentUser$ | async) as user">
-    <p>You are logged in as <b> {{user.email}}</b></p>
-
-    <button class="btn btn-danger mb-2" (click)="logout()">Logout</button>
-</div>
-
-<div class="container" *ngIf="(accountService.currentUser$ | async) === null">
-    <p>If u want use this app, let's login or create an account!</p>
-</div>

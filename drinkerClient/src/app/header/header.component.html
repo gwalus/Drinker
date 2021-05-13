@@ -20,9 +20,39 @@
         </form>
       </div>
       <div class="col-4 pl-0 d-flex justify-content-end align-items-center">
-        <a class="text-muted" (click)="openLoginContent(loginContent)">
-          <mat-icon class="blog-header-logo-icon" aria-hidden="false" aria-label="Log in">account_circle</mat-icon>
-        </a>
+
+        <div ngbDropdown class="d-inline-block" *ngIf="(accountService.currentUser$ | async) === null">
+          <button class="btn " id="dropdownBasic1" ngbDropdownToggle>
+            <mat-icon class="blog-header-logo-icon logout-icon" aria-hidden="false" aria-label="Profil menu">account_circle</mat-icon>
+          </button>
+          <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+            <button ngbDropdownItem class="p-3" (click)="openLoginContent(loginContent)"> 
+              <mat-icon class="login-menu-icon">login</mat-icon>
+              <span class="login-menu-text">Login</span>
+            </button>
+            <button ngbDropdownItem class="p-3" (click)="openRegistraionContent(registrationContent)">
+              <mat-icon class="login-menu-icon">assignment_ind</mat-icon>
+              <span class="login-menu-text">Registration</span>
+            </button>
+          </div>
+        </div>
+
+        <div ngbDropdown class="d-inline-block" *ngIf="(accountService.currentUser$ | async) as user">
+          <button class="btn " id="dropdownBasic1" ngbDropdownToggle>
+            <mat-icon class="blog-header-logo-icon login-icon" aria-hidden="false" aria-label="Profil menu">account_circle</mat-icon>
+          </button>
+          <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+            <button ngbDropdownItem class="p-3"> 
+              <mat-icon class="login-menu-icon">account_box</mat-icon>
+              <span class="login-menu-text">My profil</span>
+            </button>
+            <button ngbDropdownItem class="p-3" (click)="logout()">
+              <mat-icon class="login-menu-icon">logout</mat-icon>
+              <span class="login-menu-text">Logout</span>
+            </button>
+          </div>
+        </div>
+
       </div>
     </div>
   </header>
@@ -39,4 +69,8 @@
 
 <ng-template #loginContent let-modal>
   <app-login></app-login>
+</ng-template>
+
+<ng-template #registrationContent let-modal>
+  <app-registration></app-registration>>
 </ng-template>

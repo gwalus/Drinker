@@ -9,7 +9,7 @@ import { AccountService } from 'src/app/_services/account.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css', '../style.css']
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
@@ -28,6 +28,8 @@ export class LoginComponent implements OnInit {
     })
   }
 
+  get getFormControl() { return this.loginForm.controls; }
+
   login() {
     let loginUser = this.loginForm.value as AuthUser;
     this.accountService.login(loginUser).subscribe(() => {
@@ -37,9 +39,5 @@ export class LoginComponent implements OnInit {
     }, error => {
       this.toastr.error(error.error.errors[0]);
     })
-  }
-
-  openRegistraionContent(registrationContent: any) {
-    this.modalService.open(registrationContent, { scrollable: true });
   }
 }

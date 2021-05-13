@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { Coctail } from '../_models/coctail';
 import { Pagination } from '../_models/pagination';
+import { AccountService } from '../_services/account.service';
 import { CoctailService } from '../_services/coctail.service';
 
 @Component({
@@ -28,7 +29,11 @@ export class HeaderComponent implements OnInit {
 
   constructor(private coctailService: CoctailService,
     private modalService: NgbModal,
-    private router: Router) { }
+    private toastr: ToastrService,
+    private router: Router,
+    private route: ActivatedRoute,
+    public accountService: AccountService) { }
+
 
   ngOnInit(): void {
     this.coctailService.getCoctailNames().subscribe(names => this.cocktailsAutoCompleteNames = names);
@@ -56,10 +61,15 @@ export class HeaderComponent implements OnInit {
     this.modalService.open(loginContent, { scrollable: true });
   }
 
+
+  openRegistraionContent(registrationContent: any) {
+    this.modalService.open(registrationContent, { scrollable: true });
+
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
 
     return this.cocktailsAutoCompleteNames.filter(option => option.toLowerCase().includes(filterValue));
+
   }
 
   // testByIngredients() {
@@ -85,5 +95,9 @@ export class HeaderComponent implements OnInit {
   onKeyDownEvent(event: any) {
     const name = this.searchControl.value;
     this.router.navigateByUrl('/search/' + name);
+  }
+
+  logout() {
+    this.accountService.logout();
   }
 }
