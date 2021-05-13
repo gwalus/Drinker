@@ -56,6 +56,6 @@ namespace DrinkerAPI.Interfaces
         /// <returns>
         ///   <br />
         /// </returns>
-        Task<IList<string>> GetCoctailsNameAsync();
+        Task<IList<string>> GetCoctailNamesAsync();
     }
 }

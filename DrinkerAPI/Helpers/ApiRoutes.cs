@@ -16,6 +16,7 @@
             public const string categories = _controllerName + "categories";
             public const string glasses = _controllerName + "glasses";
             public const string byId = _controllerName + "byId/{id}";
+            public const string Names = _controllerName + "names";
         }
         public static class Identity
         {

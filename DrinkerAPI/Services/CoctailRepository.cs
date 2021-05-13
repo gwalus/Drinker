@@ -71,7 +71,7 @@ namespace DrinkerAPI.Services
             return await PagedList<CoctailDto>.CreateAsync(query, coctailParams.PageNumber, coctailParams.PageSize);
         }
 
-        public async Task<IList<string>> GetCoctailsNameAsync()
+        public async Task<IList<string>> GetCoctailNamesAsync()
         {
             return await _context.Coctails.Select(c => c.Name).ToListAsync();
         }
