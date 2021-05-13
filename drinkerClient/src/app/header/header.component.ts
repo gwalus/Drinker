@@ -64,6 +64,7 @@ export class HeaderComponent implements OnInit {
 
   openRegistraionContent(registrationContent: any) {
     this.modalService.open(registrationContent, { scrollable: true });
+  }
 
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
