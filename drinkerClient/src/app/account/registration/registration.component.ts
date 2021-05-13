@@ -30,7 +30,7 @@ export class RegistrationComponent implements OnInit {
   }
 
   // convenience getter for easy access to form fields
-  get f() { return this.registerForm.controls; }
+  get getFormControl() { return this.registerForm.controls; }
 
   register() {
     let registerUser: AuthUser = this.registerForm.value as AuthUser;

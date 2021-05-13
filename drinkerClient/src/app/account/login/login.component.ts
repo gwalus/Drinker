@@ -28,6 +28,9 @@ export class LoginComponent implements OnInit {
     })
   }
 
+  // convenience getter for easy access to form fields
+  get getFormControl() { return this.loginForm.controls; }
+
   login() {
     let loginUser = this.loginForm.value as AuthUser;
     this.accountService.login(loginUser).subscribe(() => {
