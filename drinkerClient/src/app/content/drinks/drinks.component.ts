@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Coctail } from 'src/app/_models/coctail';
 import { CoctailParams } from 'src/app/_models/coctailParams';
 import { CoctailService } from 'src/app/_services/coctail.service';
-import { Router,ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { FormControl } from '@angular/forms';
 
@@ -15,8 +15,8 @@ import { FormControl } from '@angular/forms';
 export class DrinksComponent implements OnInit {
 
   constructor(private coctailService: CoctailService,
-              private _Activatedroute:ActivatedRoute,
-              private _router:Router) { }
+    private _Activatedroute: ActivatedRoute,
+    private _router: Router) { }
 
   sub: Subscription;
   searchKeyword: string;
@@ -27,23 +27,22 @@ export class DrinksComponent implements OnInit {
   glasses = new FormControl();
   glassesList: string[];
 
-  
+
   ngOnInit(): void {
     this.getCoctailCategories();
     this.getCoctailGlasses();
 
-    this.sub=this._Activatedroute.paramMap.subscribe(params => { 
-      this.searchKeyword = params.get('keyword'); 
+    this.sub = this._Activatedroute.paramMap.subscribe(params => {
+      this.searchKeyword = params.get('keyword');
     });
 
-    if(!this.searchKeyword)this.getCoctails();
+    if (!this.searchKeyword) this.getCoctails();
     else this.getCoctailByName();
   }
 
   getCoctails() {
     this.coctailService.getAll(this.coctailParams).subscribe(coctails => {
       this.allCoctails = this.allCoctails.concat(coctails.result);
-      console.log(this.allCoctails);
     })
   }
 
@@ -53,32 +52,32 @@ export class DrinksComponent implements OnInit {
     })
   }
 
-  loadMoreCoctails(){
-    if(!this.searchKeyword){
+  loadMoreCoctails() {
+    if (!this.searchKeyword) {
       this.coctailParams.pageNumber++;
       this.getCoctails();
     }
   }
 
-  getCoctailCategories(){
+  getCoctailCategories() {
     this.coctailService.getCoctailCategories().subscribe(category => {
       this.categoriesList = category;
     })
   }
 
-  getCoctailGlasses(){
+  getCoctailGlasses() {
     this.coctailService.getCoctailGlasses().subscribe(glass => {
       this.glassesList = glass;
     })
   }
 
-  getCoctailByFilter(){
-    this.coctailParams.categories = "Ordinary Drink";
+  getCoctailByFilter() {
+    this.coctailParams.categories = ['Cocktail', 'Beer', 'Shot'];
+
     this.categories.status;
-    this.coctailService.getAll(this.coctailParams).subscribe(coctails => {
+    this.coctailService.getCoctailsByIngredients([], this.coctailParams).subscribe(coctails => {
       this.allCoctails = coctails.result;
+      console.log(coctails.result);
     })
   }
-
-
 }

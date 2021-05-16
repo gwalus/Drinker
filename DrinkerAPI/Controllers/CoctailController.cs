@@ -46,9 +46,6 @@ namespace DrinkerAPI.Controllers
         [HttpGet(ApiRoutes.Coctails.ByIngredients)]
         public async Task<ActionResult<IList<Coctail>>> GetCoctailsByIngredient([FromQuery] IList<string> ingredients, [FromQuery] CoctailParams coctailParams)
         {
-            if (ingredients.Count == 0)
-                return BadRequest("Please to add minimum one ingredient");
-
             var coctails = await _coctailRepository.GetCoctailsByIngredientsAsync(ingredients, coctailParams);
 
             if (coctails != null)

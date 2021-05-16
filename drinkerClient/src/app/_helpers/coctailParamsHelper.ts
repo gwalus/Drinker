@@ -3,15 +3,21 @@ import { CoctailParams } from "../_models/coctailParams";
 
 export function getCoctailFiltersParams(params: HttpParams, coctailParams: CoctailParams) {
     if (coctailParams.categories !== undefined) {
-        params = params.append('category', coctailParams.categories);
+        for (let i = 0; i < coctailParams.categories.length; i++) {
+            params = params.append('categories', coctailParams.categories[i]);
+        }
     }
 
     if (coctailParams.alcoholicTypes !== undefined) {
-        params = params.append('alcoholic', coctailParams.alcoholicTypes);
+        for (let i = 0; i < coctailParams.alcoholicTypes.length; i++) {
+            params = params.append('alcoholicTypes', coctailParams.alcoholicTypes[i]);
+        }
     }
 
     if (coctailParams.glasses !== undefined) {
-        params = params.append('glass', coctailParams.glasses);
+        for (let i = 0; i < coctailParams.glasses.length; i++) {
+            params = params.append('glasses', coctailParams.glasses[i]);
+        }
     }
 
     return params;
