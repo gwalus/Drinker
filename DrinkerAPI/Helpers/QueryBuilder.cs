@@ -1,4 +1,5 @@
 ﻿using DrinkerAPI.Dtos;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -32,14 +33,14 @@ namespace DrinkerAPI.Helpers
         /// </returns>
         public static IQueryable<CoctailDto> AddFiltersQuery(IQueryable<CoctailDto> query, CoctailParams coctailParams)
         {
-            if (!string.IsNullOrEmpty(coctailParams.Glass))
-                query = query.Where(c => c.Glass == coctailParams.Glass);
+            if (coctailParams.Glasses != null)
+                query = query.Where(c => coctailParams.Glasses.Contains(c.Glass));
 
-            if (!string.IsNullOrEmpty(coctailParams.Alcoholic))
-                query = query.Where(c => c.Alcoholic == coctailParams.Alcoholic);
+            if (coctailParams.AlcoholicTypes != null)
+                query = query.Where(c => coctailParams.AlcoholicTypes.Contains(c.Alcoholic));
 
-            if (!string.IsNullOrEmpty(coctailParams.Category))
-                query = query.Where(c => c.Category == coctailParams.Category);
+            if (coctailParams.Categories != null)           
+                    query = query.Where(c => coctailParams.Categories.Contains(c.Category));
 
             return query;
         }

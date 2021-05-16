@@ -1,9 +1,11 @@
-﻿namespace DrinkerAPI.Helpers
+﻿using System.Collections.Generic;
+
+namespace DrinkerAPI.Helpers
 {
     public class CoctailParams : PaginationParams
     {
-        public string Category { get; set; }
-        public string Alcoholic { get; set; }
-        public string Glass { get; set; }
+        public ICollection<string> Categories { get; set; }
+        public ICollection<string> AlcoholicTypes { get; set; }
+        public ICollection<string> Glasses { get; set; }
     }
 }
