@@ -1,4 +1,5 @@
-﻿using DrinkerAPI.Interfaces;
+﻿using DrinkerAPI.Helpers;
+using DrinkerAPI.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -15,6 +16,15 @@ namespace DrinkerAPI.Controllers
         {
             _coctailRepostiory = coctailRepostiory;
         }
-
+        [HttpGet(ApiRoutes.Admin.acceptCoctail)]
+        public async Task<ActionResult> AcceptCoctail(int id)
+        {
+            var accepted = await _coctailRepostiory.AcceptCoctail(id);
+            if (accepted == true)
+            {
+                return Ok();
+            }
+            return BadRequest();
+        }
     }
 }

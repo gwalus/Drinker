@@ -18,7 +18,6 @@
             public const string byId = _controllerName + "byId/{id}";
             public const string Names = _controllerName + "names";
             public const string addCoctailAsUser = _controllerName + "addCoctail";
-
         }
         public static class Identity
         {
@@ -29,6 +28,8 @@
         }
         public static class Admin
         {
+            private const string _controllerName = Base + "Admin/";
+
             public const string acceptCoctail = _controllerName + "acceptCoctail";
             public const string rejectCoctail = _controllerName + "rejectCoctail";
         }
