@@ -4,6 +4,7 @@ using DrinkerAPI.Data;
 using DrinkerAPI.Dtos;
 using DrinkerAPI.Helpers;
 using DrinkerAPI.Interfaces;
+using DrinkerAPI.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -106,5 +107,12 @@ namespace DrinkerAPI.Services
             //return await PagedList<CoctailDto>.CreateAsync(postgresquery, paginationParams.PageNumber, paginationParams.PageSize);
         }
 
+        public async Task<bool> AddCoctail(Coctail coctail)
+        {
+            coctail.IsAccepted = false;
+            await _context.AddAsync(coctail);
+            var added = await _context.SaveChangesAsync();
+            return added > 0;
+        }
     }
 }
