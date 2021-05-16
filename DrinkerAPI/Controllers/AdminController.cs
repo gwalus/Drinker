@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using DrinkerAPI.Interfaces;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,9 +9,12 @@ namespace DrinkerAPI.Controllers
 {
     public class AdminController : Controller
     {
-        public IActionResult Index()
+        private readonly ICoctailRepository _coctailRepostiory;
+
+        public AdminController(ICoctailRepository coctailRepostiory)
         {
-            return View();
+            _coctailRepostiory = coctailRepostiory;
         }
+
     }
 }
