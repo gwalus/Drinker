@@ -2,16 +2,16 @@ import { HttpParams } from "@angular/common/http";
 import { CoctailParams } from "../_models/coctailParams";
 
 export function getCoctailFiltersParams(params: HttpParams, coctailParams: CoctailParams) {
-    if (coctailParams.category !== undefined) {
-        params = params.append('category', coctailParams.category);
+    if (coctailParams.categories !== undefined) {
+        params = params.append('category', coctailParams.categories);
     }
 
-    if (coctailParams.alcoholic !== undefined) {
-        params = params.append('alcoholic', coctailParams.alcoholic);
+    if (coctailParams.alcoholicTypes !== undefined) {
+        params = params.append('alcoholic', coctailParams.alcoholicTypes);
     }
 
-    if (coctailParams.glass !== undefined) {
-        params = params.append('glass', coctailParams.glass);
+    if (coctailParams.glasses !== undefined) {
+        params = params.append('glass', coctailParams.glasses);
     }
 
     return params;
