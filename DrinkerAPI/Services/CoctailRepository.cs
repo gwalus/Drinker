@@ -126,5 +126,17 @@ namespace DrinkerAPI.Services
             }
             return false;
         }
+
+        public async Task<bool> RejectCoctail(int Id)
+        {
+            var coctail = await  _context.Coctails.Where(x => x.Id == Id).FirstOrDefaultAsync();
+            if (coctail != null)
+            {
+                 _context.Coctails.Remove(coctail);
+                var rejected = await _context.SaveChangesAsync();
+                return rejected > 0;
+            }
+            return true;
+        }
     }
 }
