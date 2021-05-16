@@ -110,7 +110,7 @@ namespace DrinkerAPI.Services
         public async Task<bool> AddCoctail(Coctail coctail)
         {
             coctail.IsAccepted = false;
-            await _context.AddAsync(coctail);
+            await _context.Coctails.AddAsync(coctail);
             var added = await _context.SaveChangesAsync();
             return added > 0;
         }
