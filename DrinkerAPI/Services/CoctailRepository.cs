@@ -114,5 +114,17 @@ namespace DrinkerAPI.Services
             var added = await _context.SaveChangesAsync();
             return added > 0;
         }
+
+        public async Task<bool> AcceptCoctail(int Id)
+        {
+            var coctail = await _context.Coctails.Where(x => x.Id == Id).FirstOrDefaultAsync();
+            if(coctail!=null)
+            {
+                coctail.IsAccepted = true;
+                var accepted = await _context.SaveChangesAsync();
+                return accepted > 0;
+            }
+            return false;
+        }
     }
 }
