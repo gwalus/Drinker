@@ -130,7 +130,7 @@ namespace DrinkerAPI.Services
         public async Task<bool> RejectCoctail(int Id)
         {
             var coctail = await  _context.Coctails.Where(x => x.Id == Id).FirstOrDefaultAsync();
-            if (coctail != null)
+            if (coctail != null && coctail.IsAccepted==false)
             {
                  _context.Coctails.Remove(coctail);
                 var rejected = await _context.SaveChangesAsync();
