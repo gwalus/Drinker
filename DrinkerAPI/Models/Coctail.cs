@@ -13,5 +13,7 @@ namespace DrinkerAPI.Models
         public string PhotoUrl { get; set; }
         public string DateModified { get; set; }
         public virtual IList<Ingredient> Ingradients { get; set; }
+        public string UserId { get; set; }
+        public bool IsAccepted{get;set;}
     }
 }
