@@ -25,11 +25,11 @@ namespace DrinkerAPI.Controllers
         public async Task<ActionResult<ICollection<Coctail>>> GetCoctailsAsync([FromQuery] PaginationParams paginationParams)
         {
             var coctails = await _coctailRepository.GetListOfCoctailsAsync(paginationParams);
-            
+
             if (coctails != null)
             {
                 Response.AddPaginationHeader(coctails.CurrentPage, coctails.PageSize, coctails.TotalCount, coctails.TotalPages);
-                
+
                 return Ok(coctails);
             }
 
@@ -46,15 +46,15 @@ namespace DrinkerAPI.Controllers
         [HttpGet(ApiRoutes.Coctails.ByIngredients)]
         public async Task<ActionResult<IList<Coctail>>> GetCoctailsByIngredient([FromQuery] IList<string> ingredients, [FromQuery] CoctailParams coctailParams)
         {
-            if (ingredients.Count == 0) 
+            if (ingredients.Count == 0)
                 return BadRequest("Please to add minimum one ingredient");
 
             var coctails = await _coctailRepository.GetCoctailsByIngredientsAsync(ingredients, coctailParams);
 
-            if(coctails != null)
+            if (coctails != null)
             {
                 Response.AddPaginationHeader(coctails.CurrentPage, coctails.PageSize, coctails.TotalCount, coctails.TotalPages);
-                
+
                 return Ok(coctails);
             }
 
@@ -62,15 +62,15 @@ namespace DrinkerAPI.Controllers
         }
 
 
-        /// <summary>Gets the coctail by name.</summary>
+        /// <summary>Gets coctails contains keyword.</summary>
         /// <param name="keyword">The keyword.</param>
         /// <returns>
         ///   <br />
         /// </returns>
         [HttpGet(ApiRoutes.Coctails.ByName)]
-        public async Task<ActionResult<CoctailDto>> GetCoctailByName(string keyword)
+        public async Task<ActionResult<IList<CoctailDto>>> GetCoctailsByName(string keyword)
         {
-            var coctail = await _coctailRepository.GetCoctailByNameAsync(keyword);
+            var coctail = await _coctailRepository.GetCoctailsByNameAsync(keyword);
             if (coctail != null)
                 return Ok(coctail);
 

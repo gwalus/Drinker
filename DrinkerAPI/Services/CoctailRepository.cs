@@ -30,16 +30,17 @@ namespace DrinkerAPI.Services
         {
             return await _context.Coctails
            .ProjectTo<CoctailDto>(_mapper.ConfigurationProvider)
-           .Where(x => x.Id==Id)
+           .Where(x => x.Id == Id)
            .FirstOrDefaultAsync();
         }
 
-        public async Task<CoctailDto> GetCoctailByNameAsync(string keyword)
+        public async Task<IList<CoctailDto>> GetCoctailsByNameAsync(string keyword)
         {
+            // SQLITE DOESN'T SUPPORT CONTAINS WITH STRINGCOMPARISON.IGNORECASE
             return await _context.Coctails
                 .ProjectTo<CoctailDto>(_mapper.ConfigurationProvider)
-                .Where(x => x.Name.Equals(keyword))
-                .FirstOrDefaultAsync();
+                .Where(x => EF.Functions.Like(x.Name, $"%{keyword}%"))
+                .ToListAsync();
         }
 
         public async Task<List<string>> GetCoctailCategories()
