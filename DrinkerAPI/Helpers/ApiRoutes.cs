@@ -17,6 +17,9 @@
             public const string glasses = _controllerName + "glasses";
             public const string byId = _controllerName + "byId/{id}";
             public const string Names = _controllerName + "names";
+            public const string addCoctailAsUser = _controllerName + "addCoctail";
+            public const string acceptCoctail = _controllerName + "acceptCoctail";
+            public const string rejectCoctail = _controllerName + "rejectCoctail";
         }
         public static class Identity
         {
