@@ -126,5 +126,18 @@ namespace DrinkerAPI.Controllers
 
             return BadRequest();
         }
+        [HttpGet(ApiRoutes.Coctails.addCoctailAsUser)]
+        public async Task<ActionResult> AddCoctail(Coctail coctail)
+        {
+            if(coctail!=null)
+            {
+                var newCoctail = await _coctailRepository.AddCoctail(coctail);
+                if(newCoctail==true)
+                {
+                    return Ok();
+                }
+            }
+            return BadRequest("Something went wrong...");
+        }
     }
 }
