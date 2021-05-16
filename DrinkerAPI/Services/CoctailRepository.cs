@@ -136,7 +136,7 @@ namespace DrinkerAPI.Services
                 var rejected = await _context.SaveChangesAsync();
                 return rejected > 0;
             }
-            return true;
+            return false;
         }
     }
 }
