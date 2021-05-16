@@ -18,7 +18,7 @@ export class CoctailService {
   constructor(private http: HttpClient, private toastr: ToastrService) { }
 
   searchCoctailByName(name: string) {
-    return this.http.get<Coctail>(this.baseUrl + "byname/" + name);
+    return this.http.get<Coctail[]>(this.baseUrl + "byname/" + name);
   }
 
   getCoctailsByIngredients(ingredients: string[], coctailParams: CoctailParams) {

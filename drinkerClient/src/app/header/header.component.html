@@ -10,7 +10,8 @@
           <input class="form-control form-control-sm w-50  ds-input" type="text" placeholder="Find cocktail..." matInput
             [formControl]="searchControl" [matAutocomplete]="auto" (keydown.enter)="onKeyDownEvent($event)">
           <mat-autocomplete #auto="matAutocomplete">
-            <mat-option *ngFor="let name of filteredCocktailNames | async" [value]="name">
+            <mat-option *ngFor="let name of filteredCocktailNames | async" [value]="name"
+              (click)="onKeyDownEvent($event)">
               {{name}}
             </mat-option>
           </mat-autocomplete>
@@ -23,10 +24,11 @@
 
         <div ngbDropdown class="d-inline-block" *ngIf="(accountService.currentUser$ | async) === null">
           <button class="btn " id="dropdownBasic1" ngbDropdownToggle>
-            <mat-icon class="blog-header-logo-icon logout-icon" aria-hidden="false" aria-label="Profil menu">account_circle</mat-icon>
+            <mat-icon class="blog-header-logo-icon logout-icon" aria-hidden="false" aria-label="Profil menu">
+              account_circle</mat-icon>
           </button>
           <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-            <button ngbDropdownItem class="p-3" (click)="openLoginContent(loginContent)"> 
+            <button ngbDropdownItem class="p-3" (click)="openLoginContent(loginContent)">
               <mat-icon class="login-menu-icon">login</mat-icon>
               <span class="login-menu-text">Login</span>
             </button>
@@ -39,10 +41,11 @@
 
         <div ngbDropdown class="d-inline-block" *ngIf="(accountService.currentUser$ | async) as user">
           <button class="btn " id="dropdownBasic1" ngbDropdownToggle>
-            <mat-icon class="blog-header-logo-icon login-icon" aria-hidden="false" aria-label="Profil menu">account_circle</mat-icon>
+            <mat-icon class="blog-header-logo-icon login-icon" aria-hidden="false" aria-label="Profil menu">
+              account_circle</mat-icon>
           </button>
           <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-            <button ngbDropdownItem class="p-3"> 
+            <button ngbDropdownItem class="p-3">
               <mat-icon class="login-menu-icon">account_box</mat-icon>
               <span class="login-menu-text">My profil</span>
             </button>
