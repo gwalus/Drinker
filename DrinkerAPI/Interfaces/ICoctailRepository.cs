@@ -1,5 +1,6 @@
 ﻿using DrinkerAPI.Dtos;
 using DrinkerAPI.Helpers;
+using DrinkerAPI.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -57,5 +58,8 @@ namespace DrinkerAPI.Interfaces
         ///   <br />
         /// </returns>
         Task<IList<string>> GetCoctailNamesAsync();
+        Task<bool> AddCoctail(Coctail coctail);
+        Task<bool> AcceptCoctail(int Id);
+        Task<bool> RejectCoctail(int Id);
     }
 }
