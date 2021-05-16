@@ -26,5 +26,15 @@ namespace DrinkerAPI.Controllers
             }
             return BadRequest();
         }
+        [HttpGet(ApiRoutes.Admin.rejectCoctail)]
+        public async Task<ActionResult> RejectCoctail(int id)
+        {
+            var accepted = await _coctailRepostiory.RejectCoctail(id);
+            if (accepted == true)
+            {
+                return Ok();
+            }
+            return BadRequest();
+        }
     }
 }
