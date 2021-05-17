@@ -21,6 +21,7 @@ export class DrinksComponent implements OnInit {
   filter: boolean = false;
   sub: Subscription;
   searchKeyword: string;
+
   allCoctails: Coctail[] = [];
   coctailParams: CoctailParams = new CoctailParams();
 
@@ -32,6 +33,9 @@ export class DrinksComponent implements OnInit {
   glassesList: string[];
   selectedGlasses: string[];
 
+  alcoholic = new FormControl();
+  alcoholicList: string[] = ["Alcoholic", "Non alcoholic",  "Optional alcohol"];
+  selectedAlcoholic: string[];
 
   ngOnInit(): void {
     this.getCoctailCategories();
@@ -52,12 +56,20 @@ export class DrinksComponent implements OnInit {
   }
 
   getCoctailByName() {
+    this.clearFilter();
+
     this.coctailService.searchCoctailByName(this.searchKeyword).subscribe(coctails => {
       this.allCoctails = this.allCoctails.concat(coctails);
+      console.log(this.allCoctails);
     })
   }
 
   loadMoreCoctails() {
+
+    this.coctailParams.pageNumber++;
+
+    if(this.filter) this.getCoctailByFilter();
+
     if (!this.searchKeyword && !this.filter) {
       this.coctailParams.pageNumber++;
       this.getCoctails();
@@ -80,9 +92,11 @@ export class DrinksComponent implements OnInit {
     this.filter = true;
     this.coctailParams.categories = this.selectedCategories;
     this.coctailParams.glasses = this.selectedGlasses;
+    this.coctailParams.alcoholicTypes = this.selectedAlcoholic;
 
     this.coctailService.getCoctailsByIngredients([], this.coctailParams).subscribe(coctails => {
       this.allCoctails = coctails.result;
+      console.log(this.allCoctails);
     })
   }
 
@@ -91,6 +105,7 @@ export class DrinksComponent implements OnInit {
     this.allCoctails = [];
     this.selectedCategories = [];
     this.selectedGlasses = [];
+    this.selectedAlcoholic = [];
     this.allCoctails = [];
     this.getCoctails();
   }
