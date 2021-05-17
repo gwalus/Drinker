@@ -7,6 +7,7 @@ import { CalculatorComponent } from './content/calculator/calculator.component';
 import { RegistrationComponent } from './account/registration/registration.component';
 import { LoginComponent } from './account/login/login.component';
 import { DrinkComponent } from './content/drink/drink.component';
+import { AdminPanelComponent } from './account/admin-panel/admin-panel.component';
 import { HomeComponent } from './home/home.component';
 import { AuthGuard } from './_guards/auth.guard';
 
@@ -22,6 +23,7 @@ const routes: Routes = [
     children: [
       { path: 'coctailBuilder', component: CoctailBuilderComponent },
       { path: 'game', component: GameComponent },
+      { path: 'admin-panel', component: AdminPanelComponent },
       { path: 'calculator', component: CalculatorComponent },
       { path: 'drink/:id', component: DrinkComponent },
       { path: 'search/:keyword', component: DrinksComponent }
