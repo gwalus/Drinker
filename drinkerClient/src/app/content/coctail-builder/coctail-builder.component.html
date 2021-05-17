@@ -22,8 +22,11 @@
       <div class="col-12 col-sm-2 col-md-2">
         <div class="form-group">
           <label for="alcoholic">Alcoholic</label>
-          <input type="text" id="alcoholic" name="alcoholic" formControlName="alcoholic" class="form-control item"
-            placeholder="" required>
+          <mat-form-field class="w-100">
+            <mat-select formControlName="alcoholic">
+              <mat-option *ngFor="let alcohol of alcoholicList" [value]="alcohol">{{alcohol}}</mat-option>
+            </mat-select>
+          </mat-form-field>
         </div>
       </div>
     </div>
@@ -31,16 +34,22 @@
     <div class="row justify-content-center">
       <div class="col-12 col-sm-6 col-md-4">
         <div class="form-group">
-          <label for="category">Category</label>
-          <input type="text" id="category" name="category" formControlName="category" class="form-control item"
-            placeholder="" required>
+          <label for="category">Category</label><br />
+          <mat-form-field class="w-100">
+            <mat-select formControlName="category" >
+              <mat-option *ngFor="let category of categoriesList" [value]="category">{{category}}</mat-option>
+            </mat-select>
+          </mat-form-field>
         </div>
       </div>
       <div class="col-12 col-sm-6 col-md-4">
         <div class="form-group">
-          <label for="glass">Glass</label>
-          <input type="text" id="glass" name="glass" formControlName="glass" class="form-control item" placeholder=""
-            required>
+          <label for="glass">Glass</label><br />
+          <mat-form-field class="w-100">
+            <mat-select formControlName="glass">
+              <mat-option *ngFor="let glass of glassesList" [value]="glass" >{{glass}}</mat-option>
+            </mat-select>
+          </mat-form-field>
         </div>
       </div>
     </div>
@@ -85,7 +94,7 @@
         </div>
         <div class="col-10 col-sm-5 col-md-3">
           <div class="input-group">
-            <input type="text" formControlName="measure" class="form-control item" placeholder="measure">
+            <input type="number" formControlName="measure" class="form-control item" placeholder="measure">
             <div class="input-group-append">
               <span class="input-group-text" id="measure">Oz</span>
             </div>
