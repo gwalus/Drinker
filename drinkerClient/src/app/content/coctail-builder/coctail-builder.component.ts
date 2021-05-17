@@ -30,6 +30,7 @@ export class CoctailBuilderComponent implements OnInit {
 
   CreateCoctailForm: FormGroup;
   categoriesList: string[];
+  alcoholicList: string[] = ["Alcoholic", "Non alcoholic",  "Optional alcohol"];
 
   glassesList: string[];
   selectedGlasses: string[];

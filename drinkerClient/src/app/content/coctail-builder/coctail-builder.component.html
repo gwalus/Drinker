@@ -22,8 +22,11 @@
       <div class="col-12 col-sm-2 col-md-2">
         <div class="form-group">
           <label for="alcoholic">Alcoholic</label>
-          <input type="text" id="alcoholic" name="alcoholic" formControlName="alcoholic" class="form-control item"
-            placeholder="" required>
+          <mat-form-field class="w-100">
+            <mat-select formControlName="alcoholic">
+              <mat-option *ngFor="let alcohol of alcoholicList" [value]="alcohol">{{alcohol}}</mat-option>
+            </mat-select>
+          </mat-form-field>
         </div>
       </div>
     </div>
@@ -91,7 +94,7 @@
         </div>
         <div class="col-10 col-sm-5 col-md-3">
           <div class="input-group">
-            <input type="text" formControlName="measure" class="form-control item" placeholder="measure">
+            <input type="number" formControlName="measure" class="form-control item" placeholder="measure">
             <div class="input-group-append">
               <span class="input-group-text" id="measure">Oz</span>
             </div>

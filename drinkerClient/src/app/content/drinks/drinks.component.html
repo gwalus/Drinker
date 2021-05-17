@@ -31,7 +31,7 @@
         <mat-form-field appearance="fill">
           <mat-label>Alkochol</mat-label>
           <mat-select [formControl]="alcoholic" [(ngModel)]="selectedAlcoholic" multiple>
-            <mat-option *ngFor="let glass of alcoholicList" [value]="glass">{{glass}}</mat-option>
+            <mat-option *ngFor="let alcoholic of alcoholicList" [value]="alcoholic">{{alcoholic}}</mat-option>
           </mat-select>
         </mat-form-field>
       </li>
