@@ -31,16 +31,19 @@
     <div class="row justify-content-center">
       <div class="col-12 col-sm-6 col-md-4">
         <div class="form-group">
-          <label for="category">Category</label>
-          <input type="text" id="category" name="category" formControlName="category" class="form-control item"
-            placeholder="" required>
+          <label for="category">Category</label><br />
+          <mat-form-field class="w-100">
+            <mat-select formControlName="category" >
+              <mat-option *ngFor="let category of categoriesList" [value]="category">{{category}}</mat-option>
+            </mat-select>
+          </mat-form-field>
         </div>
       </div>
       <div class="col-12 col-sm-6 col-md-4">
         <div class="form-group">
           <label for="glass">Glass</label><br />
           <mat-form-field class="w-100">
-            <mat-select [(ngModel)]="selectedGlasses"  formControlName="category">
+            <mat-select formControlName="glass">
               <mat-option *ngFor="let glass of glassesList" [value]="glass" >{{glass}}</mat-option>
             </mat-select>
           </mat-form-field>

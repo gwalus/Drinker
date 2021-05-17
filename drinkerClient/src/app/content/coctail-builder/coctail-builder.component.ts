@@ -25,6 +25,7 @@ export class CoctailBuilderComponent implements OnInit {
 
   ngOnInit(): void {
     this.getCoctailGlasses();
+    this.getCoctailCategories();
   }
 
   CreateCoctailForm: FormGroup;
