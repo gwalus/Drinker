@@ -14,7 +14,7 @@
       <li class="nav-item">
         <mat-form-field appearance="fill">
           <mat-label>Kategoria</mat-label>
-          <mat-select [formControl]="categories" multiple>
+          <mat-select [formControl]="categories" [(ngModel)]="selectedCategories" multiple>
             <mat-option *ngFor="let category of categoriesList" [value]="category">{{category}}</mat-option>
           </mat-select>
         </mat-form-field>

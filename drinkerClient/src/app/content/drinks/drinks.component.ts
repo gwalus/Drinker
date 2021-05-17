@@ -18,12 +18,16 @@ export class DrinksComponent implements OnInit {
     private _Activatedroute: ActivatedRoute,
     private _router: Router) { }
 
+  filter: boolean = false;
   sub: Subscription;
   searchKeyword: string;
   allCoctails: Coctail[] = [];
   coctailParams: CoctailParams = new CoctailParams();
+
   categories = new FormControl();
   categoriesList: string[];
+  selectedCategories: string[];
+
   glasses = new FormControl();
   glassesList: string[];
 
@@ -53,7 +57,7 @@ export class DrinksComponent implements OnInit {
   }
 
   loadMoreCoctails() {
-    if (!this.searchKeyword) {
+    if (!this.searchKeyword && !this.filter) {
       this.coctailParams.pageNumber++;
       this.getCoctails();
     }
@@ -72,12 +76,10 @@ export class DrinksComponent implements OnInit {
   }
 
   getCoctailByFilter() {
-    this.coctailParams.categories = ['Cocktail', 'Beer', 'Shot'];
-
-    this.categories.status;
+    this.filter = true;
+    this.coctailParams.categories = this.selectedCategories;
     this.coctailService.getCoctailsByIngredients([], this.coctailParams).subscribe(coctails => {
       this.allCoctails = coctails.result;
-      console.log(coctails.result);
     })
   }
 }
