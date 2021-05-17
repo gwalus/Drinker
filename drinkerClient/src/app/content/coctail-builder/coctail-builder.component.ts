@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import { CoctailService } from 'src/app/_services/coctail.service';
 
 @Component({
   selector: 'app-coctail-builder',
@@ -8,7 +9,7 @@ import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 })
 export class CoctailBuilderComponent implements OnInit {
 
-  constructor(private coctail:FormBuilder) {
+  constructor(private coctailService: CoctailService, private coctail:FormBuilder) {
   
     this.CreateCoctailForm = this.coctail.group({
       coctailName: '',
@@ -22,10 +23,12 @@ export class CoctailBuilderComponent implements OnInit {
     this.addIngredient();
   }
 
-  CreateCoctailForm: FormGroup;
-
   ngOnInit(): void {
   }
+
+  CreateCoctailForm: FormGroup;
+  categoriesList: string[];
+  glassesList: string[];
 
   ingredients() : FormArray {
     return this.CreateCoctailForm.get("ingredients") as FormArray
@@ -48,6 +51,18 @@ export class CoctailBuilderComponent implements OnInit {
    
   onSubmit() {
     console.log(this.CreateCoctailForm.value);
+  }
+
+  getCoctailCategories() {
+    this.coctailService.getCoctailCategories().subscribe(category => {
+      this.categoriesList = category;
+    })
+  }
+
+  getCoctailGlasses() {
+    this.coctailService.getCoctailGlasses().subscribe(glass => {
+      this.glassesList = glass;
+    })
   }
 
 }
