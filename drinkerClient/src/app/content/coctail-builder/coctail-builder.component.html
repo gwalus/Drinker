@@ -38,9 +38,12 @@
       </div>
       <div class="col-12 col-sm-6 col-md-4">
         <div class="form-group">
-          <label for="glass">Glass</label>
-          <input type="text" id="glass" name="glass" formControlName="glass" class="form-control item" placeholder=""
-            required>
+          <label for="glass">Glass</label><br />
+          <mat-form-field class="w-100">
+            <mat-select [(ngModel)]="selectedGlasses"  formControlName="category">
+              <mat-option *ngFor="let glass of glassesList" [value]="glass" >{{glass}}</mat-option>
+            </mat-select>
+          </mat-form-field>
         </div>
       </div>
     </div>

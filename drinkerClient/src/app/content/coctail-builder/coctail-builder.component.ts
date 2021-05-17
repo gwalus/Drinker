@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { CoctailService } from 'src/app/_services/coctail.service';
 
 @Component({
@@ -24,11 +24,14 @@ export class CoctailBuilderComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.getCoctailGlasses();
   }
 
   CreateCoctailForm: FormGroup;
   categoriesList: string[];
+
   glassesList: string[];
+  selectedGlasses: string[];
 
   ingredients() : FormArray {
     return this.CreateCoctailForm.get("ingredients") as FormArray
@@ -50,6 +53,7 @@ export class CoctailBuilderComponent implements OnInit {
   }
    
   onSubmit() {
+    
     console.log(this.CreateCoctailForm.value);
   }
 
