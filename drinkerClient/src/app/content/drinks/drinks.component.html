@@ -22,7 +22,7 @@
       <li class="nav-item">
         <mat-form-field appearance="fill">
           <mat-label>Szklanka</mat-label>
-          <mat-select [formControl]="glasses" multiple>
+          <mat-select [formControl]="glasses" [(ngModel)]="selectedGlasses" multiple>
             <mat-option *ngFor="let glass of glassesList" [value]="glass">{{glass}}</mat-option>
           </mat-select>
         </mat-form-field>
