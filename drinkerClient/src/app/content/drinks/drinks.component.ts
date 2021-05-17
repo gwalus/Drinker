@@ -18,12 +18,16 @@ export class DrinksComponent implements OnInit {
     private _Activatedroute: ActivatedRoute,
     private _router: Router) { }
 
-  filter: boolean = false;
   sub: Subscription;
-  searchKeyword: string;
+  searchKeyword: string = "";
+  viewKeyword: boolean = false;
 
-  allCoctails: Coctail[] = [];
+  viewCoctails: Coctail[] = [];
+  
   coctailParams: CoctailParams = new CoctailParams();
+
+  coctailByName: Coctail[] = [];
+  allCoctails: Coctail[] = [];
 
   categories = new FormControl();
   categoriesList: string[];
@@ -40,40 +44,27 @@ export class DrinksComponent implements OnInit {
   ngOnInit(): void {
     this.getCoctailCategories();
     this.getCoctailGlasses();
-
+    
     this.sub = this._Activatedroute.paramMap.subscribe(params => {
-      this.searchKeyword = params.get('keyword');
+      if(params.get('keyword')  != "null") {
+        this.searchKeyword = params.get('keyword');
+      }
     });
 
-    if (!this.searchKeyword) this.getCoctails();
-    else this.getCoctailByName();
-  }
-
-  getCoctails() {
-    this.coctailService.getAll(this.coctailParams).subscribe(coctails => {
-      this.allCoctails = this.allCoctails.concat(coctails.result);
-    })
+    this.getCoctailByName();
+    this.getCoctailByFilter();   
   }
 
   getCoctailByName() {
-    this.clearFilter();
-
     this.coctailService.searchCoctailByName(this.searchKeyword).subscribe(coctails => {
-      this.allCoctails = this.allCoctails.concat(coctails);
-      console.log(this.allCoctails);
+      this.coctailByName = coctails;
+      console.log(this.viewCoctails);
     })
   }
 
   loadMoreCoctails() {
-
     this.coctailParams.pageNumber++;
-
-    if(this.filter) this.getCoctailByFilter();
-
-    if (!this.searchKeyword && !this.filter) {
-      this.coctailParams.pageNumber++;
-      this.getCoctails();
-    }
+    this.getCoctails();
   }
 
   getCoctailCategories() {
@@ -89,24 +80,78 @@ export class DrinksComponent implements OnInit {
   }
 
   getCoctailByFilter() {
-    this.filter = true;
     this.coctailParams.categories = this.selectedCategories;
     this.coctailParams.glasses = this.selectedGlasses;
     this.coctailParams.alcoholicTypes = this.selectedAlcoholic;
+    this.coctailParams.pageNumber = 1;
 
+    if(!this.searchKeyword){
+      this.coctailService.getCoctailsByIngredients([], this.coctailParams).subscribe(coctails => {
+        this.viewCoctails = coctails.result;
+        console.log("dawd");
+      })
+    } 
+
+    else{
+      this.viewKeyword = true;
+      this.getCoctailByName();
+      this.viewCoctails = []; 
+
+      if(this.coctailParams.categories || this.coctailParams.glasses || this.coctailParams.alcoholicTypes){
+        if(this.coctailParams.categories){
+          this.coctailParams.categories.forEach(element => {
+            this.viewCoctails = this.viewCoctails.concat(this.coctailByName.filter(c => c.category == element ));
+            console.log(element)
+          });
+          this.coctailByName = this.viewCoctails;
+        } 
+  
+        if(this.coctailParams.glasses){
+          this.viewCoctails = [];
+          this.coctailParams.glasses.forEach(element => {
+            this.viewCoctails = this.viewCoctails.concat(this.coctailByName.filter(c => c.glass == element ));
+            console.log(element)
+          });
+          this.coctailByName = this.viewCoctails;
+        } 
+  
+        if(this.coctailParams.alcoholicTypes){
+          this.viewCoctails = [];
+          this.coctailParams.alcoholicTypes.forEach(element => {
+            console.log(element)
+            this.viewCoctails = this.viewCoctails.concat(this.coctailByName.filter(c => c.alcoholic == element ));
+          });
+          this.coctailByName = this.viewCoctails;
+        } 
+      }
+      else
+        this.viewCoctails = this.coctailByName;
+    }
+  }
+
+  getCoctails(){
     this.coctailService.getCoctailsByIngredients([], this.coctailParams).subscribe(coctails => {
-      this.allCoctails = coctails.result;
-      console.log(this.allCoctails);
+      this.viewCoctails = this.viewCoctails.concat(coctails.result);
+      console.log(this.viewCoctails);
     })
   }
 
   clearFilter(){
-    this.filter = false;
-    this.allCoctails = [];
-    this.selectedCategories = [];
-    this.selectedGlasses = [];
-    this.selectedAlcoholic = [];
-    this.allCoctails = [];
-    this.getCoctails();
+    this.selectedCategories = undefined;
+    this.selectedGlasses = undefined;
+    this.selectedAlcoholic = undefined;
+    this.viewCoctails = [];
+    this.searchKeyword = undefined;
+    this.coctailByName = [];
+    this.coctailParams.pageNumber = 1;
+    this.viewKeyword = false;
+    this.getCoctailByFilter();
+  }
+
+  deleteKeyword(){
+    this.searchKeyword = "";
+    this.viewKeyword = false;
+    this.coctailByName = [];
+    this.getCoctailByFilter();
   }
 }
