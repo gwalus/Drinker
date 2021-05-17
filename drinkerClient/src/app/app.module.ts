@@ -21,6 +21,8 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { HomeComponent } from './home/home.component';
 import { MatSelectModule } from '@angular/material/select';
 import { AppMaterialModule } from './app.material-modules';
+import { AdminPanelComponent } from './account/admin-panel/admin-panel.component';
+import { UserProfilComponent } from './account/user-profil/user-profil.component';
 
 
 @NgModule({
@@ -35,7 +37,9 @@ import { AppMaterialModule } from './app.material-modules';
     LoginComponent,
     RegistrationComponent,
     DrinkComponent,
-    HomeComponent
+    HomeComponent,
+    AdminPanelComponent,
+    UserProfilComponent
   ],
   imports: [
     BrowserModule,
