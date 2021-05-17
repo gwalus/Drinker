@@ -14,7 +14,7 @@
       <li class="nav-item">
         <mat-form-field appearance="fill">
           <mat-label>Kategoria</mat-label>
-          <mat-select [formControl]="categories" multiple>
+          <mat-select [formControl]="categories" [(ngModel)]="selectedCategories" multiple>
             <mat-option *ngFor="let category of categoriesList" [value]="category">{{category}}</mat-option>
           </mat-select>
         </mat-form-field>
@@ -22,13 +22,30 @@
       <li class="nav-item">
         <mat-form-field appearance="fill">
           <mat-label>Szklanka</mat-label>
-          <mat-select [formControl]="glasses" multiple>
+          <mat-select [formControl]="glasses" [(ngModel)]="selectedGlasses" multiple>
             <mat-option *ngFor="let glass of glassesList" [value]="glass">{{glass}}</mat-option>
           </mat-select>
         </mat-form-field>
       </li>
+      <li class="nav-item">
+        <mat-form-field appearance="fill">
+          <mat-label>Alkochol</mat-label>
+          <mat-select [formControl]="alcoholic" [(ngModel)]="selectedAlcoholic" multiple>
+            <mat-option *ngFor="let glass of alcoholicList" [value]="glass">{{glass}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </li>
+      <li class="d-flex align-items-center tag-btn-li" *ngIf="viewKeyword">
+        <button type="button" class="btn btn-sm btn-primary ml-3 mr-2 btn-center" (click)="deleteKeyword()">
+          <span class="btn-text">{{searchKeyword}}</span>
+          <mat-icon class="tag-icon">close</mat-icon>
+        </button>
+      </li>
     </ul>
-    <div class="d-flex align-items-center">
+    <div class="d-flex align-items-center tag-btn-li">
+      <button type="button" class="btn btn-link px-3 me-2 text-theme" (click)="clearFilter()">
+        Wyczyść filtr
+      </button>
       <button type="button" class="btn btn-link px-3 me-2 text-theme" (click)="getCoctailByFilter()">
         Filtruj
       </button>
@@ -38,7 +55,7 @@
 
 <div class="container py-5">
   <div class="card-columns">
-    <div class="card" *ngFor="let coctail of allCoctails">
+    <div class="card" *ngFor="let coctail of viewCoctails">
       <a [routerLink]="['/drink', coctail.id]">
         <img class="card-img-top" src="{{coctail.photoUrl}}" alt="Card image cap">
         <div class="card-body">
@@ -58,6 +75,6 @@
     </div>
   </div>
 
-  <div class="search-results" infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50"
-    (scrolled)="loadMoreCoctails()"></div>
+  <!-- <div class="search-results" infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50"
+    (scrolled)="loadMoreCoctails()"></div> -->
 </div>
