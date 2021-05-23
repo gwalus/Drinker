@@ -29,6 +29,7 @@ namespace DrinkerAPI.Data
 
             foreach (var item in coctails)
             {
+                item.IsAccepted = true;
                 await context.AddAsync(item);
                 await context.SaveChangesAsync();
             }

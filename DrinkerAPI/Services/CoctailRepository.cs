@@ -30,15 +30,16 @@ namespace DrinkerAPI.Services
         public async Task<CoctailDto> GetCoctailByIdAsync(int Id)
         {
             return await _context.Coctails
-           .ProjectTo<CoctailDto>(_mapper.ConfigurationProvider)
-           .Where(x => x.Id == Id)
-           .FirstOrDefaultAsync();
+                .ProjectTo<CoctailDto>(_mapper.ConfigurationProvider)
+                .Where(x => x.Id == Id)
+                .FirstOrDefaultAsync();
         }
 
         public async Task<IList<CoctailDto>> GetCoctailsByNameAsync(string keyword)
         {
             // SQLITE DOESN'T SUPPORT CONTAINS WITH STRINGCOMPARISON.IGNORECASE
             return await _context.Coctails
+                .Where(x => x.IsAccepted)
                 .ProjectTo<CoctailDto>(_mapper.ConfigurationProvider)
                 .Where(x => EF.Functions.Like(x.Name, $"%{keyword}%"))
                 .ToListAsync();
@@ -63,6 +64,7 @@ namespace DrinkerAPI.Services
         public async Task<PagedList<CoctailDto>> GetCoctailsByIngredientsAsync(IList<string> ingredients, CoctailParams coctailParams)
         {
             var coctailsQueryable = _context.Coctails
+                .Where(x => x.IsAccepted)
                 .ProjectTo<CoctailDto>(_mapper.ConfigurationProvider)
                 .AsQueryable();
 
@@ -75,12 +77,16 @@ namespace DrinkerAPI.Services
 
         public async Task<IList<string>> GetCoctailNamesAsync()
         {
-            return await _context.Coctails.Select(c => c.Name).ToListAsync();
+            return await _context.Coctails
+                .Where(c => c.IsAccepted)
+                .Select(c => c.Name)
+                .ToListAsync();
         }
 
         public async Task<PagedList<CoctailDto>> GetListOfCoctailsAsync(PaginationParams paginationParams)
         {
             var query = _context.Coctails
+                .Where(x => x.IsAccepted)
                 .ProjectTo<CoctailDto>(_mapper.ConfigurationProvider)
                 .AsQueryable();
 
@@ -94,11 +100,13 @@ namespace DrinkerAPI.Services
             // SQLITE DOESN'T SUPPORT ORDERING BY NEW GUID
             return await _context.Coctails
                 .FromSqlRaw($"SELECT * FROM Coctails ORDER BY RANDOM() LIMIT {count}")
+                .Where(x => x.IsAccepted)
                 .ProjectTo<CoctailDto>(_mapper.ConfigurationProvider)
                 .ToListAsync();
 
             // QUERY FOR POSTRESS
             //var postgresquery = _context.Coctails
+            //    .Where(r => r.IsAccepted)
             //    .OrderBy(r => Guid.NewGuid())
             //    .ProjectTo<CoctailDto>(_mapper.ConfigurationProvider)
             //    .Take(count)
@@ -118,7 +126,7 @@ namespace DrinkerAPI.Services
         public async Task<bool> AcceptCoctail(int Id)
         {
             var coctail = await _context.Coctails.Where(x => x.Id == Id).FirstOrDefaultAsync();
-            if(coctail!=null)
+            if (coctail != null)
             {
                 coctail.IsAccepted = true;
                 var accepted = await _context.SaveChangesAsync();
@@ -129,10 +137,10 @@ namespace DrinkerAPI.Services
 
         public async Task<bool> RejectCoctail(int Id)
         {
-            var coctail = await  _context.Coctails.Where(x => x.Id == Id).FirstOrDefaultAsync();
-            if (coctail != null && coctail.IsAccepted==false)
+            var coctail = await _context.Coctails.Where(x => x.Id == Id).FirstOrDefaultAsync();
+            if (coctail != null && coctail.IsAccepted == false)
             {
-                 _context.Coctails.Remove(coctail);
+                _context.Coctails.Remove(coctail);
                 var rejected = await _context.SaveChangesAsync();
                 return rejected > 0;
             }
