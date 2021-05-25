@@ -146,5 +146,10 @@ namespace DrinkerAPI.Services
             }
             return false;
         }
+
+        public async Task<IList<string>> GetIngredientNamesAsync()
+        {
+            return await _context.Ingredients.Select(x => x.Name).Distinct().ToListAsync();
+        }
     }
 }

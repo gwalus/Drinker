@@ -61,5 +61,7 @@ namespace DrinkerAPI.Interfaces
         Task<bool> AddCoctail(Coctail coctail);
         Task<bool> AcceptCoctail(int Id);
         Task<bool> RejectCoctail(int Id);
+
+        Task<IList<string>> GetIngredientNamesAsync();
     }
 }
