@@ -17,18 +17,21 @@ const routes: Routes = [
   { path: 'registration', component: RegistrationComponent },
   { path: 'login', component: LoginComponent },
   { path: 'drinks', component: DrinksComponent },
+  { path: 'drink/:id', component: DrinkComponent },
+  { path: 'search/:keyword', component: DrinksComponent },
+  { path: 'calculator', component: CalculatorComponent },
+  { path: 'game', component: GameComponent },
+
+
+
   {
     path: '',
     runGuardsAndResolvers: 'always',
     canActivate: [AuthGuard],
     children: [
       { path: 'coctailBuilder', component: CoctailBuilderComponent },
-      { path: 'game', component: GameComponent },
       { path: 'admin-panel', component: AdminPanelComponent },
-      { path: 'account', component: UserProfilComponent },
-      { path: 'calculator', component: CalculatorComponent },
-      { path: 'drink/:id', component: DrinkComponent },
-      { path: 'search/:keyword', component: DrinksComponent }
+      { path: 'account', component: UserProfilComponent }
     ]
   }
 ];

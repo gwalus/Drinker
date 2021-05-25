@@ -79,5 +79,6 @@ export class HeaderComponent implements OnInit {
 
   logout() {
     this.accountService.logout();
+    this.router.navigateByUrl('/');
   }
 }
