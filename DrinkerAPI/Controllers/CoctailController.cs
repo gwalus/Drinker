@@ -15,7 +15,7 @@ namespace DrinkerAPI.Controllers
         public CoctailController(ICoctailRepository coctailRepostiory)
         {
             _coctailRepository = coctailRepostiory;
-        }        
+        }
 
         /// <summary>Gets the coctails by ingredient.</summary>
         /// <param name="ingredients">The ingredients.</param>
@@ -107,17 +107,20 @@ namespace DrinkerAPI.Controllers
             return BadRequest();
         }
         [HttpPost(ApiRoutes.Coctails.addCoctailAsUser)]
-        public async Task<ActionResult> AddCoctail([FromBody]Coctail coctail)
+        public async Task<ActionResult> AddCoctail([FromBody] Coctail coctail)
         {
-            if(coctail!=null)
+            if (coctail != null)
             {
                 var newCoctail = await _coctailRepository.AddCoctail(coctail);
-                if(newCoctail==true)
+                if (newCoctail == true)
                 {
                     return Ok();
                 }
             }
             return BadRequest("Something went wrong...");
         }
+
+        [HttpGet(ApiRoutes.Coctails.ingredientNames)]
+        public async Task<ActionResult<IList<string>>> GetIngredientNames() => Ok(await _coctailRepository.GetIngredientNamesAsync());
     }
 }
