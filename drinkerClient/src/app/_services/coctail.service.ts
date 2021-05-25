@@ -69,4 +69,8 @@ export class CoctailService {
   getCoctailNames() {
     return this.http.get<string[]>(this.baseUrl + 'names');
   }
+
+  getIngredientNames() {
+    return this.http.get<string[]>(this.baseUrl + 'ingredientNames');
+  }
 }
