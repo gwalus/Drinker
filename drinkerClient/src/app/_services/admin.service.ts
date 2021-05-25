@@ -20,4 +20,8 @@ export class AdminService {
 
     return getPaginatedResult<Coctail[]>(this.baseUrl + 'for-approval', params, this.http);
   }
+
+  acceptCocktail(id: number) {
+    return this.http.put(this.baseUrl + 'acceptcoctail?id=' + id, {});
+  }
 }

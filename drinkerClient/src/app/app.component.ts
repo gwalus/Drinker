@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from './_models/user';
 import { AccountService } from './_services/account.service';
+import { AdminService } from './_services/admin.service';
 import { CoctailService } from './_services/coctail.service';
 
 @Component({
@@ -11,11 +12,13 @@ import { CoctailService } from './_services/coctail.service';
 export class AppComponent implements OnInit {
   title = 'Drinker';
 
-  constructor(private accountService: AccountService) {
+  constructor(private accountService: AccountService, private admin: AdminService) {
   }
 
   ngOnInit(): void {
     this.setCurrentUser();
+
+    this.admin.acceptCocktail(11000).subscribe(() => console.log('Dodano'), () => console.log('Nie dodano'));
   }
 
   setCurrentUser() {

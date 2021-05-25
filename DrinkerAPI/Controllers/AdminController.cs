@@ -20,7 +20,7 @@ namespace DrinkerAPI.Controllers
             _coctailRepostiory = coctailRepostiory;
         }
 
-        [HttpGet(ApiRoutes.Admin.acceptCoctail)]
+        [HttpPut(ApiRoutes.Admin.acceptCoctail)]
         public async Task<ActionResult> AcceptCoctail(int id)
         {
             var accepted = await _coctailRepostiory.AcceptCoctail(id);
@@ -31,7 +31,7 @@ namespace DrinkerAPI.Controllers
             return BadRequest();
         }
 
-        [HttpGet(ApiRoutes.Admin.rejectCoctail)]
+        [HttpDelete(ApiRoutes.Admin.rejectCoctail)]
         public async Task<ActionResult> RejectCoctail(int id)
         {
             var accepted = await _coctailRepostiory.RejectCoctail(id);
