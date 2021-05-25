@@ -61,12 +61,17 @@ namespace DrinkerAPI.Services
                 .ToListAsync();
         }
 
-        public async Task<PagedList<CoctailDto>> GetCoctailsByIngredientsAsync(IList<string> ingredients, CoctailParams coctailParams)
+        public async Task<PagedList<CoctailDto>> GetCoctailsAsync(string name, IList<string> ingredients, CoctailParams coctailParams)
         {
             var coctailsQueryable = _context.Coctails
                 .Where(x => x.IsAccepted)
                 .ProjectTo<CoctailDto>(_mapper.ConfigurationProvider)
                 .AsQueryable();
+
+            if (!string.IsNullOrEmpty(name))
+            {
+                coctailsQueryable = coctailsQueryable.Where(x => EF.Functions.Like(x.Name, $"%{name}%"));
+            }
 
             var query = QueryBuilder.BuildIngredientsQuery(coctailsQueryable, ingredients);
 

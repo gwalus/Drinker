@@ -23,10 +23,10 @@ namespace DrinkerAPI.Controllers
         /// <returns>
         ///   <br />
         /// </returns>
-        [HttpGet(ApiRoutes.Coctails.ByIngredients)]
-        public async Task<ActionResult<IList<Coctail>>> GetCoctailsByIngredient([FromQuery] IList<string> ingredients, [FromQuery] CoctailParams coctailParams)
+        [HttpGet(ApiRoutes.Coctails.All)]
+        public async Task<ActionResult<IList<Coctail>>> GetCoctails(string name, [FromQuery] IList<string> ingredients, [FromQuery] CoctailParams coctailParams)
         {
-            var coctails = await _coctailRepository.GetCoctailsByIngredientsAsync(ingredients, coctailParams);
+            var coctails = await _coctailRepository.GetCoctailsAsync(name, ingredients, coctailParams);
 
             if (coctails != null)
             {

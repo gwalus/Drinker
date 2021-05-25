@@ -20,7 +20,7 @@ namespace DrinkerAPI.Interfaces
         /// <returns>
         ///   <br />
         /// </returns>
-        Task<PagedList<CoctailDto>> GetCoctailsByIngredientsAsync(IList<string> ingredients, CoctailParams coctailParams);
+        Task<PagedList<CoctailDto>> GetCoctailsAsync(string name, IList<string> ingredients, CoctailParams coctailParams);
 
         /// <summary>Gets coctails contains keyword asynchronous.</summary>
         /// <param name="keyword">The keyword.</param>

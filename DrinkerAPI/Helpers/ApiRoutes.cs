@@ -9,7 +9,7 @@
         {
             private const string _controllerName = Base + "cocktails/";
 
-            public const string ByIngredients = _controllerName + "ingredients";
+            public const string All = _controllerName;
             public const string ByName = _controllerName + "byName/{keyword}";
             public const string Random = _controllerName + "random";
             public const string categories = _controllerName + "categories";
