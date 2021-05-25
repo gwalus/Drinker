@@ -21,8 +21,10 @@ export class CoctailService {
     return this.http.get<Coctail[]>(this.baseUrl + "byname/" + name);
   }
 
-  getCoctailsByIngredients(ingredients: string[], coctailParams: CoctailParams) {
+  getAll(name: string, ingredients: string[], coctailParams: CoctailParams) {
     let params = new HttpParams();
+
+    params = params.append('name', name);
 
     for (let i = 0; i < ingredients.length; i++) {
       params = params.append('ingredients', ingredients[i]);
@@ -31,14 +33,6 @@ export class CoctailService {
     params = getPaginationHeaders(params, coctailParams);
 
     params = getCoctailFiltersParams(params, coctailParams);
-
-    return getPaginatedResult<Coctail[]>(this.baseUrl + 'ingredients', params, this.http);
-  }
-
-  getAll(paginationParams: PaginationParams) {
-    let params = new HttpParams();
-
-    params = getPaginationHeaders(params, paginationParams);
 
     return getPaginatedResult<Coctail[]>(this.baseUrl, params, this.http);
   }

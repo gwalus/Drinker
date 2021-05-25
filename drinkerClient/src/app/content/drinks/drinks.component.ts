@@ -23,7 +23,7 @@ export class DrinksComponent implements OnInit {
   viewKeyword: boolean = false;
 
   viewCoctails: Coctail[] = [];
-  
+
   coctailParams: CoctailParams = new CoctailParams();
 
   coctailByName: Coctail[] = [];
@@ -38,21 +38,21 @@ export class DrinksComponent implements OnInit {
   selectedGlasses: string[];
 
   alcoholic = new FormControl();
-  alcoholicList: string[] = ["Alcoholic", "Non alcoholic",  "Optional alcohol"];
+  alcoholicList: string[] = ["Alcoholic", "Non alcoholic", "Optional alcohol"];
   selectedAlcoholic: string[];
 
   ngOnInit(): void {
     this.getCoctailCategories();
     this.getCoctailGlasses();
-    
+
     this.sub = this._Activatedroute.paramMap.subscribe(params => {
-      if(params.get('keyword')  != "null") {
+      if (params.get('keyword') != "null") {
         this.searchKeyword = params.get('keyword');
       }
     });
 
     //this.getCoctailByName();
-    this.getCoctailByFilter();   
+    this.getCoctailByFilter();
   }
 
   async getCoctailByName() {
@@ -84,58 +84,58 @@ export class DrinksComponent implements OnInit {
     this.coctailParams.alcoholicTypes = this.selectedAlcoholic;
     this.coctailParams.pageNumber = 1;
 
-    if(!this.searchKeyword){
-      this.coctailService.getCoctailsByIngredients([], this.coctailParams).subscribe(coctails => {
+    if (!this.searchKeyword) {
+      this.coctailService.getAll(this.searchKeyword, [], this.coctailParams).subscribe(coctails => {
         this.viewCoctails = coctails.result;
       })
-    } 
+    }
 
-    else{
+    else {
       await this.getCoctailByName();
       this.viewKeyword = true;
-      this.viewCoctails = []; 
+      this.viewCoctails = [];
 
-      if(this.coctailParams.categories || this.coctailParams.glasses || this.coctailParams.alcoholicTypes){
-        if(this.coctailParams.categories){
+      if (this.coctailParams.categories || this.coctailParams.glasses || this.coctailParams.alcoholicTypes) {
+        if (this.coctailParams.categories) {
           this.coctailParams.categories.forEach(element => {
-            this.viewCoctails = this.viewCoctails.concat(this.coctailByName.filter(c => c.category == element ));
+            this.viewCoctails = this.viewCoctails.concat(this.coctailByName.filter(c => c.category == element));
           });
           this.coctailByName = this.viewCoctails;
-        } 
-  
-        if(this.coctailParams.glasses){
+        }
+
+        if (this.coctailParams.glasses) {
           this.viewCoctails = [];
           this.coctailParams.glasses.forEach(element => {
-            this.viewCoctails = this.viewCoctails.concat(this.coctailByName.filter(c => c.glass == element ));
+            this.viewCoctails = this.viewCoctails.concat(this.coctailByName.filter(c => c.glass == element));
           });
           this.coctailByName = this.viewCoctails;
-        } 
-  
-        if(this.coctailParams.alcoholicTypes){
+        }
+
+        if (this.coctailParams.alcoholicTypes) {
           this.viewCoctails = [];
           this.coctailParams.alcoholicTypes.forEach(element => {
-            this.viewCoctails = this.viewCoctails.concat(this.coctailByName.filter(c => c.alcoholic == element ));
+            this.viewCoctails = this.viewCoctails.concat(this.coctailByName.filter(c => c.alcoholic == element));
           });
           this.coctailByName = this.viewCoctails;
-        } 
+        }
 
         this.viewCoctails = this.coctailByName;
       }
-      else{
+      else {
         await this.getCoctailByName();
         this.viewCoctails = this.coctailByName;
       }
-        
+
     }
   }
 
-  getCoctails(){
-    this.coctailService.getCoctailsByIngredients([], this.coctailParams).subscribe(coctails => {
+  getCoctails() {
+    this.coctailService.getAll(this.searchKeyword, [], this.coctailParams).subscribe(coctails => {
       this.viewCoctails = this.viewCoctails.concat(coctails.result);
     })
   }
 
-  clearFilter(){
+  clearFilter() {
     this.selectedCategories = undefined;
     this.selectedGlasses = undefined;
     this.selectedAlcoholic = undefined;
@@ -147,7 +147,7 @@ export class DrinksComponent implements OnInit {
     this.getCoctailByFilter();
   }
 
-  deleteKeyword(){
+  deleteKeyword() {
     this.searchKeyword = "";
     this.viewKeyword = false;
     this.coctailByName = [];

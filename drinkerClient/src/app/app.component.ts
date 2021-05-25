@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from './_models/user';
 import { AccountService } from './_services/account.service';
-import { AdminService } from './_services/admin.service';
 
 @Component({
   selector: 'app-root',
@@ -11,7 +10,7 @@ import { AdminService } from './_services/admin.service';
 export class AppComponent implements OnInit {
   title = 'Drinker';
 
-  constructor(private accountService: AccountService, private admin: AdminService) {
+  constructor(private accountService: AccountService) {
   }
 
   ngOnInit(): void {
