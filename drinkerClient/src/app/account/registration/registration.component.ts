@@ -4,6 +4,8 @@ import { ToastrService } from 'ngx-toastr';
 import { AuthUser } from 'src/app/_models/registerUser';
 import { AccountService } from 'src/app/_services/account.service';
 import { MustMatch } from './_helpers/must-match.validator';
+import { Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-registration',
@@ -13,7 +15,7 @@ import { MustMatch } from './_helpers/must-match.validator';
 export class RegistrationComponent implements OnInit {
   registerForm: FormGroup;
 
-  constructor(private accountService: AccountService, private formBuilder: FormBuilder, private toastr: ToastrService) {}
+  constructor(private router: Router, private modalService: NgbModal, private accountService: AccountService, private formBuilder: FormBuilder, private toastr: ToastrService) {}
 
   ngOnInit(): void {
     this.initializeForm();
@@ -35,7 +37,9 @@ export class RegistrationComponent implements OnInit {
   register() {
     let registerUser: AuthUser = this.registerForm.value as AuthUser;
     this.accountService.register(registerUser).subscribe(() => {
-      this.toastr.success('Account has been created successfully.')
+      this.toastr.success('Account has been created successfully.');
+      this.modalService.dismissAll();
+      this.router.navigateByUrl('');
     }, error => {
       this.toastr.error(error.error.errors[0]);
     })

@@ -72,12 +72,13 @@ export class HeaderComponent implements OnInit {
 
   onKeyDownEvent(event: any) {
     const name = this.searchControl.value;
-    this.router.navigateByUrl('/drinks', { skipLocationChange: true }).then(() => {
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
       this.router.navigateByUrl('/search/' + name);
     });
   }
 
   logout() {
     this.accountService.logout();
+    this.router.navigateByUrl('/');
   }
 }
