@@ -4,6 +4,7 @@ using DrinkerAPI.Options;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using System;
+using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
@@ -40,7 +41,7 @@ namespace DrinkerAPI.Services
                 };
             }
 
-            return GenerateAuthenticationResultForUser(user);
+            return await GenerateAuthenticationResultForUser(user);
         }
 
         public async Task<AuthentiactionResult> RegisterAsync(string email, string password)
@@ -67,24 +68,31 @@ namespace DrinkerAPI.Services
                     Errors = createdUser.Errors.Select(x => x.Description)
                 };
             }
-            return GenerateAuthenticationResultForUser(newUser);
+            return await GenerateAuthenticationResultForUser(newUser);
         }
-        private AuthentiactionResult GenerateAuthenticationResultForUser(IdentityUser newUser)
+        private async Task<AuthentiactionResult> GenerateAuthenticationResultForUser(IdentityUser newUser)
         {
             var tokenHanlder = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_jwtSettings.Secret);
             var tokenDescriptor = new SecurityTokenDescriptor
             {
-                Subject = new ClaimsIdentity(new[]
-                {
-                    new Claim(JwtRegisteredClaimNames.Sub, newUser.Email),
-                    new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                    new Claim(JwtRegisteredClaimNames.Email, newUser.Email),
-                    new Claim("id", newUser.Id)
-                }),
                 Expires = DateTime.UtcNow.AddHours(1),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
+
+            var claims = new List<Claim>
+            {
+                new Claim(JwtRegisteredClaimNames.Sub, newUser.Email),
+                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                new Claim(JwtRegisteredClaimNames.Email, newUser.Email),
+                new Claim("id", newUser.Id)
+            };
+
+            var roles = await _userManager.GetRolesAsync(newUser);
+            claims.AddRange(roles.Select(role => new Claim(ClaimTypes.Role, role)));
+
+            tokenDescriptor.Subject = new ClaimsIdentity(claims);
+
             var token = tokenHanlder.CreateToken(tokenDescriptor);
             return new AuthentiactionResult
             {

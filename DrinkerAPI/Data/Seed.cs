@@ -46,8 +46,8 @@ namespace DrinkerAPI.Data
                 await roleManager.CreateAsync(role);
             }
 
-            var admin = new IdentityUser { UserName = "admin" };
-            var defaultUser = new IdentityUser { UserName = "user" };
+            var admin = new IdentityUser { UserName = "admin", Email = "admin@gmail.com" };
+            var defaultUser = new IdentityUser { UserName = "user", Email = "user@gmail.com" };
 
             await userManager.CreateAsync(admin, "Pa$$w0rd");
             await userManager.CreateAsync(defaultUser, "Pa$$w0rd");
