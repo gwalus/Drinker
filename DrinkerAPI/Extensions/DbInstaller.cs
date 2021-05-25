@@ -12,6 +12,10 @@ namespace DrinkerAPI.Extensions
         {
             services.AddDbContext<CoctailContext>(options => options.UseSqlite("Data source = coctaildb.db").UseLazyLoadingProxies());
             services.AddIdentityCore<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+              .AddRoles<IdentityRole>()
+                .AddRoleManager<RoleManager<IdentityRole>>()
+                .AddSignInManager<SignInManager<IdentityUser>>()
+                .AddRoleValidator<RoleValidator<IdentityRole>>()
               .AddEntityFrameworkStores<CoctailContext>();
         }
     }
