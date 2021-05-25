@@ -51,14 +51,13 @@ export class DrinksComponent implements OnInit {
       }
     });
 
-    this.getCoctailByName();
+    //this.getCoctailByName();
     this.getCoctailByFilter();   
   }
 
-  getCoctailByName() {
-    this.coctailService.searchCoctailByName(this.searchKeyword).subscribe(coctails => {
+  async getCoctailByName() {
+    this.coctailService.searchCoctailByName(this.searchKeyword).subscribe((coctails) => {
       this.coctailByName = coctails;
-      console.log(this.viewCoctails);
     })
   }
 
@@ -79,7 +78,7 @@ export class DrinksComponent implements OnInit {
     })
   }
 
-  getCoctailByFilter() {
+  async getCoctailByFilter() {
     this.coctailParams.categories = this.selectedCategories;
     this.coctailParams.glasses = this.selectedGlasses;
     this.coctailParams.alcoholicTypes = this.selectedAlcoholic;
@@ -88,20 +87,18 @@ export class DrinksComponent implements OnInit {
     if(!this.searchKeyword){
       this.coctailService.getCoctailsByIngredients([], this.coctailParams).subscribe(coctails => {
         this.viewCoctails = coctails.result;
-        console.log("dawd");
       })
     } 
 
     else{
+      await this.getCoctailByName();
       this.viewKeyword = true;
-      this.getCoctailByName();
       this.viewCoctails = []; 
 
       if(this.coctailParams.categories || this.coctailParams.glasses || this.coctailParams.alcoholicTypes){
         if(this.coctailParams.categories){
           this.coctailParams.categories.forEach(element => {
             this.viewCoctails = this.viewCoctails.concat(this.coctailByName.filter(c => c.category == element ));
-            console.log(element)
           });
           this.coctailByName = this.viewCoctails;
         } 
@@ -110,7 +107,6 @@ export class DrinksComponent implements OnInit {
           this.viewCoctails = [];
           this.coctailParams.glasses.forEach(element => {
             this.viewCoctails = this.viewCoctails.concat(this.coctailByName.filter(c => c.glass == element ));
-            console.log(element)
           });
           this.coctailByName = this.viewCoctails;
         } 
@@ -118,21 +114,24 @@ export class DrinksComponent implements OnInit {
         if(this.coctailParams.alcoholicTypes){
           this.viewCoctails = [];
           this.coctailParams.alcoholicTypes.forEach(element => {
-            console.log(element)
             this.viewCoctails = this.viewCoctails.concat(this.coctailByName.filter(c => c.alcoholic == element ));
           });
           this.coctailByName = this.viewCoctails;
         } 
-      }
-      else
+
         this.viewCoctails = this.coctailByName;
+      }
+      else{
+        await this.getCoctailByName();
+        this.viewCoctails = this.coctailByName;
+      }
+        
     }
   }
 
   getCoctails(){
     this.coctailService.getCoctailsByIngredients([], this.coctailParams).subscribe(coctails => {
       this.viewCoctails = this.viewCoctails.concat(coctails.result);
-      console.log(this.viewCoctails);
     })
   }
 
