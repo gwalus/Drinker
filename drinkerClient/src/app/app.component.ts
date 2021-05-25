@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { User } from './_models/user';
 import { AccountService } from './_services/account.service';
 import { AdminService } from './_services/admin.service';
-import { CoctailService } from './_services/coctail.service';
 
 @Component({
   selector: 'app-root',
@@ -17,8 +16,6 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.setCurrentUser();
-
-    this.admin.acceptCocktail(11000).subscribe(() => console.log('Dodano'), () => console.log('Nie dodano'));
   }
 
   setCurrentUser() {

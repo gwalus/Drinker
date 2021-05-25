@@ -24,4 +24,8 @@ export class AdminService {
   acceptCocktail(id: number) {
     return this.http.put(this.baseUrl + 'acceptcoctail?id=' + id, {});
   }
+
+  rejectCocktail(id: number) {
+    return this.http.delete(this.baseUrl + 'rejectcoctail?id=' + id);
+  }
 }
