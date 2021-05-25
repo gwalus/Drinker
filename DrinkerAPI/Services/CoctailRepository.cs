@@ -83,10 +83,10 @@ namespace DrinkerAPI.Services
                 .ToListAsync();
         }
 
-        public async Task<PagedList<CoctailDto>> GetListOfCoctailsAsync(PaginationParams paginationParams)
+        public async Task<PagedList<CoctailDto>> GetCoctailsToAccept(PaginationParams paginationParams)
         {
             var query = _context.Coctails
-                .Where(x => x.IsAccepted)
+                .Where(x => !x.IsAccepted)
                 .ProjectTo<CoctailDto>(_mapper.ConfigurationProvider)
                 .AsQueryable();
 

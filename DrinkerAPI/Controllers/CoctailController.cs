@@ -15,27 +15,7 @@ namespace DrinkerAPI.Controllers
         public CoctailController(ICoctailRepository coctailRepostiory)
         {
             _coctailRepository = coctailRepostiory;
-        }
-
-        /// <summary>
-        /// Method answear Get request for List of every coctail that is in db
-        /// </summary>
-        /// <returns>list of coctails / errorMessage </returns>
-        [HttpGet(ApiRoutes.Coctails.ListAll)]
-        public async Task<ActionResult<ICollection<Coctail>>> GetCoctailsAsync([FromQuery] PaginationParams paginationParams)
-        {
-            var coctails = await _coctailRepository.GetListOfCoctailsAsync(paginationParams);
-
-            if (coctails != null)
-            {
-                Response.AddPaginationHeader(coctails.CurrentPage, coctails.PageSize, coctails.TotalCount, coctails.TotalPages);
-
-                return Ok(coctails);
-            }
-
-            return BadRequest("Unable to connect...");
-        }
-
+        }        
 
         /// <summary>Gets the coctails by ingredient.</summary>
         /// <param name="ingredients">The ingredients.</param>

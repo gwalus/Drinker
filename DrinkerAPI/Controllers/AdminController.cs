@@ -1,5 +1,8 @@
-﻿using DrinkerAPI.Helpers;
+﻿using DrinkerAPI.Dtos;
+using DrinkerAPI.Extensions;
+using DrinkerAPI.Helpers;
 using DrinkerAPI.Interfaces;
+using DrinkerAPI.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -16,6 +19,7 @@ namespace DrinkerAPI.Controllers
         {
             _coctailRepostiory = coctailRepostiory;
         }
+
         [HttpGet(ApiRoutes.Admin.acceptCoctail)]
         public async Task<ActionResult> AcceptCoctail(int id)
         {
@@ -26,6 +30,7 @@ namespace DrinkerAPI.Controllers
             }
             return BadRequest();
         }
+
         [HttpGet(ApiRoutes.Admin.rejectCoctail)]
         public async Task<ActionResult> RejectCoctail(int id)
         {
@@ -35,6 +40,21 @@ namespace DrinkerAPI.Controllers
                 return Ok();
             }
             return BadRequest();
+        }
+
+        [HttpGet(ApiRoutes.Admin.cocktailsToAccept)]
+        public async Task<ActionResult<ICollection<CoctailDto>>> GetCocktailsToAccept([FromQuery] PaginationParams paginationParams)
+        {
+            var coctails = await _coctailRepostiory.GetCoctailsToAccept(paginationParams);
+
+            if (coctails != null)
+            {
+                Response.AddPaginationHeader(coctails.CurrentPage, coctails.PageSize, coctails.TotalCount, coctails.TotalPages);
+
+                return Ok(coctails);
+            }
+
+            return BadRequest("Unable to connect...");
         }
     }
 }

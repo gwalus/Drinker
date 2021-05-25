@@ -13,7 +13,7 @@ namespace DrinkerAPI.Interfaces
         /// <returns>
         ///   <br />
         /// </returns>
-        Task<PagedList<CoctailDto>> GetListOfCoctailsAsync(PaginationParams paginationParams);
+        Task<PagedList<CoctailDto>> GetCoctailsToAccept(PaginationParams paginationParams);
 
         /// <summary>Gets the coctails by ingredients asynchronous.</summary>
         /// <param name="ingredients">The ingredients.</param>
