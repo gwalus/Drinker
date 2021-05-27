@@ -14,8 +14,8 @@
     <div class="row justify-content-center">
       <div class="col-12 col-sm-10 col-md-6">
         <div class="form-group">
-          <label for="coctailName">Coctail Name</label>
-          <input type="text" id="coctailName" name="coctailName" formControlName="coctailName" class="form-control item"
+          <label for="name">Coctail Name</label>
+          <input type="text" id="name" name="name" formControlName="name" class="form-control item"
             placeholder="" required>
         </div>
       </div>
@@ -86,8 +86,8 @@
       </div>
     </div>
 
-    <div formArrayName="ingredients">
-      <div class="row justify-content-md-center pb-2" *ngFor="let ingredient of ingredients().controls; let i=index"
+    <div formArrayName="ingradients">
+      <div class="row justify-content-md-center pb-2" *ngFor="let ingredient of ingradients().controls; let i=index"
         [formGroupName]="i">
         <div class="col-10 col-sm-5 col-md-4 pb-2 pb-md-0">
           <input type="text" formControlName="name" class="form-control item" placeholder="name">

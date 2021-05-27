@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { CoctailService } from 'src/app/_services/coctail.service';
+import {formatDate} from '@angular/common';
 
 @Component({
   selector: 'app-coctail-builder',
@@ -11,14 +12,20 @@ export class CoctailBuilderComponent implements OnInit {
 
   constructor(private coctailService: CoctailService, private coctail:FormBuilder) {
   
+    let today = new Date().toISOString().slice(0, 10) + ' ' + new Date().toISOString().slice(11, 20);
+
     this.CreateCoctailForm = this.coctail.group({
-      coctailName: '',
-      alcoholic: '',
+      name: '',
       category:'',
-      validatedCustomFile:'',
+      alcoholic: '',
       glass: '',
       instructions: '',
-      ingredients: this.coctail.array([]),
+      photoUrl: '',
+      dateModified: today,
+      validatedCustomFile:'',
+      ingradients: this.coctail.array([]),
+      userId: '',
+      isAccepted: true
     });
     this.addIngredient();
   }
@@ -35,8 +42,8 @@ export class CoctailBuilderComponent implements OnInit {
   glassesList: string[];
   selectedGlasses: string[];
 
-  ingredients() : FormArray {
-    return this.CreateCoctailForm.get("ingredients") as FormArray
+  ingradients() : FormArray {
+    return this.CreateCoctailForm.get("ingradients") as FormArray
   }
    
   newIngredient(): FormGroup {
@@ -47,15 +54,14 @@ export class CoctailBuilderComponent implements OnInit {
   }
    
   addIngredient() {
-    this.ingredients().push(this.newIngredient());
+    this.ingradients().push(this.newIngredient());
   }
    
   removeIngredient(i:number) {
-    this.ingredients().removeAt(i);
+    this.ingradients().removeAt(i);
   }
    
   onSubmit() {
-    
     console.log(this.CreateCoctailForm.value);
   }
 
