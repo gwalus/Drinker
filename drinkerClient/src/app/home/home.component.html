@@ -1,15 +1,40 @@
-<div class="container" *ngIf="(accountService.currentUser$ | async) as user">
-    <p>You are logged in as <b> {{user.email}}</b></p>
-</div>
 
-<div class="container" *ngIf="(accountService.currentUser$ | async) === null">
-    <p>If u want use this app, let's login or create an account!</p>
-</div>
+<ngb-carousel *ngIf="carusele">
+  <ng-template ngbSlide *ngFor="let coctail of randomCoctails">
+    <div class="picsum-img-wrapper" class="carousel" [routerLink]="['/drink', coctail.id]">
+      <img [src]="coctail.photoUrl" class="carousel-img" alt="Random first slide">
+    </div>
+    <div class="carousel-caption">
+      <div class="bg-dark-blur border border-secondary border-5">
+        <h2>{{coctail.name}}</h2>
+        <p>
+          {{ (coctail.instructions.length > 6) ? (coctail.instructions | slice:0:200)+'..':(coctail.instructions) }}
+        </p>
+      </div>
+    </div>
+  </ng-template>
+</ngb-carousel>
 
-<h1 style="text-align: center; padding: 3% 0 0 0;">Welmowe in drinker app</h1>
-
-<p class="mb-5" style="text-align: center;">Dodałem domyślny komponent, jest tu info o zalogowanym użytkowniku i button
-    do wylogowania. Trzeba zabezpieczyć możliwość logowania i rejestracji jak sie jest już zalogowanym. Dodałem guarda,
-    który nie pozwala wejść
-    do komponentów jak sie nie jest zalogowanym.
-</p>
+<main>
+  <article class="postcard blue" *ngFor="let coctail of randomCoctails" [routerLink]="['/drink', coctail.id]">
+    <a class="postcard__img_link" [routerLink]="['/drink', coctail.id]">
+      <img class="postcard__img" src="{{coctail.photoUrl}}" alt="Image Title" />
+    </a>
+    <div class="postcard__text">
+      <h1 class="postcard__title blue"><a href="#">{{coctail.name}}</a></h1>
+      <div class="postcard__subtitle small">
+        <time datetime="2020-05-25 12:00:00">
+          <i class="fas fa-calendar-alt mr-2"></i>{{coctail.dateModified}}
+        </time>
+      </div>
+      <div class="postcard__bar"></div>
+      <div class="postcard__preview-txt">{{coctail.instructions}}</div>
+      <ul class="postcard__tagbox">
+        <li class="tag__item"><i class="fas fa-tag mr-2"></i>{{coctail.category}}</li>
+        <li class="tag__item"><i class="fas fa-clock mr-2"></i>{{coctail.glass}}</li>
+        <li class="tag__item" *ngFor="let ingradient of coctail.ingradients"><i
+            class="fas fa-clock mr-2"></i>{{ingradient.name}}</li>
+      </ul>
+    </div>
+  </article>
+</main>
