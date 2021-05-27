@@ -23,6 +23,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { AppMaterialModule } from './app.material-modules';
 import { AdminPanelComponent } from './account/admin-panel/admin-panel.component';
 import { UserProfilComponent } from './account/user-profil/user-profil.component';
+import { HasRoleDirective } from './_directives/has-role.directive';
 
 
 @NgModule({
@@ -39,7 +40,8 @@ import { UserProfilComponent } from './account/user-profil/user-profil.component
     DrinkComponent,
     HomeComponent,
     AdminPanelComponent,
-    UserProfilComponent
+    UserProfilComponent,
+    HasRoleDirective
   ],
   imports: [
     BrowserModule,
