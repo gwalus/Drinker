@@ -49,7 +49,7 @@
               <mat-icon class="login-menu-icon">account_box</mat-icon>
               <span class="login-menu-text">My profil</span>
             </button>
-            <button ngbDropdownItem class="p-3" routerLink="admin-panel">
+            <button ngbDropdownItem class="p-3" *appHasRole='["Admin", "Moderator"]'  routerLink="admin-panel">
               <mat-icon class="login-menu-icon">admin_panel_settings</mat-icon>
               <span class="login-menu-text">Admin panel</span>
             </button>
