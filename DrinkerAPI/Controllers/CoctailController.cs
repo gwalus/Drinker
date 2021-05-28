@@ -115,7 +115,7 @@ namespace DrinkerAPI.Controllers
         }
 
         [HttpPost(ApiRoutes.Coctails.addCoctailAsUser)]
-        public async Task<ActionResult> AddCoctail([FromBody] CoctailToAdd coctail)
+        public async Task<ActionResult> AddCoctail([FromForm] CoctailToAdd coctail)
         {
             if (coctail != null)
             {

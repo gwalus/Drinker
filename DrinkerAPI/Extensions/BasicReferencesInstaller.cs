@@ -59,6 +59,7 @@ namespace DrinkerAPI.Extensions
             services.AddScoped<ICoctailRepository, CoctailRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IIdentityService, IdentityService>();
+            services.AddScoped<ICloudinaryService, CloudinaryService>();
             //Jwt
             var jwtSettings = new JwtSettings();
             configuration.Bind(nameof( jwtSettings), jwtSettings);
