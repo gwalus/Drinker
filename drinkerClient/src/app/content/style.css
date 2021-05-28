@@ -23,3 +23,12 @@
     font-size: 100px;
   }
 }
+
+.jumbotron {
+  border-radius: 0px !important;
+  margin-bottom: 0px;
+}
+
+.bg-color{
+  background-color: #100e14 !important;
+}

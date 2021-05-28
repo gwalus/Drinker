@@ -11,7 +11,7 @@ import { NumberLiteralType } from 'typescript';
 @Component({
   selector: 'app-drink',
   templateUrl: './drink.component.html',
-  styleUrls: ['./drink.component.css', '../style.css']
+  styleUrls: ['./drink.component.scss', '../style.css']
 })
 
 export class DrinkComponent implements OnInit {
