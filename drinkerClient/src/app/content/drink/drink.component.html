@@ -1,68 +1,53 @@
-<div class="jumbotron p-3 p-md-5 text-white rounded bg-color">
+<div class="jumbotron p-3 p-md-5 text-white parallax" style="background-image: url({{coctail.photoUrl}});">
   <div class="col-md-12 px-0 text-center">
     <mat-icon aria-hidden="false" aria-label="liquor" class="display-4  text-center f-100">local_bar</mat-icon>
-    <h1 class="">
+    <h1>
       Coctail & Mixed Drinks
     </h1>
-    <p class="lead my-3"></p>
   </div>
 </div>
 
-<div class="row mb-3">
-  <div class="col bg-dark">
-    <div class="p-2 pl-3 pr-3">
-      <div class="d-flex justify-content-between">
-        <div>
-          <small class="text-muted">{{coctail.category}}</small>
-        </div>
-        <div>
-          <small class="text-muted">{{coctail.dateModified | date:'mediumDate'}}</small>
-        </div>
+<main>
+  <article class="postcard blue">
+    <a class="postcard__img_link">
+      <img class="postcard__img" src="{{coctail.photoUrl}}" alt="Image Title" />
+    </a>
+    <div class="postcard__text">
+      <h1 class="postcard__title blue"><a>{{coctail.name}}</a></h1>
+      <div class="postcard__subtitle small">
+        <time datetime="2020-05-25 12:00:00">
+          <i class="fas fa-calendar-alt mr-2"></i>{{coctail.dateModified | date:'mediumDate'}}
+        </time>
       </div>
-    </div>
-  </div>
-</div>
-
-<div class="card mb-3 border-0">
-  <div class="row g-0">
-    <div class="col-md-4 align-self-center mb-3">
-      <img class="rounded" src="{{coctail.photoUrl}}" alt="Card image cap" width="100%" alt="...">
-    </div>
-    
-    <div class="col-md-8">
-      <div class="row">
-        <div class="col">
-          <h1 class="m-0 font-weight-bold">{{coctail.name}}</h1>
-        </div>
-        <ng-container *ngIf="(accountService.currentUser$ | async) as user">
-          <div class="col d-flex justify-content-end" *appHasRole='["Admin", "Moderator"]'>
-            <div class="btn-group">
-              <button class="btn btn-sm btn-success" (click)="acceptCoctail()">
-                <mat-icon class="h6 m-0">check</mat-icon>
-              </button>
-              <button class="btn btn-sm btn-danger" (click)="rejectCoctail()">
-                <mat-icon class="h6 m-0">delete</mat-icon>
-              </button>
-            </div>
-          </div>
-        </ng-container>
+      <div class="postcard__bar"></div>
+      <div class="postcard__preview-txt">{{coctail.instructions}}</div>
+      <div>
+        <p class="card-text h6 mb-2">Glass: </p>
+        <p class="card-text ml-2"> {{coctail.glass}}</p>
+        <p class="card-text h6 mb-2">Ingredients:</p>
+        <table class="ml-2">
+          <tbody>
+            <tr *ngFor="let item of coctail.ingradients">
+              <td class="">{{item.name}}</td>
+              <td class="pl-2">{{item.measure}}</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
-
-      <p class="card-title font-weight-bold">Instructions</p>
-      <p class="card-text">{{coctail.instructions}}</p>
-      <p class="card-text font-weight-bold mb-2">Glass: </p>
-      <p class="card-text ml-2"> {{coctail.glass}}</p>
-      <p class="card-text font-weight-bold mb-2">Ingredients:</p>
-
-      <table class="ml-2">
-        <tbody>
-          <tr *ngFor="let item of coctail.ingradients">
-            <td class="">{{item.name}}</td>
-            <td class="pl-2">{{item.measure}}</td>
-          </tr>
-        </tbody>
-      </table>
-
+      <ul class="postcard__tagbox">
+        <li class="tag__item"><i class="fas fa-tag mr-2"></i>{{coctail.category}}</li>
+        <li class="tag__item"><i class="fas fa-clock mr-2"></i>{{coctail.alcoholic}}</li>
+        <li class="tag__item bg-success"><i class="fas fa-clock mr-2"></i>
+          <a (click)="acceptCoctail()">
+            <mat-icon class="h7 m-0">check</mat-icon>
+          </a>
+        </li>
+        <li class="tag__item bg-danger"><i class="fas fa-clock mr-2"></i>
+          <a (click)="rejectCoctail()">
+            <mat-icon class="h7 m-0">delete</mat-icon>
+          </a>
+        </li>
+      </ul>
     </div>
-  </div>
-</div>
+  </article>
+</main>

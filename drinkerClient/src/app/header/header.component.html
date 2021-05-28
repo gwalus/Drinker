@@ -10,7 +10,8 @@
 
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
-        <a class="nav-link" *ngIf="(accountService.currentUser$ | async) as user" routerLink="/coctailBuilder">Coctail Builder</a>
+        <a class="nav-link" *ngIf="(accountService.currentUser$ | async) as user" routerLink="/coctailBuilder">Coctail
+          Builder</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" routerLink="/drinks">Coctail & Mixed Drinks</a>
@@ -37,7 +38,8 @@
       </a>
     </form>
 
-    <li class="nav-item" ngbDropdown display="dynamic" placement="bottom-right" *ngIf="(accountService.currentUser$ | async) === null">
+    <li class="nav-item" ngbDropdown display="dynamic" placement="bottom-right"
+      *ngIf="(accountService.currentUser$ | async) === null">
       <button class="btn " id="dropdownBasic1" ngbDropdownToggle>
         <mat-icon class="blog-header-logo-icon logout-icon" aria-hidden="false" aria-label="Profil menu">
           account_circle</mat-icon>
@@ -54,7 +56,8 @@
       </div>
     </li>
 
-    <li class="nav-item" ngbDropdown display="dynamic" placement="bottom-right" *ngIf="(accountService.currentUser$ | async) as user">
+    <li class="nav-item" ngbDropdown display="dynamic" placement="bottom-right"
+      *ngIf="(accountService.currentUser$ | async) as user">
       <button class="btn " id="dropdownBasic1" ngbDropdownToggle>
         <mat-icon class="blog-header-logo-icon text-white" aria-hidden="false" aria-label="Profil menu">
           account_circle</mat-icon>

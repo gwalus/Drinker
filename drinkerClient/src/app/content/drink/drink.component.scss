@@ -1,20 +1,29 @@
+.text-muted {
+  color: rgb(209, 209, 209) !important;
+}
+
+.h7 {
+  font-size: 13px;
+  height: auto;
+}
+
 .carousel-img {
   width: 100%;
   resize: none;
+  display: flex;
 }
 
 .carousel {
-  height: 400px;
+  height: 600px;
 }
 
-.bg-dark-blur {
-  background-color: rgb(24, 21, 31, 0.7);
-  padding: 20px;
-  color: rgb(255, 255, 255);
+.parallax {
+  height: 350px;
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
-
-/* ///////////////// */
-
 
 @import url("https://fonts.googleapis.com/css2?family=Baloo+2&display=swap");
 $main-green: #79dd09 !default;
