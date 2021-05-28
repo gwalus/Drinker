@@ -20,20 +20,27 @@ namespace DrinkerAPI.Data
         {
             base.OnModelCreating(builder);
 
-            builder.Entity<FavouriteCoctail>()
-                .HasKey(k => new { k.CoctailId, k.UserId });
+            builder.Entity<Coctail>()
+                .HasMany(x => x.Ingradients)
+                .WithOne(e => e.Coctail)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            builder.Entity<Ingredient>()
+                .HasOne(x => x.Coctail)
+                .WithMany(e => e.Ingradients);
 
             builder.Entity<FavouriteCoctail>()
-                .HasOne(s => s.User)
+                .HasKey(k => new { k.AppUserId, k.CoctailId});
+
+            builder.Entity<FavouriteCoctail>()
+                .HasOne(s => s.AppUser)
                 .WithMany(l => l.FavouriteCoctails)
-                .HasForeignKey(s => s.UserId)
-                .OnDelete(DeleteBehavior.Cascade);
+                .HasForeignKey(s => s.AppUserId);
 
             builder.Entity<FavouriteCoctail>()
                 .HasOne(s => s.Coctail)
                 .WithMany(l => l.FavouritedByUsers)
-                .HasForeignKey(s => s.CoctailId)
-                .OnDelete(DeleteBehavior.Cascade);
+                .HasForeignKey(s => s.CoctailId);
         }
     }
 }

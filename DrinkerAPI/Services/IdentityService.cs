@@ -82,10 +82,9 @@ namespace DrinkerAPI.Services
 
             var claims = new List<Claim>
             {
-                new Claim(JwtRegisteredClaimNames.Sub, newUser.Email),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                 new Claim(JwtRegisteredClaimNames.Email, newUser.Email),
-                new Claim("id", newUser.Id.ToString())
+                new Claim(JwtRegisteredClaimNames.NameId, newUser.Id.ToString())
             };
 
             var roles = await _userManager.GetRolesAsync(newUser);

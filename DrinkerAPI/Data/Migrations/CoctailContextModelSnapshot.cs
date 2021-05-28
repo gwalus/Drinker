@@ -36,12 +36,6 @@ namespace DrinkerAPI.Data.Migrations
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("FavouriteCoctailCoctailId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int?>("FavouriteCoctailUserId")
-                        .HasColumnType("INTEGER");
-
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("INTEGER");
 
@@ -83,8 +77,6 @@ namespace DrinkerAPI.Data.Migrations
                     b.HasIndex("NormalizedUserName")
                         .IsUnique()
                         .HasDatabaseName("UserNameIndex");
-
-                    b.HasIndex("FavouriteCoctailCoctailId", "FavouriteCoctailUserId");
 
                     b.ToTable("AspNetUsers");
                 });
@@ -129,15 +121,15 @@ namespace DrinkerAPI.Data.Migrations
 
             modelBuilder.Entity("DrinkerAPI.Models.FavouriteCoctail", b =>
                 {
+                    b.Property<int>("AppUserId")
+                        .HasColumnType("INTEGER");
+
                     b.Property<int>("CoctailId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("INTEGER");
+                    b.HasKey("AppUserId", "CoctailId");
 
-                    b.HasKey("CoctailId", "UserId");
-
-                    b.HasIndex("UserId");
+                    b.HasIndex("CoctailId");
 
                     b.ToTable("FavouriteCoctails");
                 });
@@ -290,37 +282,31 @@ namespace DrinkerAPI.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("DrinkerAPI.Models.AppUser", b =>
-                {
-                    b.HasOne("DrinkerAPI.Models.FavouriteCoctail", null)
-                        .WithMany("FavouritedByUsers")
-                        .HasForeignKey("FavouriteCoctailCoctailId", "FavouriteCoctailUserId");
-                });
-
             modelBuilder.Entity("DrinkerAPI.Models.FavouriteCoctail", b =>
                 {
+                    b.HasOne("DrinkerAPI.Models.AppUser", "AppUser")
+                        .WithMany("FavouriteCoctails")
+                        .HasForeignKey("AppUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("DrinkerAPI.Models.Coctail", "Coctail")
                         .WithMany("FavouritedByUsers")
                         .HasForeignKey("CoctailId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("DrinkerAPI.Models.AppUser", "User")
-                        .WithMany("FavouriteCoctails")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("AppUser");
 
                     b.Navigation("Coctail");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("DrinkerAPI.Models.Ingredient", b =>
                 {
                     b.HasOne("DrinkerAPI.Models.Coctail", "Coctail")
                         .WithMany("Ingradients")
-                        .HasForeignKey("CoctailId");
+                        .HasForeignKey("CoctailId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("Coctail");
                 });
@@ -386,11 +372,6 @@ namespace DrinkerAPI.Data.Migrations
                     b.Navigation("FavouritedByUsers");
 
                     b.Navigation("Ingradients");
-                });
-
-            modelBuilder.Entity("DrinkerAPI.Models.FavouriteCoctail", b =>
-                {
-                    b.Navigation("FavouritedByUsers");
                 });
 #pragma warning restore 612, 618
         }

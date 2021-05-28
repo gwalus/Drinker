@@ -160,7 +160,6 @@ namespace DrinkerAPI.Services
         public async Task<bool> AddCocktailToFavourite(FavouriteCoctail favouriteCoctail)
         {
             await _context.FavouriteCoctails.AddAsync(favouriteCoctail);
-
             return await _context.SaveChangesAsync() > 0;
         }
     }

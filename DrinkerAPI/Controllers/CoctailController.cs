@@ -3,8 +3,12 @@ using DrinkerAPI.Extensions;
 using DrinkerAPI.Helpers;
 using DrinkerAPI.Interfaces;
 using DrinkerAPI.Models;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace DrinkerAPI.Controllers
@@ -123,5 +127,25 @@ namespace DrinkerAPI.Controllers
 
         [HttpGet(ApiRoutes.Coctails.ingredientNames)]
         public async Task<ActionResult<IList<string>>> GetIngredientNames() => Ok(await _coctailRepository.GetIngredientNamesAsync());
+
+        //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [HttpPost(ApiRoutes.Coctails.addToFavourite)]
+        public async Task<ActionResult> AddToFavourite(int cocktailId)
+        {
+            if (cocktailId == null)
+                return BadRequest();
+
+            var favouriteCocktail = new FavouriteCoctail
+            {
+                //AppUserId = User.GetUserId(),
+                AppUserId = 2,
+                CoctailId = cocktailId
+            };
+
+            if (await _coctailRepository.AddCocktailToFavourite(favouriteCocktail))
+                return Ok("Cocktail has been added to favourite");
+
+            return BadRequest("Something went wrong...");
+        }
     }
 }
