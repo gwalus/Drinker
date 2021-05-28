@@ -38,14 +38,10 @@ export class CoctailService {
   }
 
   getRandomCoctails(count: number = 1) {
-    if (count > 8 || count <= 0) {
-      this.toastr.info('We can return only 8 coctails.', 'Info');
-    }
-
     let params = new HttpParams();
     params = params.append('count', count.toString());
 
-    return this.http.get(this.baseUrl + 'random', { params });
+    return this.http.get<Coctail[]>(this.baseUrl + 'random', { params });
   }
 
   getCoctailCategories() {
