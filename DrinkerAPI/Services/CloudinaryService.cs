@@ -2,13 +2,9 @@
 using CloudinaryDotNet.Actions;
 using DrinkerAPI.Interfaces;
 using Microsoft.AspNetCore.Http;
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
-
 namespace DrinkerAPI.Services
 {
     public class CloudinaryService : ICloudinaryService
