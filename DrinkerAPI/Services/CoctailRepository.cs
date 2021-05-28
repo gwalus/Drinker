@@ -20,11 +20,13 @@ namespace DrinkerAPI.Services
     {
         private readonly CoctailContext _context;
         private readonly IMapper _mapper;
+        private readonly ICloudinaryService _cloudinary;
 
-        public CoctailRepository(CoctailContext context, IMapper mapper)
+        public CoctailRepository(CoctailContext context, IMapper mapper,ICloudinaryService cloudinary)
         {
             _context = context;
             _mapper = mapper;
+            _cloudinary = cloudinary;
         }
 
         public async Task<CoctailDto> GetCoctailDtoByIdAsync(int Id)
@@ -120,8 +122,21 @@ namespace DrinkerAPI.Services
             //return await PagedList<CoctailDto>.CreateAsync(postgresquery, paginationParams.PageNumber, paginationParams.PageSize);
         }
 
-        public async Task<bool> AddCoctail(Coctail coctail)
+        public async Task<bool> AddCoctail(CoctailToAdd coctailToAdd)
         {
+            var coctail = new Coctail
+            {
+                Alcoholic = coctailToAdd.Alcoholic,
+                Category = coctailToAdd.Category,
+                DateModified = DateTime.Now.ToString(),
+                Glass = coctailToAdd.Glass,
+                Ingradients = coctailToAdd.Ingradients,
+                Name = coctailToAdd.Name,
+                Instructions = coctailToAdd.Instructions,
+                PhotoUrl = await _cloudinary.UploadFile(coctailToAdd.PhotoUrl),
+                IsAccepted = false,
+
+            };
             coctail.IsAccepted = false;
             await _context.Coctails.AddAsync(coctail);
             var added = await _context.SaveChangesAsync();
