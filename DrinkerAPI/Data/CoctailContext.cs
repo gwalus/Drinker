@@ -8,7 +8,8 @@ namespace DrinkerAPI.Data
     // public class CoctailContext : IdentityDbContext<IdentityUser<int>, IdentityRole<int>, int, IdentityUserClaim<int>,
     //  IdentityUserRole<int>, IdentityUserLogin<int>, IdentityRoleClaim<int>, IdentityUserToken<int>>
 
-    public class CoctailContext : IdentityDbContext
+    public class CoctailContext : IdentityDbContext<AppUser, IdentityRole<int>, int, IdentityUserClaim<int>,
+     IdentityUserRole<int>, IdentityUserLogin<int>, IdentityRoleClaim<int>, IdentityUserToken<int>>
     {
         public CoctailContext(DbContextOptions<CoctailContext> options) : base(options)
         {
@@ -16,5 +17,15 @@ namespace DrinkerAPI.Data
 
         public DbSet<Coctail> Coctails { get; set; }
         public DbSet<Ingredient> Ingredients { get; set; }
+        public DbSet<FavouriteCoctail> FavouriteCoctails { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+
+            //builder.Entity<FavouriteCoctail>()
+            //    .HasOne(s => s.User)
+            //    .WithMany(l => l.)
+        }
     }
 }
