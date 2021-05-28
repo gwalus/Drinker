@@ -11,6 +11,7 @@ import { AdminPanelComponent } from './account/admin-panel/admin-panel.component
 import { UserProfilComponent } from './account/user-profil/user-profil.component';
 import { HomeComponent } from './home/home.component';
 import { AuthGuard } from './_guards/auth.guard';
+import { FavoriteDrinkComponent } from './account/favorite-drink/favorite-drink.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -31,7 +32,8 @@ const routes: Routes = [
     children: [
       { path: 'coctailBuilder', component: CoctailBuilderComponent },
       { path: 'admin-panel', component: AdminPanelComponent },
-      { path: 'account', component: UserProfilComponent }
+      { path: 'account', component: UserProfilComponent },
+      { path: 'favorite-drink', component: FavoriteDrinkComponent }
     ]
   }
 ];

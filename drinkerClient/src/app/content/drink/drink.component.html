@@ -13,7 +13,16 @@
       <img class="postcard__img" src="{{coctail.photoUrl}}" alt="Image Title" />
     </a>
     <div class="postcard__text">
-      <h1 class="postcard__title blue"><a>{{coctail.name}}</a></h1>
+      <h1 class=" ">
+        <a class="h1 blue">{{coctail.name}}</a>
+        <a class="btn pt-0" *appHasRole='["Admin", "Moderator", "User"]'>
+          <mat-icon class="h4 m-0">favorite_border
+          </mat-icon>
+          <!-- <mat-icon class="h4 m-0">favorite
+          </mat-icon> -->
+        </a>
+      </h1>
+      
       <div class="postcard__subtitle small">
         <time datetime="2020-05-25 12:00:00">
           <i class="fas fa-calendar-alt mr-2"></i>{{coctail.dateModified | date:'mediumDate'}}
@@ -37,12 +46,12 @@
       <ul class="postcard__tagbox">
         <li class="tag__item"><i class="fas fa-tag mr-2"></i>{{coctail.category}}</li>
         <li class="tag__item"><i class="fas fa-clock mr-2"></i>{{coctail.alcoholic}}</li>
-        <li class="tag__item bg-success"><i class="fas fa-clock mr-2"></i>
+        <li class="tag__item bg-success" *appHasRole='["Admin", "Moderator"]'><i class="fas fa-clock mr-2"></i>
           <a (click)="acceptCoctail()">
             <mat-icon class="h7 m-0">check</mat-icon>
           </a>
         </li>
-        <li class="tag__item bg-danger"><i class="fas fa-clock mr-2"></i>
+        <li class="tag__item bg-danger" *appHasRole='["Admin", "Moderator"]'><i class="fas fa-clock mr-2"></i>
           <a (click)="rejectCoctail()">
             <mat-icon class="h7 m-0">delete</mat-icon>
           </a>
