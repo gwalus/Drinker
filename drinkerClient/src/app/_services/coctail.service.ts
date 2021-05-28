@@ -67,4 +67,12 @@ export class CoctailService {
   addToFavourite(id: number) {
     return this.http.post<string>(this.baseUrl + 'favourite?cocktailId=' + id, {});
   }
+
+  getFavouritedCocktails(paginationParams: PaginationParams) {
+    let params = new HttpParams();
+
+    params = getPaginationHeaders(params, paginationParams);
+
+    return getPaginatedResult<Coctail[]>(this.baseUrl + 'favourited', params, this.http);
+  }
 }
