@@ -137,6 +137,10 @@ namespace DrinkerAPI.Services
                 IsAccepted = false,
 
             };
+            if (coctail.PhotoUrl == null)
+            {
+                return false;
+            }
             coctail.IsAccepted = false;
             await _context.Coctails.AddAsync(coctail);
             var added = await _context.SaveChangesAsync();
