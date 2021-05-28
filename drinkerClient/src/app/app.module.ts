@@ -11,7 +11,7 @@ import { CoctailBuilderComponent } from './content/coctail-builder/coctail-build
 import { DrinksComponent } from './content/drinks/drinks.component';
 import { GameComponent } from './content/game/game.component';
 import { CalculatorComponent } from './content/calculator/calculator.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './account/login/login.component';
 import { RegistrationComponent } from './account/registration/registration.component';
@@ -25,6 +25,7 @@ import { AdminPanelComponent } from './account/admin-panel/admin-panel.component
 import { UserProfilComponent } from './account/user-profil/user-profil.component';
 import { HasRoleDirective } from './_directives/has-role.directive';
 import { FavoriteDrinkComponent } from './account/favorite-drink/favorite-drink.component';
+import { JwtInterceptor } from './_interceptors/jwt.interceptor';
 
 
 @NgModule({
@@ -62,7 +63,9 @@ import { FavoriteDrinkComponent } from './account/favorite-drink/favorite-drink.
     }),
     AppMaterialModule
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

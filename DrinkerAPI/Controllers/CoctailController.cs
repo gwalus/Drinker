@@ -106,6 +106,7 @@ namespace DrinkerAPI.Controllers
 
             return BadRequest();
         }
+
         [HttpPost(ApiRoutes.Coctails.addCoctailAsUser)]
         public async Task<ActionResult> AddCoctail([FromBody] Coctail coctail)
         {
