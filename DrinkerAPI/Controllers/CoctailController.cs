@@ -160,5 +160,21 @@ namespace DrinkerAPI.Controllers
 
             return BadRequest(JsonSerializer.Serialize("Something went wrong..."));
         }
+
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [HttpGet(ApiRoutes.Coctails.getFavourites)]
+        public async Task<ActionResult<IList<CoctailDto>>> GetFavouritesCocktails([FromQuery] PaginationParams paginationParams)
+        {
+            var userId = User.GetUserId();
+
+            var cocktails = await _coctailRepository.GetFavouritesCocktails(userId, paginationParams);
+
+            if (userId == 0 || cocktails is null)
+                return NotFound();
+
+            Response.AddPaginationHeader(cocktails.CurrentPage, cocktails.PageSize, cocktails.TotalCount, cocktails.TotalPages);
+
+            return Ok(cocktails);
+        }
     }
 }

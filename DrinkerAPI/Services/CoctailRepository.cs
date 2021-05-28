@@ -188,14 +188,16 @@ namespace DrinkerAPI.Services
                 .SingleOrDefaultAsync(x => x.Id == id);
         }
 
-        public async Task<IList<CoctailDto>> GetFavouritesCocktails(int userId)
+        public async Task<PagedList<CoctailDto>> GetFavouritesCocktails(int userId, PaginationParams paginationParams)
         {
-            return await _context.FavouriteCoctails
+           var favouritedCocktails = _context.FavouriteCoctails
                 .Where(fc => fc.AppUserId == userId)
                 .Include(fc => fc.Coctail)
                 .Select(fc => fc.Coctail)
                 .ProjectTo<CoctailDto>(_mapper.ConfigurationProvider)
-                .ToListAsync();
+                .AsQueryable();
+
+            return await PagedList<CoctailDto>.CreateAsync(favouritedCocktails, paginationParams.PageNumber, paginationParams.PageSize);
         }
     }
 }
