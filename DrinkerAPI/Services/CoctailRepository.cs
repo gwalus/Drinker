@@ -199,5 +199,12 @@ namespace DrinkerAPI.Services
 
             return await PagedList<CoctailDto>.CreateAsync(favouritedCocktails, paginationParams.PageNumber, paginationParams.PageSize);
         }
+
+        public async Task<bool> DeleteFromFavouritesAsync(FavouriteCoctail favouriteCoctail)
+        {
+            _context.FavouriteCoctails.Remove(favouriteCoctail);
+
+            return await _context.SaveChangesAsync() > 0;
+        }
     }
 }

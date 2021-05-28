@@ -10,6 +10,5 @@ namespace DrinkerAPI.Models
         public virtual AppUser AppUser { get; set; }
         public int CoctailId { get; set; }
         public virtual Coctail Coctail { get; set; }
-        //public virtual ICollection<AppUser> FavouritedByUsers { get; set; }
     }
 }

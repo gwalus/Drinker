@@ -66,5 +66,6 @@ namespace DrinkerAPI.Interfaces
         Task<bool> AddCocktailToFavourite(FavouriteCoctail favouriteCoctail);
         Task<Coctail> GetCoctailByIdAsync(int id);
         Task<PagedList<CoctailDto>> GetFavouritesCocktails(int userId, PaginationParams paginationParams);
+        Task<bool> DeleteFromFavouritesAsync(FavouriteCoctail favouriteCoctail);
     }
 }
