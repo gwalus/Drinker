@@ -29,19 +29,19 @@ export class DrinksComponent implements OnInit {
 
   categories = new FormControl();
   categoriesList: string[];
-  selectedCategories: string[];
+  selectedCategories: string[] = [];
 
   glasses = new FormControl();
   glassesList: string[];
-  selectedGlasses: string[];
+  selectedGlasses: string[] = [];
 
   alcoholic = new FormControl();
   alcoholicList: string[] = ["Alcoholic", "Non alcoholic", "Optional alcohol"];
-  selectedAlcoholic: string[];
+  selectedAlcoholic: string[] = [];
 
   ingredients = new FormControl();
   ingredientsList: string[];
-  selectedIngredients: string[];
+  selectedIngredients: string[] = [];
 
   ngOnInit(): void {
     this.getCoctailCategories();
