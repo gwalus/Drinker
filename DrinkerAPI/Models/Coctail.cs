@@ -15,5 +15,6 @@ namespace DrinkerAPI.Models
         public virtual IList<Ingredient> Ingradients { get; set; }
         public string ? UserId { get; set; }
         public bool IsAccepted{get;set;}
+        public virtual ICollection<FavouriteCoctail> FavouritedByUsers { get; set; }
     }
 }

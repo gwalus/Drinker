@@ -5,6 +5,6 @@ namespace DrinkerAPI.Models
 {
     public class AppUser : IdentityUser<int>
     {
-        public ICollection<FavouriteCoctail> FavouriteCoctails { get; set; }
+        public virtual ICollection<FavouriteCoctail> FavouriteCoctails { get; set; }
     }
 }

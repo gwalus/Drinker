@@ -15,9 +15,9 @@ namespace DrinkerAPI.Services
 {
     public class IdentityService : IIdentityService
     {
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly UserManager<AppUser> _userManager;
         private readonly JwtSettings _jwtSettings;
-        public IdentityService(UserManager<IdentityUser> userManager, JwtSettings jwtSettings)
+        public IdentityService(UserManager<AppUser> userManager, JwtSettings jwtSettings)
         {
             _userManager = userManager;
             _jwtSettings = jwtSettings;
@@ -54,8 +54,8 @@ namespace DrinkerAPI.Services
                     Errors = new[] { "User with this email address already exists" }
                 };
             }
-            var newUser = new IdentityUser
-            {
+            var newUser = new AppUser
+            {                
                 Email = email,
                 UserName = email,
 
@@ -70,7 +70,7 @@ namespace DrinkerAPI.Services
             }
             return await GenerateAuthenticationResultForUser(newUser);
         }
-        private async Task<AuthentiactionResult> GenerateAuthenticationResultForUser(IdentityUser newUser)
+        private async Task<AuthentiactionResult> GenerateAuthenticationResultForUser(AppUser newUser)
         {
             var tokenHanlder = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_jwtSettings.Secret);
@@ -85,7 +85,7 @@ namespace DrinkerAPI.Services
                 new Claim(JwtRegisteredClaimNames.Sub, newUser.Email),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                 new Claim(JwtRegisteredClaimNames.Email, newUser.Email),
-                new Claim("id", newUser.Id)
+                new Claim("id", newUser.Id.ToString())
             };
 
             var roles = await _userManager.GetRolesAsync(newUser);

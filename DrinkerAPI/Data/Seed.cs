@@ -13,7 +13,7 @@ namespace DrinkerAPI.Data
         /// <summary>Seeds the data.</summary>
         /// <param name="context">The context.</param>
         //public static async Task SeedData(CoctailContext context, UserManager<IdentityUser> userManager)
-        public static async Task SeedData(CoctailContext context, UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager)
+        public static async Task SeedData(CoctailContext context, UserManager<AppUser> userManager, RoleManager<IdentityRole<int>> roleManager)
         {
             if (await context.Coctails.AnyAsync()) return;
 
@@ -35,10 +35,10 @@ namespace DrinkerAPI.Data
                 await context.SaveChangesAsync();
             }
 
-            //FOR DEVELOPMENT
-            var roles = new List<IdentityRole>{
-                new IdentityRole{Name="User"},
-                new IdentityRole{Name="Admin"}
+            ////FOR DEVELOPMENT
+            var roles = new List<IdentityRole<int>>{
+                new IdentityRole<int>{Name="User"},
+                new IdentityRole<int>{Name="Admin"}
             };
 
             foreach (var role in roles)
@@ -46,8 +46,8 @@ namespace DrinkerAPI.Data
                 await roleManager.CreateAsync(role);
             }
 
-            var admin = new IdentityUser { UserName = "admin", Email = "admin@gmail.com" };
-            var defaultUser = new IdentityUser { UserName = "user", Email = "user@gmail.com" };
+            var admin = new AppUser { UserName = "admin", Email = "admin@gmail.com" };
+            var defaultUser = new AppUser { UserName = "user", Email = "user@gmail.com" };
 
             await userManager.CreateAsync(admin, "Pa$$w0rd");
             await userManager.CreateAsync(defaultUser, "Pa$$w0rd");

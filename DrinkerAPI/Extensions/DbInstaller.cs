@@ -1,4 +1,5 @@
 ﻿using DrinkerAPI.Data;
+using DrinkerAPI.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -11,11 +12,11 @@ namespace DrinkerAPI.Extensions
         public void InstallServices(IServiceCollection services, IConfiguration configuration)
         {
             services.AddDbContext<CoctailContext>(options => options.UseSqlite("Data source = coctaildb.db").UseLazyLoadingProxies());
-            services.AddIdentityCore<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-              .AddRoles<IdentityRole>()
-                .AddRoleManager<RoleManager<IdentityRole>>()
-                .AddSignInManager<SignInManager<IdentityUser>>()
-                .AddRoleValidator<RoleValidator<IdentityRole>>()
+            services.AddIdentityCore<AppUser>(options => options.SignIn.RequireConfirmedAccount = true)
+              .AddRoles<IdentityRole<int>>()
+                .AddRoleManager<RoleManager<IdentityRole<int>>>()
+                .AddSignInManager<SignInManager<AppUser>>()
+                .AddRoleValidator<RoleValidator<IdentityRole<int>>>()
               .AddEntityFrameworkStores<CoctailContext>();
         }
     }
