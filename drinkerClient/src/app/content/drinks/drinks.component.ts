@@ -5,6 +5,7 @@ import { CoctailService } from 'src/app/_services/coctail.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { FormControl } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-drinks',
@@ -14,7 +15,9 @@ import { FormControl } from '@angular/forms';
 
 export class DrinksComponent implements OnInit {
 
-  constructor(private coctailService: CoctailService,
+  constructor(
+    private toastr: ToastrService, 
+    private coctailService: CoctailService,
     private _Activatedroute: ActivatedRoute,
     private _router: Router) { }
 
@@ -82,6 +85,8 @@ export class DrinksComponent implements OnInit {
 
   getCoctails() {
     this.coctailService.getAll(this.searchKeyword, this.selectedIngredients, this.coctailParams).subscribe(coctails => {
+      if(coctails.result.length<=0)
+        this.toastr.error('Not found cocktails');
       this.viewCoctails = coctails.result;
     })
   }
