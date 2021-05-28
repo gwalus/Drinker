@@ -63,4 +63,8 @@ export class CoctailService {
   getIngredientNames() {
     return this.http.get<string[]>(this.baseUrl + 'ingredientNames');
   }
+
+  addToFavourite(id: number) {
+    return this.http.post<string>(this.baseUrl + 'favourite?cocktailId=' + id, {});
+  }
 }

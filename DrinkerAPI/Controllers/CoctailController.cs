@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Net;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace DrinkerAPI.Controllers
@@ -155,9 +156,9 @@ namespace DrinkerAPI.Controllers
             };
 
             if (await _coctailRepository.AddCocktailToFavourite(favouriteCocktail))
-                return Ok("Cocktail has been added to favourite");
+                return Ok(JsonSerializer.Serialize("Cocktail has been added to favourite"));
 
-            return BadRequest("Something went wrong...");
+            return BadRequest(JsonSerializer.Serialize("Something went wrong..."));
         }
     }
 }
