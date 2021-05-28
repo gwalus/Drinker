@@ -1,4 +1,5 @@
-﻿using DrinkerAPI.Helpers;
+﻿using DrinkerAPI.Data;
+using DrinkerAPI.Helpers;
 using DrinkerAPI.Interfaces;
 using DrinkerAPI.Options;
 using DrinkerAPI.Services;
@@ -56,6 +57,7 @@ namespace DrinkerAPI.Extensions
             services.AddRouting(options => options.LowercaseUrls = true);
             //Repositories
             services.AddScoped<ICoctailRepository, CoctailRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IIdentityService, IdentityService>();
             services.AddScoped<ICloudinaryService, CloudinaryService>();
             //Jwt

@@ -3,8 +3,12 @@ using DrinkerAPI.Extensions;
 using DrinkerAPI.Helpers;
 using DrinkerAPI.Interfaces;
 using DrinkerAPI.Models;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace DrinkerAPI.Controllers
@@ -12,9 +16,12 @@ namespace DrinkerAPI.Controllers
     public class CoctailController : BaseApiController
     {
         private readonly ICoctailRepository _coctailRepository;
-        public CoctailController(ICoctailRepository coctailRepostiory)
+        private readonly IUserRepository _userRepository;
+
+        public CoctailController(ICoctailRepository coctailRepostiory, IUserRepository userRepository)
         {
             _coctailRepository = coctailRepostiory;
+            _userRepository = userRepository;
         }
 
         /// <summary>Gets the coctails by ingredient.</summary>
@@ -106,6 +113,7 @@ namespace DrinkerAPI.Controllers
 
             return BadRequest();
         }
+
         [HttpPost(ApiRoutes.Coctails.addCoctailAsUser)]
         public async Task<ActionResult> AddCoctail([FromForm] CoctailToAdd coctail)
         {
@@ -122,5 +130,34 @@ namespace DrinkerAPI.Controllers
 
         [HttpGet(ApiRoutes.Coctails.ingredientNames)]
         public async Task<ActionResult<IList<string>>> GetIngredientNames() => Ok(await _coctailRepository.GetIngredientNamesAsync());
+
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [HttpPost(ApiRoutes.Coctails.addToFavourite)]
+        public async Task<ActionResult> AddToFavourite(int cocktailId)
+        {
+            if (cocktailId == null)
+                return BadRequest();
+
+            var userId = User.GetUserId();
+            var cocktail = await _coctailRepository.GetCoctailByIdAsync(cocktailId);
+            var user = await _userRepository.GetUserById(userId);
+
+            if (user == null || cocktail == null)
+                return NotFound("User or cocktail not found");
+
+
+            var favouriteCocktail = new FavouriteCoctail
+            {
+                AppUser = user,
+                AppUserId = userId,
+                CoctailId = cocktailId,
+                Coctail = cocktail
+            };
+
+            if (await _coctailRepository.AddCocktailToFavourite(favouriteCocktail))
+                return Ok("Cocktail has been added to favourite");
+
+            return BadRequest("Something went wrong...");
+        }
     }
 }

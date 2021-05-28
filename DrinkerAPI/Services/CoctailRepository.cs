@@ -29,7 +29,7 @@ namespace DrinkerAPI.Services
             _cloudinary = cloudinary;
         }
 
-        public async Task<CoctailDto> GetCoctailByIdAsync(int Id)
+        public async Task<CoctailDto> GetCoctailDtoByIdAsync(int Id)
         {
             return await _context.Coctails
                 .ProjectTo<CoctailDto>(_mapper.ConfigurationProvider)
@@ -174,6 +174,18 @@ namespace DrinkerAPI.Services
         public async Task<IList<string>> GetIngredientNamesAsync()
         {
             return await _context.Ingredients.Select(x => x.Name).Distinct().ToListAsync();
+        }
+
+        public async Task<bool> AddCocktailToFavourite(FavouriteCoctail favouriteCoctail)
+        {
+            await _context.FavouriteCoctails.AddAsync(favouriteCoctail);
+            return await _context.SaveChangesAsync() > 0;
+        }
+
+        public async Task<Coctail> GetCoctailByIdAsync(int id)
+        {
+            return await _context.Coctails
+                .SingleOrDefaultAsync(x => x.Id == id);
         }
     }
 }

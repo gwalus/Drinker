@@ -50,7 +50,7 @@ namespace DrinkerAPI.Interfaces
         /// <summary>Get coctail by Id  </summary>
         /// <param name="Id"></param>
         /// <returns></returns>
-        Task<CoctailDto> GetCoctailByIdAsync(int Id);
+        Task<CoctailDto> GetCoctailDtoByIdAsync(int Id);
 
 
         /// <summary>Gets the coctails name asynchronous.</summary>
@@ -63,5 +63,7 @@ namespace DrinkerAPI.Interfaces
         Task<bool> RejectCoctail(int Id);
 
         Task<IList<string>> GetIngredientNamesAsync();
+        Task<bool> AddCocktailToFavourite(FavouriteCoctail favouriteCoctail);
+        Task<Coctail> GetCoctailByIdAsync(int id);
     }
 }

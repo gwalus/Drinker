@@ -1,6 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using DrinkerAPI.Data;
+using DrinkerAPI.Models;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -21,8 +22,8 @@ namespace DrinkerAPI
             try
             {
                 var context = services.GetRequiredService<CoctailContext>();
-                var userManager = services.GetRequiredService<UserManager<IdentityUser>>();
-                var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+                var userManager = services.GetRequiredService<UserManager<AppUser>>();
+                var roleManager = services.GetRequiredService<RoleManager<IdentityRole<int>>>();
 
                 await context.Database.MigrateAsync();
                 await Seed.SeedData(context, userManager, roleManager);
