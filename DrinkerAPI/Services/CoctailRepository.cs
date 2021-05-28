@@ -187,5 +187,15 @@ namespace DrinkerAPI.Services
             return await _context.Coctails
                 .SingleOrDefaultAsync(x => x.Id == id);
         }
+
+        public async Task<IList<CoctailDto>> GetFavouritesCocktails(int userId)
+        {
+            return await _context.FavouriteCoctails
+                .Where(fc => fc.AppUserId == userId)
+                .Include(fc => fc.Coctail)
+                .Select(fc => fc.Coctail)
+                .ProjectTo<CoctailDto>(_mapper.ConfigurationProvider)
+                .ToListAsync();
+        }
     }
 }

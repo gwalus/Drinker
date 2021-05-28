@@ -19,6 +19,7 @@
             public const string addCoctailAsUser = _controllerName + "addCoctail";
             public const string ingredientNames = _controllerName + "ingredientNames";
             public const string addToFavourite = _controllerName + "favourite";
+            public const string getFavourites = _controllerName + "favourited";
         }
         public static class Identity
         {

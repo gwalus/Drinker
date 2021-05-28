@@ -65,5 +65,6 @@ namespace DrinkerAPI.Interfaces
         Task<IList<string>> GetIngredientNamesAsync();
         Task<bool> AddCocktailToFavourite(FavouriteCoctail favouriteCoctail);
         Task<Coctail> GetCoctailByIdAsync(int id);
+        Task<IList<CoctailDto>> GetFavouritesCocktails(int userId);
     }
 }
