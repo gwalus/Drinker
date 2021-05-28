@@ -16,9 +16,12 @@ namespace DrinkerAPI.Controllers
     public class CoctailController : BaseApiController
     {
         private readonly ICoctailRepository _coctailRepository;
-        public CoctailController(ICoctailRepository coctailRepostiory)
+        private readonly IUserRepository _userRepository;
+
+        public CoctailController(ICoctailRepository coctailRepostiory, IUserRepository userRepository)
         {
             _coctailRepository = coctailRepostiory;
+            _userRepository = userRepository;
         }
 
         /// <summary>Gets the coctails by ingredient.</summary>
@@ -135,12 +138,17 @@ namespace DrinkerAPI.Controllers
             if (cocktailId == null)
                 return BadRequest();
 
-            var favouriteCocktail = new FavouriteCoctail
-            {
-                //AppUserId = User.GetUserId(),
-                AppUserId = 2,
-                CoctailId = cocktailId
-            };
+            //var userId = User.GetUserId();
+            //var cocktail = await _coctailRepository.GetCoctailByIdAsync(cocktailId);
+
+
+            //var favouriteCocktail = new FavouriteCoctail
+            //{
+            //    AppUser = await _userRepository.GetUserById(userId),
+            //    AppUserId = userId,
+            //    CoctailId = cocktailId,
+            //    Coctail = cocktail
+            //};
 
             if (await _coctailRepository.AddCocktailToFavourite(favouriteCocktail))
                 return Ok("Cocktail has been added to favourite");
