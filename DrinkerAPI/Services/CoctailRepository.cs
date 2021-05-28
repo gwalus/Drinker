@@ -156,5 +156,12 @@ namespace DrinkerAPI.Services
         {
             return await _context.Ingredients.Select(x => x.Name).Distinct().ToListAsync();
         }
+
+        public async Task<bool> AddCocktailToFavourite(FavouriteCoctail favouriteCoctail)
+        {
+            await _context.FavouriteCoctails.AddAsync(favouriteCoctail);
+
+            return await _context.SaveChangesAsync() > 0;
+        }
     }
 }
