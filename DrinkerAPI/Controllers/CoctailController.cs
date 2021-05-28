@@ -131,24 +131,28 @@ namespace DrinkerAPI.Controllers
         [HttpGet(ApiRoutes.Coctails.ingredientNames)]
         public async Task<ActionResult<IList<string>>> GetIngredientNames() => Ok(await _coctailRepository.GetIngredientNamesAsync());
 
-        //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpPost(ApiRoutes.Coctails.addToFavourite)]
         public async Task<ActionResult> AddToFavourite(int cocktailId)
         {
             if (cocktailId == null)
                 return BadRequest();
 
-            //var userId = User.GetUserId();
-            //var cocktail = await _coctailRepository.GetCoctailByIdAsync(cocktailId);
+            var userId = User.GetUserId();
+            var cocktail = await _coctailRepository.GetCoctailByIdAsync(cocktailId);
+            var user = await _userRepository.GetUserById(userId);
+
+            if (user == null || cocktail == null)
+                return NotFound("User or cocktail not found");
 
 
-            //var favouriteCocktail = new FavouriteCoctail
-            //{
-            //    AppUser = await _userRepository.GetUserById(userId),
-            //    AppUserId = userId,
-            //    CoctailId = cocktailId,
-            //    Coctail = cocktail
-            //};
+            var favouriteCocktail = new FavouriteCoctail
+            {
+                AppUser = user,
+                AppUserId = userId,
+                CoctailId = cocktailId,
+                Coctail = cocktail
+            };
 
             if (await _coctailRepository.AddCocktailToFavourite(favouriteCocktail))
                 return Ok("Cocktail has been added to favourite");
