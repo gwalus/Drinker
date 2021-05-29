@@ -14,7 +14,7 @@
 }
 
 .result-calculate {
-  background-color: #dae1e7 !important;
+  background-color: #1f1c27 !important;
   height: 100%;
 }
 
@@ -35,3 +35,13 @@
   }
 }
 
+.input-group-text {
+  color: #adb5bd;
+  background-color: #444;
+  border: 1px solid #444;
+  border-radius: 0;
+}
+
+.form-control {
+  border-radius: 0;
+}
