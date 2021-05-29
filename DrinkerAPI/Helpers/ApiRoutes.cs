@@ -20,6 +20,7 @@
             public const string ingredientNames = _controllerName + "ingredientNames";
             public const string addToFavourite = _controllerName + "favourite";
             public const string getFavourites = _controllerName + "favourited";
+            public const string deleteFromFavourites = _controllerName + "delete-from-favourited";
         }
         public static class Identity
         {

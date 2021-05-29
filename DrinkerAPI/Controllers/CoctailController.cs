@@ -176,5 +176,26 @@ namespace DrinkerAPI.Controllers
 
             return Ok(cocktails);
         }
+
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [HttpGet(ApiRoutes.Coctails.deleteFromFavourites)]
+        public async Task<ActionResult> DeleteFromFavouritesCocktails(int cocktailId)
+        {
+            var userId = User.GetUserId();
+            if (userId == 0)
+                return NotFound();
+
+            var cocktailToDelete = await _coctailRepository.GetFavouriteCoctailAsync(userId, cocktailId);
+            if (cocktailToDelete == null)
+                return NotFound(JsonSerializer.Serialize("Cocktail not found"));
+
+
+            var result = await _coctailRepository.DeleteFromFavouritesAsync(cocktailToDelete);
+
+            if (result)
+                return Ok(JsonSerializer.Serialize("Cocktail has been delete from favourited"));
+
+            return BadRequest();
+        }
     }
 }

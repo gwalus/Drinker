@@ -1,8 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
-using System;
-using System.Collections.Generic;
-
-namespace DrinkerAPI.Models
+﻿namespace DrinkerAPI.Models
 {
     public class FavouriteCoctail
     {
