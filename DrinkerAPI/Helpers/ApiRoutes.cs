@@ -22,6 +22,7 @@
             public const string getFavourites = _controllerName + "favourited";
             public const string deleteFromFavourites = _controllerName + "delete-from-favourited";
             public const string isFavourite = _controllerName + "is-favourite";
+            public const string addPhotoToCocktail = _controllerName + "photo-to-cocktail";
         }
         public static class Identity
         {
