@@ -26,12 +26,14 @@ export class DrinkComponent implements OnInit {
   id: number;
   coctail: Coctail;
   sub: Subscription;
+  isFavourite: boolean = false;
 
   ngOnInit(): void {
     this.sub=this._Activatedroute.paramMap.subscribe(params => { 
       this.id = Number(params.get('id')); 
    });
 
+   this.checkIsFavourite();
    this.getCoctailById();
   }
 
@@ -40,8 +42,7 @@ export class DrinkComponent implements OnInit {
       if(coctails){
         console.log(coctails);
         this.coctail = coctails;
-      }
-        
+      } 
     })
   }
 
@@ -66,6 +67,7 @@ export class DrinkComponent implements OnInit {
   addToFavourite(){
     this.coctailService.addToFavourite(this.id).subscribe(() => {
       this.toastr.success('Added to favourite');
+      this.checkIsFavourite();
     }, error => {
       this.toastr.error(error.error.errors[0]);
     })
@@ -74,8 +76,15 @@ export class DrinkComponent implements OnInit {
   deleteFromFavourited(){
     this.coctailService.deleteFromFavourited(this.id).subscribe(() => {
       this.toastr.success('Deleted to favourite');
+      this.checkIsFavourite();
     }, error => {
       this.toastr.error(error.error.errors[0]);
+    })
+  }
+
+  checkIsFavourite() {
+    this.coctailService.isFavourite(this.id).subscribe(isFavourite => {
+      this.isFavourite = isFavourite; 
     })
   }
 }

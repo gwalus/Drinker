@@ -15,12 +15,14 @@
     <div class="postcard__text">
       <h1 class=" ">
         <a class="h1 blue">{{coctail.name}}</a>
-        <a class="btn pt-0" *appHasRole='["Admin", "Moderator", "User"]' (click)="addToFavourite()">
-          <mat-icon class="h4 m-0">favorite_border
-          </mat-icon>
-          <!-- <mat-icon class="h4 m-0">favorite
-          </mat-icon> -->
-        </a>
+        <ng-container *appHasRole='["Admin", "Moderator", "User"]'>
+          <a class="btn pt-0" *ngIf="!isFavourite" (click)="addToFavourite()">
+            <mat-icon *ngIf="!isFavourite" class="h4 m-0">favorite_border</mat-icon>
+          </a>
+          <a class="btn pt-0" *ngIf="isFavourite" (click)="deleteFromFavourited()">
+            <mat-icon class="h4 m-0">favorite</mat-icon>
+          </a>
+        </ng-container>
       </h1>
 
       <div class="postcard__subtitle small">
