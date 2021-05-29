@@ -2,11 +2,12 @@
 
   <mat-icon class="blog-header-logo-icon pr-1 text-white" aria-hidden="false" aria-label="Log in">local_bar</mat-icon>
   <a class="navbar-brand" href="#">Drinker</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
-    aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+  <button class="navbar-toggler navbar-toggler-right" type="button" (click)="navbarCollapsed = !navbarCollapsed"
+    [attr.aria-expanded]="!navbarCollapsed" aria-controls="navbarContent" aria-expanded="false"
+    aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
-  <div class="collapse navbar-collapse" id="navbarCollapse">
+  <div class="collapse navbar-collapse" id="navbarCollapse" [ngbCollapse]="!navbarCollapsed">
 
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
@@ -24,8 +25,62 @@
       </li>
     </ul>
 
-    <form class="form-inline mt-2 mt-md-0">
-      <input class="form-control mr-sm-2" type="text" placeholder="Find cocktail..." matInput
+    <span class="navbar-text">
+      <div class="nav-item" ngbDropdown display="dynamic" placement="bottom-left"
+        *ngIf="(accountService.currentUser$ | async) === null">
+        <a class="btn p-0" id="dropdownBasic1" ngbDropdownToggle>
+          <mat-icon class="blog-header-logo-icon d-none d-md-block d-lg-block" aria-hidden="false"
+            aria-label="Profil menu">
+            account_circle
+          </mat-icon>
+          <span class="nav-link p-0	d-md-none d-lg-none d-xl-none">Profile</span>
+        </a>
+        <div ngbDropdownMenu aria-labelledby="navbarDropdown3" class="dropdown-menu">
+          <button ngbDropdownItem class="p-3" (click)="openLoginContent(loginContent)">
+            <mat-icon class="login-menu-icon">login</mat-icon>
+            <span class="login-menu-text">Login</span>
+          </button>
+          <button ngbDropdownItem class="p-3" (click)="openRegistraionContent(registrationContent)">
+            <mat-icon class="login-menu-icon">assignment_ind</mat-icon>
+            <span class="login-menu-text">Registration</span>
+          </button>
+        </div>
+      </div>
+    </span>
+
+    <span class="navbar-text">
+      <div class="nav-item" ngbDropdown display="dynamic" placement="bottom-left"
+        *ngIf="(accountService.currentUser$ | async) as user">
+        <a class="btn p-0" id="dropdownBasic1" ngbDropdownToggle>
+          <mat-icon class="blog-header-logo-icon d-none d-md-block d-lg-block" aria-hidden="false"
+            aria-label="Profil menu">
+            account_circle
+          </mat-icon>
+          <span class="nav-link p-0	d-md-none d-lg-none d-xl-none">Profile</span>
+        </a>
+        <div ngbDropdownMenu aria-labelledby="navbarDropdown3" class="dropdown-menu">
+          <button ngbDropdownItem class="p-3" routerLink="account">
+            <mat-icon class="login-menu-icon">account_box</mat-icon>
+            <span class="login-menu-text">My profil</span>
+          </button>
+          <button ngbDropdownItem class="p-3" *appHasRole='["Admin", "Moderator"]' routerLink="admin-panel">
+            <mat-icon class="login-menu-icon">admin_panel_settings</mat-icon>
+            <span class="login-menu-text">Admin panel</span>
+          </button>
+          <button ngbDropdownItem class="p-3" routerLink="favorite-drink">
+            <mat-icon class="login-menu-icon">favorite</mat-icon>
+            <span class="login-menu-text">Favorite</span>
+          </button>
+          <button ngbDropdownItem class="p-3" (click)="logout()">
+            <mat-icon class="login-menu-icon">logout</mat-icon>
+            <span class="login-menu-text">Logout</span>
+          </button>
+        </div>
+      </div>
+    </span>
+
+    <form class="form-inline my-2 my-lg-0 ml-1">
+      <input class="form-control mr-sm-2" type="search" placeholder="Find cocktail..." matInput
         [formControl]="searchControl" [matAutocomplete]="auto" (keydown.enter)="onKeyDownEvent($event)">
       <mat-autocomplete #auto="matAutocomplete">
         <mat-option *ngFor="let name of filteredCocktailNames | async" [value]="name" (click)="onKeyDownEvent($event)">
@@ -37,51 +92,6 @@
         </mat-icon>
       </a>
     </form>
-
-    <li class="nav-item" ngbDropdown display="dynamic" placement="bottom-right"
-      *ngIf="(accountService.currentUser$ | async) === null">
-      <button class="btn " id="dropdownBasic1" ngbDropdownToggle>
-        <mat-icon class="blog-header-logo-icon logout-icon" aria-hidden="false" aria-label="Profil menu">
-          account_circle</mat-icon>
-      </button>
-      <div ngbDropdownMenu aria-labelledby="navbarDropdown3" class="dropdown-menu">
-        <button ngbDropdownItem class="p-3" (click)="openLoginContent(loginContent)">
-          <mat-icon class="login-menu-icon">login</mat-icon>
-          <span class="login-menu-text">Login</span>
-        </button>
-        <button ngbDropdownItem class="p-3" (click)="openRegistraionContent(registrationContent)">
-          <mat-icon class="login-menu-icon">assignment_ind</mat-icon>
-          <span class="login-menu-text">Registration</span>
-        </button>
-      </div>
-    </li>
-
-    <li class="nav-item" ngbDropdown display="dynamic" placement="bottom-right"
-      *ngIf="(accountService.currentUser$ | async) as user">
-      <button class="btn " id="dropdownBasic1" ngbDropdownToggle>
-        <mat-icon class="blog-header-logo-icon text-white" aria-hidden="false" aria-label="Profil menu">
-          account_circle</mat-icon>
-      </button>
-      <div ngbDropdownMenu aria-labelledby="navbarDropdown3" class="dropdown-menu">
-        <button ngbDropdownItem class="p-3" routerLink="account">
-          <mat-icon class="login-menu-icon">account_box</mat-icon>
-          <span class="login-menu-text">My profil</span>
-        </button>
-        <button ngbDropdownItem class="p-3" *appHasRole='["Admin", "Moderator"]' routerLink="admin-panel">
-          <mat-icon class="login-menu-icon">admin_panel_settings</mat-icon>
-          <span class="login-menu-text">Admin panel</span>
-        </button>
-        <button ngbDropdownItem class="p-3" routerLink="favorite-drink">
-          <mat-icon class="login-menu-icon">favorite</mat-icon>
-          <span class="login-menu-text">Favorite</span>
-        </button>
-        <button ngbDropdownItem class="p-3" (click)="logout()">
-          <mat-icon class="login-menu-icon">logout</mat-icon>
-          <span class="login-menu-text">Logout</span>
-        </button>
-      </div>
-    </li>
-
   </div>
 </nav>
 

@@ -25,6 +25,8 @@ export class HeaderComponent implements OnInit {
   searchControl = new FormControl();
   cocktailsAutoCompleteNames: string[] = [];
   filteredCocktailNames: Observable<string[]>;
+  public navbarCollapsed = false; 
+
 
   constructor(private coctailService: CoctailService,
     private modalService: NgbModal,
@@ -41,23 +43,12 @@ export class HeaderComponent implements OnInit {
         map(value => this._filter(value))
       );
 
-    // this.coctailService.getRandomCoctails(8).subscribe(randomCoctails => {
-    //   console.log(randomCoctails as Coctail);
-    // })
-
-    // this.coctailService.getCoctailCategories().subscribe(categories => {
-    //   console.log(categories);
-    // })
-
-    // this.coctailService.getCoctailGlasses().subscribe(glasses => {
-    //   console.log(glasses);
-    // })
+      
   }
 
   openLoginContent(loginContent: any) {
     this.modalService.open(loginContent, { scrollable: true });
   }
-
 
   openRegistraionContent(registrationContent: any) {
     this.modalService.open(registrationContent, { scrollable: true });
