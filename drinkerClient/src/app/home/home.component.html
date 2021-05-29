@@ -15,6 +15,8 @@
   </ng-template>
 </ngb-carousel>
 
+<div style="height: 10px;" class="d-md-none d-lg-none d-xl-none"></div>
+
 <main>
   <article class="postcard blue" *ngFor="let coctail of randomCoctails" [routerLink]="['/drink', coctail.id]">
     <a class="postcard__img_link" [routerLink]="['/drink', coctail.id]">
