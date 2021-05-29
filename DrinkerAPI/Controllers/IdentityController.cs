@@ -35,7 +35,6 @@ namespace DrinkerAPI.Controllers
             var user = await _context.Users.SingleOrDefaultAsync(u => u.Email == request.Email);
             await _userManager.AddToRoleAsync(user, "User");
 
-
             if (!authResponse.Success)
             {
                 return BadRequest(new AuthFailedResponse
