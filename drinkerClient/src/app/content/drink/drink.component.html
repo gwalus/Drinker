@@ -46,16 +46,18 @@
       <ul class="postcard__tagbox">
         <li class="tag__item"><i class="fas fa-tag mr-2"></i>{{coctail.category}}</li>
         <li class="tag__item"><i class="fas fa-clock mr-2"></i>{{coctail.alcoholic}}</li>
-        <li class="tag__item bg-success" *appHasRole='["Admin", "Moderator"]'><i class="fas fa-clock mr-2"></i>
-          <a (click)="acceptCoctail()">
-            <mat-icon class="h7 m-0">check</mat-icon>
-          </a>
-        </li>
-        <a (click)="rejectCoctail()">
-          <li class="tag__item bg-danger" *appHasRole='["Admin", "Moderator"]'><i class="fas fa-clock mr-2"></i>
-            <mat-icon class="h7 m-0">delete</mat-icon>
+        <ng-container *ngIf="coctail.IsAccepted == false">
+          <li class="tag__item bg-success"  *appHasRole='["Admin", "Moderator"]'><i class="fas fa-clock mr-2"></i>
+            <a (click)="acceptCoctail()">
+              <mat-icon class="h7 m-0">check</mat-icon>
+            </a>
           </li>
-        </a>
+          <a (click)="rejectCoctail()">
+            <li class="tag__item bg-danger" *appHasRole='["Admin", "Moderator"]'><i class="fas fa-clock mr-2"></i>
+              <mat-icon class="h7 m-0">delete</mat-icon>
+            </li>
+          </a>
+        </ng-container>
       </ul>
     </div>
   </article>

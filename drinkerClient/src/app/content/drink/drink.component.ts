@@ -37,7 +37,11 @@ export class DrinkComponent implements OnInit {
 
   getCoctailById() {
     this.coctailService.getCoctailById(this.id).subscribe(coctails => {
-      if(coctails)this.coctail = coctails;
+      if(coctails){
+        console.log(coctails);
+        this.coctail = coctails;
+      }
+        
     })
   }
 
