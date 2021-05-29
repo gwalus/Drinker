@@ -9,6 +9,6 @@ export interface Coctail {
     instructions: string;
     photoUrl: string;
     dateModified: Date,
-    IsAccepted: boolean,
+    isAccepted: boolean,
     ingradients: Ingredient[]
 }
