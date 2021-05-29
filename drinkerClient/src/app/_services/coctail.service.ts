@@ -81,6 +81,6 @@ export class CoctailService {
   }
 
   isFavourite(cocktailId: number) {
-    return this.http.get(this.baseUrl + 'is-favourite?cocktailId=' + cocktailId);
+    return this.http.get<boolean>(this.baseUrl + 'is-favourite?cocktailId=' + cocktailId);
   }
 }

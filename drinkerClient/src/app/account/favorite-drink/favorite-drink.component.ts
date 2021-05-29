@@ -15,6 +15,9 @@ export class FavoriteDrinkComponent implements OnInit {
 
   ngOnInit(): void {
     this.getFavouritedCocktails();
+    this.paginationParams.pageSize = 12;
+    this.paginationParams.pageNumber = 1;
+
   }
 
   paginationParams: PaginationParams = new PaginationParams();
@@ -25,6 +28,18 @@ export class FavoriteDrinkComponent implements OnInit {
       if(coctails.result.length>0)
         this.viewCoctails = coctails.result;
     })
+  }
+
+  addCoctails(){
+    this.coctailService.getFavouritedCocktails(this.paginationParams).subscribe(coctails => {
+      if(coctails.result.length>0)
+        this.viewCoctails = this.viewCoctails.concat(coctails.result);
+    })
+  }
+
+  loadMoreCoctails() {
+    this.paginationParams.pageNumber++;
+    this.addCoctails();
   }
 
 }

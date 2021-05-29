@@ -15,12 +15,14 @@
     <div class="postcard__text">
       <h1 class=" ">
         <a class="h1 blue">{{coctail.name}}</a>
-        <a class="btn pt-0" *appHasRole='["Admin", "Moderator", "User"]' (click)="addToFavourite()">
-          <mat-icon class="h4 m-0">favorite_border
-          </mat-icon>
-          <!-- <mat-icon class="h4 m-0">favorite
-          </mat-icon> -->
-        </a>
+        <ng-container *appHasRole='["Admin", "Moderator", "User"]'>
+          <a class="btn pt-0" *ngIf="!isFavourite" (click)="addToFavourite()">
+            <mat-icon *ngIf="!isFavourite" class="h4 m-0">favorite_border</mat-icon>
+          </a>
+          <a class="btn pt-0" *ngIf="isFavourite" (click)="deleteFromFavourited()">
+            <mat-icon class="h4 m-0">favorite</mat-icon>
+          </a>
+        </ng-container>
       </h1>
 
       <div class="postcard__subtitle small">
@@ -46,16 +48,18 @@
       <ul class="postcard__tagbox">
         <li class="tag__item"><i class="fas fa-tag mr-2"></i>{{coctail.category}}</li>
         <li class="tag__item"><i class="fas fa-clock mr-2"></i>{{coctail.alcoholic}}</li>
-        <li class="tag__item bg-success" *appHasRole='["Admin", "Moderator"]'><i class="fas fa-clock mr-2"></i>
-          <a (click)="acceptCoctail()">
-            <mat-icon class="h7 m-0">check</mat-icon>
-          </a>
-        </li>
-        <a (click)="rejectCoctail()">
-          <li class="tag__item bg-danger" *appHasRole='["Admin", "Moderator"]'><i class="fas fa-clock mr-2"></i>
-            <mat-icon class="h7 m-0">delete</mat-icon>
+        <ng-container *ngIf="coctail.IsAccepted == false">
+          <li class="tag__item bg-success"  *appHasRole='["Admin", "Moderator"]'><i class="fas fa-clock mr-2"></i>
+            <a (click)="acceptCoctail()">
+              <mat-icon class="h7 m-0">check</mat-icon>
+            </a>
           </li>
-        </a>
+          <a (click)="rejectCoctail()">
+            <li class="tag__item bg-danger" *appHasRole='["Admin", "Moderator"]'><i class="fas fa-clock mr-2"></i>
+              <mat-icon class="h7 m-0">delete</mat-icon>
+            </li>
+          </a>
+        </ng-container>
       </ul>
     </div>
   </article>
