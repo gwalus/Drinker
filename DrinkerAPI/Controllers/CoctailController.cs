@@ -118,16 +118,17 @@ namespace DrinkerAPI.Controllers
 
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpPost(ApiRoutes.Coctails.addCoctailAsUser)]
-        public async Task<ActionResult> AddCoctail([FromBody] CoctailToAdd coctail)
+        public async Task<ActionResult<int>> AddCoctail([FromBody] CoctailToAdd coctail)
         {
             var userId = User.GetUserId();
 
-            if (coctail != null)
+            int cocktailId = await _coctailRepository.AddCoctail(coctail, userId);
+
+            if (cocktailId != 0)
             {
-                if(await _coctailRepository.AddCoctail(coctail, userId))                
-                    return Ok();
-                
+                return cocktailId;
             }
+
             return BadRequest("Something went wrong...");
         }
 

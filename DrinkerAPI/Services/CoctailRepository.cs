@@ -123,7 +123,7 @@ namespace DrinkerAPI.Services
             //return await PagedList<CoctailDto>.CreateAsync(postgresquery, paginationParams.PageNumber, paginationParams.PageSize);
         }
 
-        public async Task<bool> AddCoctail(CoctailToAdd coctailToAdd, int userId)
+        public async Task<int> AddCoctail(CoctailToAdd coctailToAdd, int userId)
         {
             var coctail = new Coctail
             {
@@ -139,7 +139,10 @@ namespace DrinkerAPI.Services
             };
 
             await _context.Coctails.AddAsync(coctail);
-            return await _context.SaveChangesAsync() > 0;
+            if(await _context.SaveChangesAsync() > 0)    
+                return coctail.Id;
+
+            return 0;
         }
 
         public async Task<bool> AcceptCoctail(int Id)
