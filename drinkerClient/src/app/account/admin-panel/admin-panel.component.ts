@@ -17,7 +17,7 @@ export class AdminPanelComponent implements OnInit {
   }
 
   paginationParams: PaginationParams = new PaginationParams();
-  viewCoctails: Coctail[];
+  viewCoctails: Coctail[] = [];
   
   getCoctails(){
     this.paginationParams.pageNumber = 1;

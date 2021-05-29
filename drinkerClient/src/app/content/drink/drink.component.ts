@@ -17,8 +17,8 @@ import { NumberLiteralType } from 'typescript';
 export class DrinkComponent implements OnInit {
 
   constructor(private coctailService: CoctailService,
-              private _Activatedroute:ActivatedRoute,
-              private _router:Router,
+              private _Activatedroute: ActivatedRoute,
+              private router: Router,
               public accountService: AccountService,
               private adminService: AdminService,
               private toastr: ToastrService) { }
@@ -44,6 +44,7 @@ export class DrinkComponent implements OnInit {
   acceptCoctail(){
     this.adminService.acceptCocktail(this.id).subscribe(() => {
       this.toastr.success('Dodano');
+      this.router.navigateByUrl('/admin-panel');
     }, error => {
       this.toastr.error(error.error.errors[0]);
     })
@@ -52,6 +53,7 @@ export class DrinkComponent implements OnInit {
   rejectCoctail(){
     this.adminService.rejectCocktail(this.id).subscribe(() => {
       this.toastr.success('Usunieto');
+      this.router.navigateByUrl('/admin-panel');
     }, error => {
       this.toastr.error(error.error.errors[0]);
     })

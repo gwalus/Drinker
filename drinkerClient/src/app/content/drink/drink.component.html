@@ -22,7 +22,7 @@
           </mat-icon> -->
         </a>
       </h1>
-      
+
       <div class="postcard__subtitle small">
         <time datetime="2020-05-25 12:00:00">
           <i class="fas fa-calendar-alt mr-2"></i>{{coctail.dateModified | date:'mediumDate'}}
@@ -51,11 +51,11 @@
             <mat-icon class="h7 m-0">check</mat-icon>
           </a>
         </li>
-        <li class="tag__item bg-danger" *appHasRole='["Admin", "Moderator"]'><i class="fas fa-clock mr-2"></i>
-          <a (click)="rejectCoctail()">
+        <a (click)="rejectCoctail()">
+          <li class="tag__item bg-danger" *appHasRole='["Admin", "Moderator"]'><i class="fas fa-clock mr-2"></i>
             <mat-icon class="h7 m-0">delete</mat-icon>
-          </a>
-        </li>
+          </li>
+        </a>
       </ul>
     </div>
   </article>
