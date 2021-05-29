@@ -94,3 +94,5 @@ h6 {
 .logout-icon{
   color: rgb(202, 202, 202);
 }
+
+/deep/ .cdk-overlay-container { z-index: 9999; }

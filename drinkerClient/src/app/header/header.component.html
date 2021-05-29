@@ -29,7 +29,7 @@
       <div class="nav-item" ngbDropdown display="dynamic" placement="bottom-left"
         *ngIf="(accountService.currentUser$ | async) === null">
         <a class="btn p-0" id="dropdownBasic1" ngbDropdownToggle>
-          <mat-icon class="blog-header-logo-icon d-none d-md-block d-lg-block" aria-hidden="false"
+          <mat-icon class="blog-header-logo-icon d-none d-md-block d-lg-block pr-2" aria-hidden="false"
             aria-label="Profil menu">
             account_circle
           </mat-icon>
@@ -52,7 +52,7 @@
       <div class="nav-item" ngbDropdown display="dynamic" placement="bottom-left"
         *ngIf="(accountService.currentUser$ | async) as user">
         <a class="btn p-0" id="dropdownBasic1" ngbDropdownToggle>
-          <mat-icon class="blog-header-logo-icon d-none d-md-block d-lg-block" aria-hidden="false"
+          <mat-icon class="blog-header-logo-icon d-none d-md-block d-lg-block pr-2" aria-hidden="false"
             aria-label="Profil menu">
             account_circle
           </mat-icon>
@@ -80,8 +80,8 @@
     </span>
 
     <form class="form-inline my-2 my-lg-0 ml-1">
-      <input class="form-control mr-sm-2" type="search" placeholder="Find cocktail..." matInput
-        [formControl]="searchControl" [matAutocomplete]="auto" (keydown.enter)="onKeyDownEvent($event)">
+      <input class="form-control" type="search" placeholder="Find cocktail..." [formControl]="searchControl"
+        [matAutocomplete]="auto" (keydown.enter)="onKeyDownEvent($event)">
       <mat-autocomplete #auto="matAutocomplete">
         <mat-option *ngFor="let name of filteredCocktailNames | async" [value]="name" (click)="onKeyDownEvent($event)">
           {{name}}
