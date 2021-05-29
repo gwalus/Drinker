@@ -11,17 +11,17 @@
 
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
-        <a class="nav-link" *ngIf="(accountService.currentUser$ | async) as user" routerLink="/coctailBuilder">Coctail
+        <a class="nav-link" *ngIf="(accountService.currentUser$ | async) as user" routerLink="/coctailBuilder" (click)="navbarCollapsed = !navbarCollapsed">Coctail
           Builder</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" routerLink="/drinks">Coctail & Mixed Drinks</a>
+        <a class="nav-link" routerLink="/drinks" (click)="navbarCollapsed = !navbarCollapsed">Coctail & Mixed Drinks</a>
       </li>
-      <!-- <li class="nav-item">
+      <!-- <li class="nav-item" (click)="navbarCollapsed = !navbarCollapsed">
         <a class="nav-link" routerLink="/game">Game</a>
       </li> -->
       <li class="nav-item">
-        <a class="nav-link" routerLink="/calculator">Drinks Calculator</a>
+        <a class="nav-link" routerLink="/calculator" (click)="navbarCollapsed = !navbarCollapsed">Drinks Calculator</a>
       </li>
     </ul>
 
@@ -36,11 +36,11 @@
           <span class="nav-link p-0	d-md-none d-lg-none d-xl-none">Profile</span>
         </a>
         <div ngbDropdownMenu aria-labelledby="navbarDropdown3" class="dropdown-menu">
-          <button ngbDropdownItem class="p-3" (click)="openLoginContent(loginContent)">
+          <button ngbDropdownItem class="p-3" (click)="openLoginContent(loginContent)" (click)="navbarCollapsed = !navbarCollapsed">
             <mat-icon class="login-menu-icon">login</mat-icon>
             <span class="login-menu-text">Login</span>
           </button>
-          <button ngbDropdownItem class="p-3" (click)="openRegistraionContent(registrationContent)">
+          <button ngbDropdownItem class="p-3" (click)="openRegistraionContent(registrationContent)" (click)="navbarCollapsed = !navbarCollapsed">
             <mat-icon class="login-menu-icon">assignment_ind</mat-icon>
             <span class="login-menu-text">Registration</span>
           </button>
@@ -56,22 +56,22 @@
             aria-label="Profil menu">
             account_circle
           </mat-icon>
-          <span class="nav-link p-0	d-md-none d-lg-none d-xl-none">Profile</span>
+          <span class="nav-link p-0	d-md-none d-lg-none d-xl-none">Profil</span>
         </a>
         <div ngbDropdownMenu aria-labelledby="navbarDropdown3" class="dropdown-menu">
-          <button ngbDropdownItem class="p-3" routerLink="account">
+          <button ngbDropdownItem class="p-3" routerLink="account" (click)="navbarCollapsed = !navbarCollapsed">
             <mat-icon class="login-menu-icon">account_box</mat-icon>
             <span class="login-menu-text">My profil</span>
           </button>
-          <button ngbDropdownItem class="p-3" *appHasRole='["Admin", "Moderator"]' routerLink="admin-panel">
+          <button ngbDropdownItem class="p-3" *appHasRole='["Admin", "Moderator"]' routerLink="admin-panel" (click)="navbarCollapsed = !navbarCollapsed">
             <mat-icon class="login-menu-icon">admin_panel_settings</mat-icon>
             <span class="login-menu-text">Admin panel</span>
           </button>
-          <button ngbDropdownItem class="p-3" routerLink="favorite-drink">
+          <button ngbDropdownItem class="p-3" routerLink="favorite-drink" (click)="navbarCollapsed = !navbarCollapsed">
             <mat-icon class="login-menu-icon">favorite</mat-icon>
             <span class="login-menu-text">Favorite</span>
           </button>
-          <button ngbDropdownItem class="p-3" (click)="logout()">
+          <button ngbDropdownItem class="p-3" (click)="logout()" (click)="navbarCollapsed = !navbarCollapsed">
             <mat-icon class="login-menu-icon">logout</mat-icon>
             <span class="login-menu-text">Logout</span>
           </button>
@@ -80,7 +80,7 @@
     </span>
 
     <form class="form-inline my-2 my-lg-0 ml-1">
-      <input class="form-control" type="search" placeholder="Find cocktail..." [formControl]="searchControl"
+      <input class="form-control" type="search" placeholder="Find cocktail..." style="max-width: 200px;" [formControl]="searchControl"
         [matAutocomplete]="auto" (keydown.enter)="onKeyDownEvent($event)">
       <mat-autocomplete #auto="matAutocomplete">
         <mat-option *ngFor="let name of filteredCocktailNames | async" [value]="name" (click)="onKeyDownEvent($event)">
