@@ -12,6 +12,7 @@ namespace DrinkerAPI.Dtos
         public string Instructions { get; set; }
         public string PhotoUrl { get; set; }
         public string DateModified { get; set; }
+        public bool IsAccepted { get; set; }
         public IList<IngredientDto> Ingradients { get; set; }
     }
 }
