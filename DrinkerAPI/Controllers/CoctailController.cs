@@ -178,7 +178,7 @@ namespace DrinkerAPI.Controllers
         }
 
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        [HttpGet(ApiRoutes.Coctails.deleteFromFavourites)]
+        [HttpDelete(ApiRoutes.Coctails.deleteFromFavourites)]
         public async Task<ActionResult> DeleteFromFavouritesCocktails(int cocktailId)
         {
             var userId = User.GetUserId();
