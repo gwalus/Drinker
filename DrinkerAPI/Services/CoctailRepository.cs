@@ -32,8 +32,9 @@ namespace DrinkerAPI.Services
         public async Task<CoctailDto> GetCoctailDtoByIdAsync(int Id)
         {
             return await _context.Coctails
+                .Include(x=>x.Ingradients)
                 .ProjectTo<CoctailDto>(_mapper.ConfigurationProvider)
-                .Where(x => x.Id == Id)
+                .Where(y => y.Id == Id)
                 .FirstOrDefaultAsync();
         }
 
