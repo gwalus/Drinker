@@ -133,12 +133,12 @@ namespace DrinkerAPI.Controllers
         }
 
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        [HttpPut(ApiRoutes.Coctails.addPhotoToCocktail)]
+        [HttpPost(ApiRoutes.Coctails.addPhotoToCocktail)]
         public async Task<ActionResult<bool>> AddCoctail([FromForm] PhotoToAdd photoToAdd)
         {
-            if (photoToAdd.Photo.Length > 0)
+            if (photoToAdd.File.Length > 0)
             {
-                return await _coctailRepository.AddPhotoToCocktail(photoToAdd.Photo, photoToAdd.CocktailId);
+                return await _coctailRepository.AddPhotoToCocktail(photoToAdd.File, photoToAdd.CocktailId);
             }
 
             return BadRequest("Something went wrong...");

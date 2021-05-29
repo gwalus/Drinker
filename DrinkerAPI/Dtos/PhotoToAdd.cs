@@ -4,7 +4,7 @@ namespace DrinkerAPI.Dtos
 {
     public class PhotoToAdd
     {
-        public IFormFile Photo{ get; set; }
+        public IFormFile File{ get; set; }
         public int CocktailId { get; set; }
     }
 }

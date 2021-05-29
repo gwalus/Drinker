@@ -85,6 +85,6 @@ export class CoctailService {
   }
 
   addCocktail(model: any) {
-    return this.http.post(this.baseUrl + 'addcoctail', model);
+    return this.http.post<number>(this.baseUrl + 'addcoctail', model);
   }
 }

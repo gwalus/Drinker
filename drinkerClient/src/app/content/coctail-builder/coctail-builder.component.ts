@@ -7,6 +7,7 @@ import { FileUploader } from 'ng2-file-upload';
 import { User } from 'src/app/_models/user';
 import { AccountService } from 'src/app/_services/account.service';
 import { take } from 'rxjs/operators';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-coctail-builder',
@@ -16,8 +17,10 @@ import { take } from 'rxjs/operators';
 export class CoctailBuilderComponent implements OnInit {
   uploader: FileUploader;
   user: User;
+  currentIdForAddPhoto: number;
 
-  constructor(private coctailService: CoctailService, private coctail: FormBuilder, private http: HttpClient, private accountService: AccountService) {
+  constructor(private coctailService: CoctailService, private coctail: FormBuilder, private http: HttpClient, private accountService: AccountService,
+    private toastr: ToastrService) {
     this.accountService.currentUser$.pipe(take(1)).subscribe(user => this.user = user as User);
 
     let today = new Date().toISOString().slice(0, 10) + ' ' + new Date().toISOString().slice(11, 20);
@@ -42,7 +45,7 @@ export class CoctailBuilderComponent implements OnInit {
 
   initializeUploader() {
     this.uploader = new FileUploader({
-      url: 'http://localhost:36978/api/v1/cocktails/addcoctail',
+      url: 'https://localhost:5001/api/v1/cocktails/photo-to-cocktail',
       authToken: 'Bearer ' + this.user.token,
       isHTML5: true,
       allowedFileType: ['image'],
@@ -51,14 +54,9 @@ export class CoctailBuilderComponent implements OnInit {
       maxFileSize: 10 * 1024 * 1024
     });
 
-    // this.uploader.onBuildItemForm = (item, form) => {
-    //   form.append('name', this.CreateCoctailForm.controls['name'].value);
-    //   form.append('category', this.CreateCoctailForm.controls['category'].value);
-    //   form.append('alcoholic', this.CreateCoctailForm.controls['alcoholic'].value);
-    //   form.append('glass', this.CreateCoctailForm.controls['glass'].value);
-    //   form.append('instructions', this.CreateCoctailForm.controls['instructions'].value);
-    //   form.append('ingradients', JSON.stringify(this.CreateCoctailForm.controls['ingradients'].value));
-    // };
+    this.uploader.onBuildItemForm = (item, form) => {
+      form.append('cocktailId', this.currentIdForAddPhoto.toString());
+    };
 
     this.uploader.onAfterAddingFile = (file) => {
       file.withCredentials = false;
@@ -66,7 +64,9 @@ export class CoctailBuilderComponent implements OnInit {
 
     this.uploader.onSuccessItem = (item, response, status, headers) => {
       if (response) {
-        console.log(response);
+        this.toastr.success('Photo uploaded successfully')
+        this.CreateCoctailForm.reset();
+        this.currentIdForAddPhoto = 0;
       }
     }
   }
@@ -97,9 +97,11 @@ export class CoctailBuilderComponent implements OnInit {
     this.ingradients().removeAt(i);
   }
 
-  onSubmit() {
-    this.coctailService.addCocktail(this.CreateCoctailForm.value).subscribe(() =>
-      console.log('Your cocktail has been added, please add photo now!'),
+  addCocktail() {
+    this.coctailService.addCocktail(this.CreateCoctailForm.value).subscribe(id => {
+      this.toastr.success('Your cocktail has been added, please add photo now!');
+      this.currentIdForAddPhoto = id;
+    },
       error => console.log(error))
   }
 
