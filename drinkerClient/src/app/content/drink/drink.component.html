@@ -48,7 +48,7 @@
       <ul class="postcard__tagbox">
         <li class="tag__item"><i class="fas fa-tag mr-2"></i>{{coctail.category}}</li>
         <li class="tag__item"><i class="fas fa-clock mr-2"></i>{{coctail.alcoholic}}</li>
-        <ng-container *ngIf="coctail.IsAccepted == false">
+        <ng-container *ngIf="coctail.isAccepted == false">
           <li class="tag__item bg-success"  *appHasRole='["Admin", "Moderator"]'><i class="fas fa-clock mr-2"></i>
             <a (click)="acceptCoctail()">
               <mat-icon class="h7 m-0">check</mat-icon>
