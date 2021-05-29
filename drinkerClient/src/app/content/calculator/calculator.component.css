@@ -11,10 +11,11 @@
   box-shadow: 0 0 10px rgb(0 0 0 / 10%);
   -webkit-transition: background .2s ease-in-out;
   transition: background .2s ease-in-out;
+  border-radius: 0;
 }
 
 .result-calculate {
-  background-color: #dae1e7 !important;
+  background-color: #1f1c27 !important;
   height: 100%;
 }
 
@@ -31,7 +32,17 @@
   .btn-result-calculate {
     top: 50%;
     height: 60px;
-    border-radius: 10%;
+    border-radius: 0;
   }
 }
 
+.input-group-text {
+  color: #adb5bd;
+  background-color: #444;
+  border: 1px solid #444;
+  border-radius: 0;
+}
+
+.form-control {
+  border-radius: 0;
+}

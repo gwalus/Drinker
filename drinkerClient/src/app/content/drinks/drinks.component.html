@@ -8,7 +8,7 @@
   </div>
 </div>
 
-<nav class="navbar navbar-light bg-color p-1 pt-1">
+<!-- <nav class="navbar navbar-light bg-color p-1 pt-1">
   <div class="container p-0">
     <ul class="nav">
       <li class="nav-item pl-1">
@@ -59,7 +59,64 @@
       </button>
     </div>
   </div>
-</nav>
+</nav> -->
+
+<div class="container">
+  <div class="row">
+    <div class="col-12 col-sm-6 col-lg-3 col-xl-2 p-0">
+      <mat-form-field appearance="fill" class="w-100">
+        <mat-label>Kategoria</mat-label>
+        <mat-select [formControl]="categories" [(ngModel)]="selectedCategories" multiple>
+          <mat-option *ngFor="let category of categoriesList" [value]="category">{{category}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="col-12 col-sm-6 col-lg-3 col-xl-2 p-0">
+      <mat-form-field appearance="fill" class="w-100">
+        <mat-label>Szklanka</mat-label>
+        <mat-select [formControl]="glasses" [(ngModel)]="selectedGlasses" multiple>
+          <mat-option *ngFor="let glass of glassesList" [value]="glass">{{glass}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="col-12 col-sm-6 col-lg-3 col-xl-2 p-0">
+      <mat-form-field appearance="fill" class="w-100">
+        <mat-label>Alkochol</mat-label>
+        <mat-select [formControl]="alcoholic" [(ngModel)]="selectedAlcoholic" multiple>
+          <mat-option *ngFor="let alcoholic of alcoholicList" [value]="alcoholic">{{alcoholic}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="col-12 col-sm-6 col-lg-3 col-xl-2 p-0">
+      <mat-form-field appearance="fill" class="w-100">
+        <mat-label>Ingredients</mat-label>
+        <mat-select [formControl]="ingredients" [(ngModel)]="selectedIngredients" multiple>
+          <mat-option *ngFor="let ingredient of ingredientsList" [value]="ingredient">{{ingredient}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  
+    <div class="col-6 col-sm-6 col-lg-6 col-xl-2 p-0">
+      <div class="d-flex align-items-center tag-btn-li" *ngIf="viewKeyword">
+        <button type="button" class="btn btn-sm btn-primary ml-3 mr-2 btn-center vertical-center" (click)="deleteKeyword()">
+          <span class="btn-text">{{searchKeyword}}</span>
+          <mat-icon class="tag-icon">close</mat-icon>
+        </button>
+      </div>
+    </div>
+  
+    <div class="col-6 col-sm-6 col-lg-6 col-xl-2 p-0 pr-2">
+      <div class="d-flex flex-row-reverse">
+        <button type="button" class="btn btn-link px-3 me-2 text-theme" (click)="clearFilter()">
+          Clear
+        </button>
+        <button type="button" class="btn btn-link px-3 me-2 text-theme" (click)="getCoctailByFilter()">
+          Filtruj
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <div class="container">
   <div class="card-columns">
