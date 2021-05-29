@@ -26,6 +26,7 @@ import { UserProfilComponent } from './account/user-profil/user-profil.component
 import { HasRoleDirective } from './_directives/has-role.directive';
 import { FavoriteDrinkComponent } from './account/favorite-drink/favorite-drink.component';
 import { JwtInterceptor } from './_interceptors/jwt.interceptor';
+import { FileUploadModule } from 'ng2-file-upload';
 
 
 @NgModule({
@@ -61,7 +62,8 @@ import { JwtInterceptor } from './_interceptors/jwt.interceptor';
       closeButton: true,
       positionClass: 'toast-bottom-right'
     }),
-    AppMaterialModule
+    AppMaterialModule,
+    FileUploadModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }

@@ -122,29 +122,23 @@ namespace DrinkerAPI.Services
             //return await PagedList<CoctailDto>.CreateAsync(postgresquery, paginationParams.PageNumber, paginationParams.PageSize);
         }
 
-        public async Task<bool> AddCoctail(CoctailToAdd coctailToAdd)
+        public async Task<bool> AddCoctail(CoctailToAdd coctailToAdd, int userId)
         {
             var coctail = new Coctail
             {
                 Alcoholic = coctailToAdd.Alcoholic,
                 Category = coctailToAdd.Category,
                 DateModified = DateTime.Now.ToString(),
-                Glass = coctailToAdd.Glass,
-                Ingradients = coctailToAdd.Ingradients,
+                Glass = coctailToAdd.Glass,        
                 Name = coctailToAdd.Name,
                 Instructions = coctailToAdd.Instructions,
-                PhotoUrl = await _cloudinary.UploadFile(coctailToAdd.PhotoUrl),
                 IsAccepted = false,
-
+                Ingradients = coctailToAdd.Ingradients.Select(x => new Ingredient { Name = x.Name, Measure = x.Measure}).ToList(),
+                UserId =  userId
             };
-            if (coctail.PhotoUrl == null)
-            {
-                return false;
-            }
-            coctail.IsAccepted = false;
+
             await _context.Coctails.AddAsync(coctail);
-            var added = await _context.SaveChangesAsync();
-            return added > 0;
+            return await _context.SaveChangesAsync() > 0;
         }
 
         public async Task<bool> AcceptCoctail(int Id)

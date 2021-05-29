@@ -83,4 +83,8 @@ export class CoctailService {
   isFavourite(cocktailId: number) {
     return this.http.get(this.baseUrl + 'is-favourite?cocktailId=' + cocktailId);
   }
+
+  addCocktail(model: any) {
+    return this.http.post(this.baseUrl + 'addcoctail', model);
+  }
 }

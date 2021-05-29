@@ -8,15 +8,15 @@
   </div>
 </div>
 
-<div class="container pt-5 pb-5 bg-light border " >
+<div class="container pt-5 pb-5 bg-light border ">
   <form [formGroup]="CreateCoctailForm" (ngSubmit)="onSubmit()">
 
     <div class="row justify-content-center">
       <div class="col-12 col-sm-10 col-md-6">
         <div class="form-group">
           <label for="name">Coctail Name</label>
-          <input type="text" id="name" name="name" formControlName="name" class="form-control item"
-            placeholder="" required>
+          <input type="text" id="name" name="name" formControlName="name" class="form-control item" placeholder=""
+            required>
         </div>
       </div>
       <div class="col-12 col-sm-2 col-md-2">
@@ -36,7 +36,7 @@
         <div class="form-group">
           <label for="category">Category</label><br />
           <mat-form-field class="w-100">
-            <mat-select formControlName="category" >
+            <mat-select formControlName="category">
               <mat-option *ngFor="let category of categoriesList" [value]="category">{{category}}</mat-option>
             </mat-select>
           </mat-form-field>
@@ -47,23 +47,28 @@
           <label for="glass">Glass</label><br />
           <mat-form-field class="w-100">
             <mat-select formControlName="glass">
-              <mat-option *ngFor="let glass of glassesList" [value]="glass" >{{glass}}</mat-option>
+              <mat-option *ngFor="let glass of glassesList" [value]="glass">{{glass}}</mat-option>
             </mat-select>
           </mat-form-field>
         </div>
       </div>
     </div>
 
-    <div class="row justify-content-center pb-3">
+    <!-- <div class="row justify-content-center pb-3">
       <div class="col-12 col-md-8">
         <label for="validatedCustomFile">Image</label>
         <div class="custom-file">
-          <input type="file" class="custom-file-input" id="validatedCustomFile" required>
+          <input type="file" class="custom-file-input" id="validatedCustomFile" ng2FileSelect [uploader]="uploader" />
           <label class="custom-file-label" for="validatedCustomFile">Choose file...</label>
           <div class="invalid-feedback">Example invalid custom file feedback</div>
         </div>
       </div>
-    </div>
+    </div> -->
+
+    <!-- <button type="button" class="btn btn-success btn-s mr-2" (click)="uploader.uploadAll()"
+      [disabled]="!uploader.getNotUploadedItems().length">
+      <span class="fa fa-upload"></span> Upload all
+    </button> -->
 
     <div class="row justify-content-center">
       <div class="col-12 col-md-8">
@@ -94,7 +99,7 @@
         </div>
         <div class="col-10 col-sm-5 col-md-3">
           <div class="input-group">
-            <input type="number" formControlName="measure" class="form-control item" placeholder="measure">
+            <input type="text" formControlName="measure" class="form-control item" placeholder="measure">
             <div class="input-group-append">
               <span class="input-group-text" id="measure">Oz</span>
             </div>

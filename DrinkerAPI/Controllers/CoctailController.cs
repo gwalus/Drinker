@@ -5,6 +5,7 @@ using DrinkerAPI.Interfaces;
 using DrinkerAPI.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -115,16 +116,17 @@ namespace DrinkerAPI.Controllers
             return BadRequest();
         }
 
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpPost(ApiRoutes.Coctails.addCoctailAsUser)]
-        public async Task<ActionResult> AddCoctail([FromForm] CoctailToAdd coctail)
+        public async Task<ActionResult> AddCoctail([FromBody] CoctailToAdd coctail)
         {
+            var userId = User.GetUserId();
+
             if (coctail != null)
             {
-                var newCoctail = await _coctailRepository.AddCoctail(coctail);
-                if (newCoctail == true)
-                {
+                if(await _coctailRepository.AddCoctail(coctail, userId))                
                     return Ok();
-                }
+                
             }
             return BadRequest("Something went wrong...");
         }
