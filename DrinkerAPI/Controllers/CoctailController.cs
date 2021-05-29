@@ -197,5 +197,16 @@ namespace DrinkerAPI.Controllers
 
             return BadRequest();
         }
+
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [HttpGet(ApiRoutes.Coctails.isFavourite)]
+        public async Task<ActionResult<bool>> IsCocktailFavourite(int cocktailId)
+        {
+            var userId = User.GetUserId();
+            if (userId == 0)
+                return NotFound();
+
+            return await _coctailRepository.IsCocktailFavouriteAsync(userId, cocktailId);
+        }
     }
 }

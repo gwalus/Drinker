@@ -212,5 +212,10 @@ namespace DrinkerAPI.Services
         {
             return await _context.FavouriteCoctails.SingleOrDefaultAsync(fc => fc.AppUserId == userId && fc.CoctailId == cocktailId);
         }
+
+        public async Task<bool> IsCocktailFavouriteAsync(int userId, int cocktailId)
+        {
+            return await _context.FavouriteCoctails.AnyAsync(fc => fc.AppUserId == userId && fc.CoctailId == cocktailId);
+        }
     }
 }

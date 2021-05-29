@@ -79,4 +79,8 @@ export class CoctailService {
   deleteFromFavourited(cocktailId: number) {
     return this.http.delete(this.baseUrl + 'delete-from-favourited?cocktailId=' + cocktailId);
   }
+
+  isFavourite(cocktailId: number) {
+    return this.http.get<boolean>(this.baseUrl + 'is-favourite?cocktailId=' + cocktailId);
+  }
 }

@@ -17,8 +17,8 @@ import { NumberLiteralType } from 'typescript';
 export class DrinkComponent implements OnInit {
 
   constructor(private coctailService: CoctailService,
-              private _Activatedroute:ActivatedRoute,
-              private _router:Router,
+              private _Activatedroute: ActivatedRoute,
+              private router: Router,
               public accountService: AccountService,
               private adminService: AdminService,
               private toastr: ToastrService) { }
@@ -26,24 +26,30 @@ export class DrinkComponent implements OnInit {
   id: number;
   coctail: Coctail;
   sub: Subscription;
+  isFavourite: boolean = false;
 
   ngOnInit(): void {
     this.sub=this._Activatedroute.paramMap.subscribe(params => { 
       this.id = Number(params.get('id')); 
    });
 
+   this.checkIsFavourite();
    this.getCoctailById();
   }
 
   getCoctailById() {
     this.coctailService.getCoctailById(this.id).subscribe(coctails => {
-      if(coctails)this.coctail = coctails;
+      if(coctails){
+        console.log(coctails);
+        this.coctail = coctails;
+      } 
     })
   }
 
   acceptCoctail(){
     this.adminService.acceptCocktail(this.id).subscribe(() => {
       this.toastr.success('Dodano');
+      this.router.navigateByUrl('/admin-panel');
     }, error => {
       this.toastr.error(error.error.errors[0]);
     })
@@ -52,6 +58,7 @@ export class DrinkComponent implements OnInit {
   rejectCoctail(){
     this.adminService.rejectCocktail(this.id).subscribe(() => {
       this.toastr.success('Usunieto');
+      this.router.navigateByUrl('/admin-panel');
     }, error => {
       this.toastr.error(error.error.errors[0]);
     })
@@ -60,6 +67,7 @@ export class DrinkComponent implements OnInit {
   addToFavourite(){
     this.coctailService.addToFavourite(this.id).subscribe(() => {
       this.toastr.success('Added to favourite');
+      this.checkIsFavourite();
     }, error => {
       this.toastr.error(error.error.errors[0]);
     })
@@ -68,8 +76,15 @@ export class DrinkComponent implements OnInit {
   deleteFromFavourited(){
     this.coctailService.deleteFromFavourited(this.id).subscribe(() => {
       this.toastr.success('Deleted to favourite');
+      this.checkIsFavourite();
     }, error => {
       this.toastr.error(error.error.errors[0]);
+    })
+  }
+
+  checkIsFavourite() {
+    this.coctailService.isFavourite(this.id).subscribe(isFavourite => {
+      this.isFavourite = isFavourite; 
     })
   }
 }
