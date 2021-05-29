@@ -1,7 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { CoctailService } from 'src/app/_services/coctail.service';
-import {formatDate} from '@angular/common';
+import { formatDate } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
+import { FileUploader } from 'ng2-file-upload';
+import { User } from 'src/app/_models/user';
+import { AccountService } from 'src/app/_services/account.service';
+import { take } from 'rxjs/operators';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-coctail-builder',
@@ -9,60 +15,94 @@ import {formatDate} from '@angular/common';
   styleUrls: ['./coctail-builder.component.css', '../style.css']
 })
 export class CoctailBuilderComponent implements OnInit {
+  uploader: FileUploader;
+  user: User;
+  currentIdForAddPhoto: number;
 
-  constructor(private coctailService: CoctailService, private coctail:FormBuilder) {
-  
+  constructor(private coctailService: CoctailService, private coctail: FormBuilder, private http: HttpClient, private accountService: AccountService,
+    private toastr: ToastrService) {
+    this.accountService.currentUser$.pipe(take(1)).subscribe(user => this.user = user as User);
+
     let today = new Date().toISOString().slice(0, 10) + ' ' + new Date().toISOString().slice(11, 20);
 
     this.CreateCoctailForm = this.coctail.group({
       name: '',
-      category:'',
+      category: '',
       alcoholic: '',
       glass: '',
       instructions: '',
-      photoUrl: '',
-      dateModified: today,
-      validatedCustomFile:'',
       ingradients: this.coctail.array([]),
-      userId: '',
-      isAccepted: true
     });
     this.addIngredient();
   }
 
   ngOnInit(): void {
+    this.initializeUploader();
+
     this.getCoctailGlasses();
     this.getCoctailCategories();
   }
 
+  initializeUploader() {
+    this.uploader = new FileUploader({
+      url: 'https://localhost:5001/api/v1/cocktails/photo-to-cocktail',
+      authToken: 'Bearer ' + this.user.token,
+      isHTML5: true,
+      allowedFileType: ['image'],
+      removeAfterUpload: true,
+      autoUpload: false,
+      maxFileSize: 10 * 1024 * 1024
+    });
+
+    this.uploader.onBuildItemForm = (item, form) => {
+      form.append('cocktailId', this.currentIdForAddPhoto.toString());
+    };
+
+    this.uploader.onAfterAddingFile = (file) => {
+      file.withCredentials = false;
+    }
+
+    this.uploader.onSuccessItem = (item, response, status, headers) => {
+      if (response) {
+        this.toastr.success('Photo uploaded successfully')
+        this.CreateCoctailForm.reset();
+        this.currentIdForAddPhoto = 0;
+      }
+    }
+  }
+
   CreateCoctailForm: FormGroup;
   categoriesList: string[];
-  alcoholicList: string[] = ["Alcoholic", "Non alcoholic",  "Optional alcohol"];
+  alcoholicList: string[] = ["Alcoholic", "Non alcoholic", "Optional alcohol"];
 
   glassesList: string[];
   selectedGlasses: string[];
 
-  ingradients() : FormArray {
+  ingradients(): FormArray {
     return this.CreateCoctailForm.get("ingradients") as FormArray
   }
-   
+
   newIngredient(): FormGroup {
     return this.coctail.group({
       name: '',
       measure: '',
     })
   }
-   
+
   addIngredient() {
     this.ingradients().push(this.newIngredient());
   }
-   
-  removeIngredient(i:number) {
+
+  removeIngredient(i: number) {
     this.ingradients().removeAt(i);
   }
-   
-  onSubmit() {
-    console.log(this.CreateCoctailForm.value);
+
+  addCocktail() {
+    this.coctailService.addCocktail(this.CreateCoctailForm.value).subscribe(id => {
+      this.toastr.success('Your cocktail has been added, please add photo now!');
+      this.currentIdForAddPhoto = id;
+    },
+      error => console.log(error))
   }
 
   getCoctailCategories() {

@@ -5,6 +5,7 @@ using DrinkerAPI.Interfaces;
 using DrinkerAPI.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -115,17 +116,31 @@ namespace DrinkerAPI.Controllers
             return BadRequest();
         }
 
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpPost(ApiRoutes.Coctails.addCoctailAsUser)]
-        public async Task<ActionResult> AddCoctail([FromForm] CoctailToAdd coctail)
+        public async Task<ActionResult<int>> AddCoctail([FromBody] CoctailToAdd coctail)
         {
-            if (coctail != null)
+            var userId = User.GetUserId();
+
+            int cocktailId = await _coctailRepository.AddCoctail(coctail, userId);
+
+            if (cocktailId != 0)
             {
-                var newCoctail = await _coctailRepository.AddCoctail(coctail);
-                if (newCoctail == true)
-                {
-                    return Ok();
-                }
+                return cocktailId;
             }
+
+            return BadRequest("Something went wrong...");
+        }
+
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [HttpPost(ApiRoutes.Coctails.addPhotoToCocktail)]
+        public async Task<ActionResult<bool>> AddCoctail([FromForm] PhotoToAdd photoToAdd)
+        {
+            if (photoToAdd.File.Length > 0)
+            {
+                return await _coctailRepository.AddPhotoToCocktail(photoToAdd.File, photoToAdd.CocktailId);
+            }
+
             return BadRequest("Something went wrong...");
         }
 

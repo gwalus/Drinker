@@ -1,6 +1,7 @@
 ﻿using DrinkerAPI.Dtos;
 using DrinkerAPI.Helpers;
 using DrinkerAPI.Models;
+using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -58,7 +59,7 @@ namespace DrinkerAPI.Interfaces
         ///   <br />
         /// </returns>
         Task<IList<string>> GetCoctailNamesAsync();
-        Task<bool> AddCoctail(CoctailToAdd coctail);
+        Task<int> AddCoctail(CoctailToAdd coctail, int userId);
         Task<bool> AcceptCoctail(int Id);
         Task<bool> RejectCoctail(int Id);
 
@@ -69,5 +70,6 @@ namespace DrinkerAPI.Interfaces
         Task<bool> DeleteFromFavouritesAsync(FavouriteCoctail favouriteCoctail);
         Task<FavouriteCoctail> GetFavouriteCoctailAsync(int userId, int cocktailId);
         Task<bool> IsCocktailFavouriteAsync(int userId, int cocktailId);
+        Task<bool> AddPhotoToCocktail(IFormFile photo, int cocktailId);
     }
 }

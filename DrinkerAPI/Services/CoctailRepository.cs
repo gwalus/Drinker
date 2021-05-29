@@ -5,6 +5,7 @@ using DrinkerAPI.Dtos;
 using DrinkerAPI.Helpers;
 using DrinkerAPI.Interfaces;
 using DrinkerAPI.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -22,7 +23,7 @@ namespace DrinkerAPI.Services
         private readonly IMapper _mapper;
         private readonly ICloudinaryService _cloudinary;
 
-        public CoctailRepository(CoctailContext context, IMapper mapper,ICloudinaryService cloudinary)
+        public CoctailRepository(CoctailContext context, IMapper mapper, ICloudinaryService cloudinary)
         {
             _context = context;
             _mapper = mapper;
@@ -123,7 +124,7 @@ namespace DrinkerAPI.Services
             //return await PagedList<CoctailDto>.CreateAsync(postgresquery, paginationParams.PageNumber, paginationParams.PageSize);
         }
 
-        public async Task<bool> AddCoctail(CoctailToAdd coctailToAdd)
+        public async Task<int> AddCoctail(CoctailToAdd coctailToAdd, int userId)
         {
             var coctail = new Coctail
             {
@@ -131,21 +132,18 @@ namespace DrinkerAPI.Services
                 Category = coctailToAdd.Category,
                 DateModified = DateTime.Now.ToString(),
                 Glass = coctailToAdd.Glass,
-                Ingradients = coctailToAdd.Ingradients,
                 Name = coctailToAdd.Name,
                 Instructions = coctailToAdd.Instructions,
-                PhotoUrl = await _cloudinary.UploadFile(coctailToAdd.PhotoUrl),
                 IsAccepted = false,
-
+                Ingradients = coctailToAdd.Ingradients.Select(x => new Ingredient { Name = x.Name, Measure = x.Measure }).ToList(),
+                UserId = userId
             };
-            if (coctail.PhotoUrl == null)
-            {
-                return false;
-            }
-            coctail.IsAccepted = false;
+
             await _context.Coctails.AddAsync(coctail);
-            var added = await _context.SaveChangesAsync();
-            return added > 0;
+            if(await _context.SaveChangesAsync() > 0)    
+                return coctail.Id;
+
+            return 0;
         }
 
         public async Task<bool> AcceptCoctail(int Id)
@@ -191,12 +189,12 @@ namespace DrinkerAPI.Services
 
         public async Task<PagedList<CoctailDto>> GetFavouritesCocktails(int userId, PaginationParams paginationParams)
         {
-           var favouritedCocktails = _context.FavouriteCoctails
-                .Where(fc => fc.AppUserId == userId)
-                .Include(fc => fc.Coctail)
-                .Select(fc => fc.Coctail)
-                .ProjectTo<CoctailDto>(_mapper.ConfigurationProvider)
-                .AsQueryable();
+            var favouritedCocktails = _context.FavouriteCoctails
+                 .Where(fc => fc.AppUserId == userId)
+                 .Include(fc => fc.Coctail)
+                 .Select(fc => fc.Coctail)
+                 .ProjectTo<CoctailDto>(_mapper.ConfigurationProvider)
+                 .AsQueryable();
 
             return await PagedList<CoctailDto>.CreateAsync(favouritedCocktails, paginationParams.PageNumber, paginationParams.PageSize);
         }
@@ -216,6 +214,24 @@ namespace DrinkerAPI.Services
         public async Task<bool> IsCocktailFavouriteAsync(int userId, int cocktailId)
         {
             return await _context.FavouriteCoctails.AnyAsync(fc => fc.AppUserId == userId && fc.CoctailId == cocktailId);
+        }
+
+        public async Task<bool> AddPhotoToCocktail(IFormFile photo, int cocktailId)
+        {
+            var cocktail = await _context.Coctails.SingleOrDefaultAsync(x => x.Id == cocktailId);
+
+            if (cocktail != null)
+            {
+                var publicPhotoUrl = await _cloudinary.UploadFile(photo);
+
+                if (!string.IsNullOrEmpty(publicPhotoUrl))
+                {
+                    cocktail.PhotoUrl = publicPhotoUrl;
+                    return await _context.SaveChangesAsync() > 0;                  
+                }
+            }
+
+            return false;
         }
     }
 }
