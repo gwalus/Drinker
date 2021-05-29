@@ -11,6 +11,7 @@
   box-shadow: 0 0 10px rgb(0 0 0 / 10%);
   -webkit-transition: background .2s ease-in-out;
   transition: background .2s ease-in-out;
+  border-radius: 0;
 }
 
 .result-calculate {
@@ -31,7 +32,7 @@
   .btn-result-calculate {
     top: 50%;
     height: 60px;
-    border-radius: 10%;
+    border-radius: 0;
   }
 }
 
