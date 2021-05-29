@@ -17,7 +17,7 @@ export class AdminPanelComponent implements OnInit {
   }
 
   paginationParams: PaginationParams = new PaginationParams();
-  viewCoctails: Coctail[];
+  viewCoctails: Coctail[] = [];
   
   getCoctails(){
     this.paginationParams.pageNumber = 1;
@@ -25,5 +25,16 @@ export class AdminPanelComponent implements OnInit {
     this.adminService.getCocktailsToAccept(this.paginationParams).subscribe(coctails => {
       this.viewCoctails = coctails.result;
     })
+  }
+
+  addCoctails() {
+    this.adminService.getCocktailsToAccept(this.paginationParams).subscribe(coctails => {
+      this.viewCoctails = this.viewCoctails.concat(coctails.result);
+    })
+  }
+
+  loadMoreCoctails() {
+    this.paginationParams.pageNumber++;
+    this.addCoctails();
   }
 }
