@@ -5,6 +5,7 @@ using DrinkerAPI.Dtos;
 using DrinkerAPI.Helpers;
 using DrinkerAPI.Interfaces;
 using DrinkerAPI.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -22,7 +23,7 @@ namespace DrinkerAPI.Services
         private readonly IMapper _mapper;
         private readonly ICloudinaryService _cloudinary;
 
-        public CoctailRepository(CoctailContext context, IMapper mapper,ICloudinaryService cloudinary)
+        public CoctailRepository(CoctailContext context, IMapper mapper, ICloudinaryService cloudinary)
         {
             _context = context;
             _mapper = mapper;
@@ -129,12 +130,12 @@ namespace DrinkerAPI.Services
                 Alcoholic = coctailToAdd.Alcoholic,
                 Category = coctailToAdd.Category,
                 DateModified = DateTime.Now.ToString(),
-                Glass = coctailToAdd.Glass,        
+                Glass = coctailToAdd.Glass,
                 Name = coctailToAdd.Name,
                 Instructions = coctailToAdd.Instructions,
                 IsAccepted = false,
-                Ingradients = coctailToAdd.Ingradients.Select(x => new Ingredient { Name = x.Name, Measure = x.Measure}).ToList(),
-                UserId =  userId
+                Ingradients = coctailToAdd.Ingradients.Select(x => new Ingredient { Name = x.Name, Measure = x.Measure }).ToList(),
+                UserId = userId
             };
 
             await _context.Coctails.AddAsync(coctail);
@@ -184,12 +185,12 @@ namespace DrinkerAPI.Services
 
         public async Task<PagedList<CoctailDto>> GetFavouritesCocktails(int userId, PaginationParams paginationParams)
         {
-           var favouritedCocktails = _context.FavouriteCoctails
-                .Where(fc => fc.AppUserId == userId)
-                .Include(fc => fc.Coctail)
-                .Select(fc => fc.Coctail)
-                .ProjectTo<CoctailDto>(_mapper.ConfigurationProvider)
-                .AsQueryable();
+            var favouritedCocktails = _context.FavouriteCoctails
+                 .Where(fc => fc.AppUserId == userId)
+                 .Include(fc => fc.Coctail)
+                 .Select(fc => fc.Coctail)
+                 .ProjectTo<CoctailDto>(_mapper.ConfigurationProvider)
+                 .AsQueryable();
 
             return await PagedList<CoctailDto>.CreateAsync(favouritedCocktails, paginationParams.PageNumber, paginationParams.PageSize);
         }
@@ -209,6 +210,24 @@ namespace DrinkerAPI.Services
         public async Task<bool> IsCocktailFavouriteAsync(int userId, int cocktailId)
         {
             return await _context.FavouriteCoctails.AnyAsync(fc => fc.AppUserId == userId && fc.CoctailId == cocktailId);
+        }
+
+        public async Task<bool> AddPhotoToCocktail(IFormFile photo, int cocktailId)
+        {
+            var cocktail = await _context.Coctails.SingleOrDefaultAsync(x => x.Id == cocktailId);
+
+            if (cocktail != null)
+            {
+                var publicPhotoUrl = await _cloudinary.UploadFile(photo);
+
+                if (!string.IsNullOrEmpty(publicPhotoUrl))
+                {
+                    cocktail.PhotoUrl = publicPhotoUrl;
+                    return await _context.SaveChangesAsync() > 0;                  
+                }
+            }
+
+            return false;
         }
     }
 }
