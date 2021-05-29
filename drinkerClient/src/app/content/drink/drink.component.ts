@@ -56,4 +56,20 @@ export class DrinkComponent implements OnInit {
       this.toastr.error(error.error.errors[0]);
     })
   }
+
+  addToFavourite(){
+    this.coctailService.addToFavourite(this.id).subscribe(() => {
+      this.toastr.success('Added to favourite');
+    }, error => {
+      this.toastr.error(error.error.errors[0]);
+    })
+  }
+
+  deleteFromFavourited(){
+    this.coctailService.deleteFromFavourited(this.id).subscribe(() => {
+      this.toastr.success('Deleted to favourite');
+    }, error => {
+      this.toastr.error(error.error.errors[0]);
+    })
+  }
 }

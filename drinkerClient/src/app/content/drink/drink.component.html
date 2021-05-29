@@ -15,7 +15,7 @@
     <div class="postcard__text">
       <h1 class=" ">
         <a class="h1 blue">{{coctail.name}}</a>
-        <a class="btn pt-0" *appHasRole='["Admin", "Moderator", "User"]'>
+        <a class="btn pt-0" *appHasRole='["Admin", "Moderator", "User"]' (click)="addToFavourite()">
           <mat-icon class="h4 m-0">favorite_border
           </mat-icon>
           <!-- <mat-icon class="h4 m-0">favorite
