@@ -14,15 +14,14 @@ export class FavoriteDrinkComponent implements OnInit {
   constructor(private coctailService: CoctailService) { }
 
   ngOnInit(): void {
-    this.getCoctails();
+    this.getFavouritedCocktails();
   }
 
-  coctailParams: CoctailParams = new CoctailParams();
   paginationParams: PaginationParams = new PaginationParams();
-  viewCoctails: Coctail[];
+  viewCoctails: Coctail[] = [];
   
-  getCoctails() {
-    this.coctailService.getAll('', [], this.coctailParams).subscribe(coctails => {
+  getFavouritedCocktails() {
+    this.coctailService.getFavouritedCocktails(this.paginationParams).subscribe(coctails => {
       if(coctails.result.length>0)
         this.viewCoctails = coctails.result;
     })
