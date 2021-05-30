@@ -18,7 +18,7 @@
     <div class="col-sm-7 col-9 pr-0">
 
       <div class="bg-color2 text-white p-3">
-        <h3>Podaj wagę i płeć</h3>
+        <h3>Weight and sex</h3>
         <div class="d-flex flex-row">
           <div class="form-group">
             <div class="input-group mb-3">
@@ -28,21 +28,21 @@
                 <span class="input-group-text" id="weight">Kg</span>
               </div>
             </div>
-            <div class="alert alert-danger" *ngIf="">Wagę jest wymagana</div>
+            <div class="alert alert-danger" *ngIf="">Weight is required</div>
           </div>
 
           <div class="form-group ml-3">
             <div class="input-group">
               <select [(ngModel)]="calcModel.sex" #sex="ngModel" [class.is-invalid]="sex.invalid && sex.touched" 
                       name="sex" class="form-control" required>
-                <option value="1">mężczyzna</option>
-                <option value="2">kobieta</option>
+                <option value="1">Man</option>
+                <option value="2">Woman</option>
               </select>
             </div>
           </div>
         </div>
 
-        <h3>Podaj ilość i moc wypitego alkohulu</h3>
+        <h3>How much alcohol did you drink and it's strength</h3>
         <div class="d-flex flex-row">
           <div class="form-group">
             <div class="input-group mb-3">
@@ -65,7 +65,7 @@
           </div>
         </div>
 
-        <h3>Od spożycia alkoholu minęło</h3>
+        <h3>When did you finish your last drink?</h3>
         <div class="d-flex flex-row">
           <div class="form-group">
             <div class="input-group mb-3">
@@ -83,7 +83,7 @@
     <div class="col-sm-5 col-3 pl-0 text-center">
       <div class="result-calculate text-center text-white">
         <span name="permile" class="text-result-calculate">{{calcModel.permile}} ‰</span>
-        <button [disabled]="calcForm.form.invalid" class="btn btn-danger btn-result-calculate" type="submit">Oblicz</button>
+        <button [disabled]="calcForm.form.invalid" class="btn btn-danger btn-result-calculate" type="submit">Calculate</button>
       </div>
     </div>
 
