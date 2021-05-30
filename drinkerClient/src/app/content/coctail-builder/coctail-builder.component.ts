@@ -3,22 +3,25 @@ import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { CoctailService } from 'src/app/_services/coctail.service';
 import { formatDate } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { FileUploader } from 'ng2-file-upload';
+import { FileItem, FileUploader } from 'ng2-file-upload';
 import { User } from 'src/app/_models/user';
 import { AccountService } from 'src/app/_services/account.service';
 import { take } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
+import { Coctail } from 'src/app/_models/coctail';
 
 @Component({
   selector: 'app-coctail-builder',
   templateUrl: './coctail-builder.component.html',
-  styleUrls: ['./coctail-builder.component.css', '../style.css']
+  styleUrls: ['./coctail-builder.component.css', '../style.scss']
 })
 export class CoctailBuilderComponent implements OnInit {
   uploader: FileUploader;
   user: User;
   currentIdForAddPhoto: number;
   photoMode = false;
+  coctails: Coctail;
+  photo: FileItem;
 
   constructor(private coctailService: CoctailService, private coctail: FormBuilder, private http: HttpClient, private accountService: AccountService,
     private toastr: ToastrService) {
@@ -28,9 +31,9 @@ export class CoctailBuilderComponent implements OnInit {
 
     this.CreateCoctailForm = this.coctail.group({
       name: '',
-      category: '',
-      alcoholic: '',
-      glass: '',
+      category: 'Cocktail',
+      alcoholic: 'Alcoholic',
+      glass: 'Highball glass',
       instructions: '',
       ingradients: this.coctail.array([]),
     });
@@ -61,6 +64,7 @@ export class CoctailBuilderComponent implements OnInit {
 
     this.uploader.onAfterAddingFile = (file) => {
       file.withCredentials = false;
+      this.photo = file;
     }
 
     this.uploader.onSuccessItem = (item, response, status, headers) => {

@@ -10,7 +10,7 @@ import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-drinks',
   templateUrl: './drinks.component.html',
-  styleUrls: ['./drinks.component.scss', '../style.css']
+  styleUrls: ['./drinks.component.scss', '../style.scss']
 })
 
 export class DrinksComponent implements OnInit {
