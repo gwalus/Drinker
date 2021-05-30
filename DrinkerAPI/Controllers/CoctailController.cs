@@ -151,7 +151,7 @@ namespace DrinkerAPI.Controllers
         [HttpPost(ApiRoutes.Coctails.addToFavourite)]
         public async Task<ActionResult> AddToFavourite(int cocktailId)
         {
-            if (cocktailId == null)
+            if (cocktailId == 0)
                 return BadRequest();
 
             var userId = User.GetUserId();
