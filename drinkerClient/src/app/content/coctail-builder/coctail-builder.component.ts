@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { CoctailService } from 'src/app/_services/coctail.service';
 import { formatDate } from '@angular/common';
@@ -8,6 +8,7 @@ import { User } from 'src/app/_models/user';
 import { AccountService } from 'src/app/_services/account.service';
 import { take } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
+import { ThisReceiver } from '@angular/compiler';
 
 @Component({
   selector: 'app-coctail-builder',
@@ -19,6 +20,12 @@ export class CoctailBuilderComponent implements OnInit {
   user: User;
   currentIdForAddPhoto: number;
   photoMode = false;
+
+  @HostListener('window:beforeunload', ['$event']) unloadNotification($event: any) {
+    if (this.photoMode || this.CreateCoctailForm.dirty) {
+      $event.returnValue = true;
+    }
+  }
 
   constructor(private coctailService: CoctailService, private coctail: FormBuilder, private http: HttpClient, private accountService: AccountService,
     private toastr: ToastrService) {
