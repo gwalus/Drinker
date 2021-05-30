@@ -1,5 +1,5 @@
 import { Component, HostListener, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { CoctailService } from 'src/app/_services/coctail.service';
 import { HttpClient } from '@angular/common/http';
 import { FileItem, FileUploader } from 'ng2-file-upload';
@@ -9,6 +9,7 @@ import { take } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
 import { Coctail } from 'src/app/_models/coctail';
 import { BusyService } from 'src/app/_services/busy.service';
+import { environment } from 'src/environments/environment';
 
 
 @Component({
@@ -17,6 +18,7 @@ import { BusyService } from 'src/app/_services/busy.service';
   styleUrls: ['./coctail-builder.component.css', '../style.scss']
 })
 export class CoctailBuilderComponent implements OnInit {
+  baseUrl = environment.apiUrl;
   uploader: FileUploader;
   user: User;
   currentIdForAddPhoto: number;
@@ -52,22 +54,22 @@ export class CoctailBuilderComponent implements OnInit {
   public imagePath: any;
   imgURL: any;
   public message: string;
- 
+
   preview(files: any) {
     if (files.length === 0)
       return;
- 
+
     var mimeType = files[0].type;
     if (mimeType.match(/image\/*/) == null) {
       this.message = "Only images are supported.";
       return;
     }
- 
+
     var reader = new FileReader();
     this.imagePath = files;
-    reader.readAsDataURL(files[0]); 
-    reader.onload = (_event) => { 
-      this.imgURL = reader.result; 
+    reader.readAsDataURL(files[0]);
+    reader.onload = (_event) => {
+      this.imgURL = reader.result;
     }
   }
 
@@ -80,7 +82,7 @@ export class CoctailBuilderComponent implements OnInit {
 
   initializeUploader() {
     this.uploader = new FileUploader({
-      url: 'https://localhost:5001/api/v1/cocktails/photo-to-cocktail',
+      url: this.baseUrl + 'cocktails/photo-to-cocktail',
       authToken: 'Bearer ' + this.user.token,
       isHTML5: true,
       allowedFileType: ['image'],
