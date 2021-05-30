@@ -18,6 +18,7 @@ export class CoctailBuilderComponent implements OnInit {
   uploader: FileUploader;
   user: User;
   currentIdForAddPhoto: number;
+  photoMode = false;
 
   constructor(private coctailService: CoctailService, private coctail: FormBuilder, private http: HttpClient, private accountService: AccountService,
     private toastr: ToastrService) {
@@ -67,6 +68,8 @@ export class CoctailBuilderComponent implements OnInit {
         this.toastr.success('Photo uploaded successfully')
         this.CreateCoctailForm.reset();
         this.currentIdForAddPhoto = 0;
+        this.photoMode = false;
+        this.CreateCoctailForm.enable();
       }
     }
   }
@@ -101,6 +104,8 @@ export class CoctailBuilderComponent implements OnInit {
     this.coctailService.addCocktail(this.CreateCoctailForm.value).subscribe(id => {
       this.toastr.success('Your cocktail has been added, please add photo now!');
       this.currentIdForAddPhoto = id;
+      this.photoMode = true;
+      this.CreateCoctailForm.disable();
     },
       error => console.log(error))
   }
