@@ -1,7 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { CoctailService } from 'src/app/_services/coctail.service';
-import { formatDate } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { FileItem, FileUploader } from 'ng2-file-upload';
 import { User } from 'src/app/_models/user';
@@ -9,6 +8,8 @@ import { AccountService } from 'src/app/_services/account.service';
 import { take } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
 import { Coctail } from 'src/app/_models/coctail';
+import { BusyService } from 'src/app/_services/busy.service';
+
 
 @Component({
   selector: 'app-coctail-builder',
@@ -23,8 +24,14 @@ export class CoctailBuilderComponent implements OnInit {
   coctails: Coctail;
   photo: FileItem;
 
+  @HostListener('window:beforeunload', ['$event']) unloadNotification($event: any) {
+    if (this.photoMode || this.CreateCoctailForm.dirty) {
+      $event.returnValue = true;
+    }
+  }
+
   constructor(private coctailService: CoctailService, private coctail: FormBuilder, private http: HttpClient, private accountService: AccountService,
-    private toastr: ToastrService) {
+    private toastr: ToastrService, private busyService: BusyService) {
     this.accountService.currentUser$.pipe(take(1)).subscribe(user => this.user = user as User);
 
     let today = new Date().toISOString().slice(0, 10) + ' ' + new Date().toISOString().slice(11, 20);
@@ -67,6 +74,10 @@ export class CoctailBuilderComponent implements OnInit {
       this.photo = file;
     }
 
+    this.uploader.onBeforeUploadItem = () => {
+      this.busyService.busy();
+    }
+
     this.uploader.onSuccessItem = (item, response, status, headers) => {
       if (response) {
         this.toastr.success('Photo uploaded successfully')
@@ -74,6 +85,7 @@ export class CoctailBuilderComponent implements OnInit {
         this.currentIdForAddPhoto = 0;
         this.photoMode = false;
         this.CreateCoctailForm.enable();
+        this.busyService.idle();
       }
     }
   }

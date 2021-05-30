@@ -27,6 +27,7 @@
     "jwt-decode": "^3.1.2",
     "ng2-file-upload": "^1.4.0",
     "ngx-infinite-scroll": "^10.0.1",
+    "ngx-spinner": "^11.0.1",
     "ngx-toastr": "^13.2.1",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
