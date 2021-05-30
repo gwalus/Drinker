@@ -30,19 +30,15 @@ export class DrinksComponent implements OnInit {
   coctailParams: CoctailParams = new CoctailParams();
   searchKeyword: string = '';
 
-  categories = new FormControl();
   categoriesList: string[];
   selectedCategories: string[] = [];
 
-  glasses = new FormControl();
   glassesList: string[];
   selectedGlasses: string[] = [];
 
-  alcoholic = new FormControl();
   alcoholicList: string[] = ["Alcoholic", "Non alcoholic", "Optional alcohol"];
   selectedAlcoholic: string[] = [];
 
-  ingredients = new FormControl();
   ingredientsList: string[];
   selectedIngredients: string[] = [];
 
