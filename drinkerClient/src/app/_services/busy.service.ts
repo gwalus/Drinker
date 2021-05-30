@@ -17,4 +17,12 @@ export class BusyService {
       color: '#333333'
     });
   }
+
+  idle() {
+    this.busyRequestCount--;
+    if (this.busyRequestCount <= 0) {
+      this.busyRequestCount = 0;
+      this.spinnerService.hide();
+    }
+  }
 }
