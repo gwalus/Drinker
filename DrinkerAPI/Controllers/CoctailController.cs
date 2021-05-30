@@ -5,11 +5,8 @@ using DrinkerAPI.Interfaces;
 using DrinkerAPI.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
-using System.Net;
 using System.Text.Json;
 using System.Threading.Tasks;
 
