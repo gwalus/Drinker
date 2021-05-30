@@ -97,7 +97,7 @@ namespace DrinkerAPI.Controllers
         [HttpGet(ApiRoutes.Coctails.byId)]
         public async Task<ActionResult<CoctailDto>> GetCoctailById(int id)
         {
-            var coctail = await _coctailRepository.GetCoctailByIdAsync(id);
+            var coctail = await _coctailRepository.GetCoctailDtoByIdAsync(id);
 
             if (coctail != null)
                 return Ok(coctail);
