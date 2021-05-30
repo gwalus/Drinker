@@ -23,6 +23,7 @@ export class CoctailBuilderComponent implements OnInit {
   photoMode = false;
   coctails: Coctail;
   photo: FileItem;
+  date: number;
 
   @HostListener('window:beforeunload', ['$event']) unloadNotification($event: any) {
     if (this.photoMode || this.CreateCoctailForm.dirty) {
@@ -45,6 +46,29 @@ export class CoctailBuilderComponent implements OnInit {
       ingradients: this.coctail.array([]),
     });
     this.addIngredient();
+    this.date = Date.now();
+  }
+
+  public imagePath: any;
+  imgURL: any;
+  public message: string;
+ 
+  preview(files: any) {
+    if (files.length === 0)
+      return;
+ 
+    var mimeType = files[0].type;
+    if (mimeType.match(/image\/*/) == null) {
+      this.message = "Only images are supported.";
+      return;
+    }
+ 
+    var reader = new FileReader();
+    this.imagePath = files;
+    reader.readAsDataURL(files[0]); 
+    reader.onload = (_event) => { 
+      this.imgURL = reader.result; 
+    }
   }
 
   ngOnInit(): void {
@@ -72,6 +96,7 @@ export class CoctailBuilderComponent implements OnInit {
     this.uploader.onAfterAddingFile = (file) => {
       file.withCredentials = false;
       this.photo = file;
+      console.log(this.photo);
     }
 
     this.uploader.onBeforeUploadItem = () => {

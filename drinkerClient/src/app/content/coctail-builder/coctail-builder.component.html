@@ -2,7 +2,10 @@
   <article class="postcard blue">
     <a class="postcard__img_link">
 
-      <img class="postcard__img bg-color" src="https://www.thecocktaildb.com/images/media/drink/utpxxq1483388370.jpg" alt="Image Title" />
+      <img class="postcard__img bg-color" [src]="imgURL" *ngIf="imgURL" alt="Drink Image" />
+      <img class="postcard__img bg-color" src="https://www.thecocktaildb.com/images/media/drink/3jm41q1493069578.jpg"
+        *ngIf="!imgURL" alt="Drink Image" />
+
     </a>
     <div class="postcard__text">
       <h1>
@@ -13,12 +16,12 @@
           <ng-container *ngIf="!this.CreateCoctailForm.value.name">
             Coctail Name
           </ng-container>
-        </a>  
+        </a>
       </h1>
 
       <div class="postcard__subtitle small">
         <time datetime="2020-05-25 12:00:00">
-          <i class="fas fa-calendar-alt mr-2"></i>{{this.CreateCoctailForm.value.dateModified | date:'mediumDate'}}
+          <i class="fas fa-calendar-alt mr-2"></i>{{this.date | date:'mediumDate'}}
         </time>
       </div>
       <div class="postcard__bar"></div>
@@ -62,19 +65,18 @@
   </article>
 </main>
 
-
-<div class="container pt-5 pb-5 bg-light border ">
+<div class="container pt-5 pb-5 bg-color2 text-white">
   <form [formGroup]="CreateCoctailForm" (ngSubmit)="addCocktail()">
 
     <div class="row justify-content-center">
-      <div class="col-12 col-sm-10 col-md-6">
+      <div class="col-12 col-sm-8 col-md-6">
         <div class="form-group">
           <label for="name">Coctail Name</label>
           <input type="text" id="name" name="name" formControlName="name" class="form-control item" placeholder=""
             required>
         </div>
       </div>
-      <div class="col-12 col-sm-2 col-md-2">
+      <div class="col-12 col-sm-4 col-md-2">
         <div class="form-group">
           <label for="alcoholic">Alcoholic</label>
           <mat-form-field class="w-100">
@@ -124,7 +126,7 @@
         <h4 class="mb-1">
           Add Ingredients:
           <button type="button" (click)="addIngredient()" class="btn btn-sm">
-            <mat-icon>add</mat-icon>
+            <mat-icon class="text-white">add</mat-icon>
           </button>
         </h4>
       </div>
@@ -152,31 +154,36 @@
       </div>
     </div>
 
-    <div class="row justify-content-center">
-      <div class="col-12 col-md-8">
-        <button type="submit" class="btn btn-success mt-4 w-100">Submit</button>
-        {{this.CreateCoctailForm.value | json}}
+    <ng-container *ngIf="!photoMode">
+      <div class="row justify-content-center pb-3">
+        <div class="col-12 col-md-8">
+          <button type="submit" class="btn btn-success mt-4 w-100">Add Image</button>
+          <!-- {{this.CreateCoctailForm.value | json}} -->
+        </div>
       </div>
-    </div>
+    </ng-container>
   </form>
 
   <ng-container *ngIf="photoMode">
-    <div class="container">
-      <div class="row justify-content-center pb-3">
-        <div class="col-12 col-md-8">
-          <label for="validatedCustomFile">Image</label>
-          <div class="custom-file">
-            <input type="file" class="custom-file-input" id="validatedCustomFile" ng2FileSelect [uploader]="uploader" />
-            <label class="custom-file-label" for="validatedCustomFile">Choose file...</label>
-            <div class="invalid-feedback">Example invalid custom file feedback</div>
-          </div>
+    <div class="row justify-content-center py-3">
+      <div class="col-12 col-md-8 pb-3">
+        <label for="validatedCustomFile">Image</label>
+        <div class="custom-file">
+          <input type="file" class="custom-file-input" id="validatedCustomFile" #file accept='image/*'
+            (change)="preview(file.files)" ng2FileSelect [uploader]="uploader" />
+          <label class="custom-file-label" for="validatedCustomFile">Choose file...</label>
+          <div class="invalid-feedback">Example invalid custom file feedback</div>
         </div>
       </div>
+    </div>
 
-      <button type="button" class="btn btn-success btn-s mr-2" (click)="uploader.uploadAll()"
-        [disabled]="!uploader.getNotUploadedItems().length || currentIdForAddPhoto === 0">
-        <span class="fa fa-upload"></span> Upload all
-      </button>
+    <div class="row justify-content-center">
+      <div class="col-12 col-md-8">
+        <button type="button" class="btn btn-success btn-s w-100 mr-2" (click)="uploader.uploadAll()"
+          [disabled]="!uploader.getNotUploadedItems().length || currentIdForAddPhoto === 0">
+          <span class="fa fa-upload"></span> Add Coctails
+        </button>
+      </div>
     </div>
   </ng-container>
 </div>
