@@ -1,7 +1,7 @@
 export class Calculator {
 
     weight: number;
-    sex: number;
+    sex: number = 1;
     quantity: number;
     percentage: number;
     gram: number;
