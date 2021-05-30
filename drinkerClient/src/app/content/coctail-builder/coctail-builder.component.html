@@ -1,12 +1,67 @@
-<div class="jumbotron m-0 p-3 p-md-5 text-white bg-color">
-  <div class="col-md-12 px-0 text-center">
-    <mat-icon aria-hidden="false" aria-label="liquor" class="display-4  text-center f-100">liquor</mat-icon>
-    <h1 class="">
-      Coctail Builder
-    </h1>
-    <p class="lead my-3"></p>
-  </div>
-</div>
+<main>
+  <article class="postcard blue">
+    <a class="postcard__img_link">
+
+      <img class="postcard__img bg-color" src="https://www.thecocktaildb.com/images/media/drink/utpxxq1483388370.jpg" alt="Image Title" />
+    </a>
+    <div class="postcard__text">
+      <h1>
+        <a class="h1 blue">
+          <ng-container *ngIf="this.CreateCoctailForm.value.name">
+            {{this.CreateCoctailForm.value.name}}
+          </ng-container>
+          <ng-container *ngIf="!this.CreateCoctailForm.value.name">
+            Coctail Name
+          </ng-container>
+        </a>  
+      </h1>
+
+      <div class="postcard__subtitle small">
+        <time datetime="2020-05-25 12:00:00">
+          <i class="fas fa-calendar-alt mr-2"></i>{{this.CreateCoctailForm.value.dateModified | date:'mediumDate'}}
+        </time>
+      </div>
+      <div class="postcard__bar"></div>
+      <div class="postcard__preview-txt">
+        <ng-container *ngIf="this.CreateCoctailForm.value.instructions">
+          {{this.CreateCoctailForm.value.instructions}}
+        </ng-container>
+        <ng-container *ngIf="!this.CreateCoctailForm.value.instructions">
+          Instructions
+        </ng-container>
+      </div>
+      <div>
+        <p class="card-text h6 mb-2">Glass: </p>
+        <p class="card-text ml-2"> {{this.CreateCoctailForm.value.glass}}</p>
+        <p class="card-text h6 mb-2">Ingredients:</p>
+        <table class="ml-2">
+          <tbody>
+            <tr *ngFor="let item of this.CreateCoctailForm.value.ingradients">
+              <ng-container *ngIf="item.name">
+                <td class="">{{item.name}}</td>
+              </ng-container>
+              <ng-container *ngIf="!item.name">
+                <td class="">Name</td>
+              </ng-container>
+
+              <ng-container *ngIf="item.measure">
+                <td class="">{{item.measure}}</td>
+              </ng-container>
+              <ng-container *ngIf="!item.measure">
+                <td class="">Measure</td>
+              </ng-container>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <ul class="postcard__tagbox">
+        <li class="tag__item"><i class="fas fa-tag mr-2"></i>{{this.CreateCoctailForm.value.category}}</li>
+        <li class="tag__item"><i class="fas fa-clock mr-2"></i>{{this.CreateCoctailForm.value.alcoholic}}</li>
+      </ul>
+    </div>
+  </article>
+</main>
+
 
 <div class="container pt-5 pb-5 bg-light border ">
   <form [formGroup]="CreateCoctailForm" (ngSubmit)="addCocktail()">

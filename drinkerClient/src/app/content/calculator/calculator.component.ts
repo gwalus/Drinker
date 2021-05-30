@@ -4,7 +4,7 @@ import { Calculator } from 'src/app/_models/calculator';
 @Component({
   selector: 'app-calculator',
   templateUrl: './calculator.component.html',
-  styleUrls: ['./calculator.component.css', '../style.css']
+  styleUrls: ['./calculator.component.css', '../style.scss']
 })
 export class CalculatorComponent {
   
