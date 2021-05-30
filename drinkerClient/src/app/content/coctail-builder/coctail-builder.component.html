@@ -106,20 +106,22 @@
   </form>
 
   <ng-container *ngIf="photoMode">
-    <div class="row justify-content-center pb-3">
-      <div class="col-12 col-md-8">
-        <label for="validatedCustomFile">Image</label>
-        <div class="custom-file">
-          <input type="file" class="custom-file-input" id="validatedCustomFile" ng2FileSelect [uploader]="uploader" />
-          <label class="custom-file-label" for="validatedCustomFile">Choose file...</label>
-          <div class="invalid-feedback">Example invalid custom file feedback</div>
+    <div class="container">
+      <div class="row justify-content-center pb-3">
+        <div class="col-12 col-md-8">
+          <label for="validatedCustomFile">Image</label>
+          <div class="custom-file">
+            <input type="file" class="custom-file-input" id="validatedCustomFile" ng2FileSelect [uploader]="uploader" />
+            <label class="custom-file-label" for="validatedCustomFile">Choose file...</label>
+            <div class="invalid-feedback">Example invalid custom file feedback</div>
+          </div>
         </div>
       </div>
-    </div>
 
-    <button type="button" class="btn btn-success btn-s mr-2" (click)="uploader.uploadAll()"
-      [disabled]="!uploader.getNotUploadedItems().length || currentIdForAddPhoto === 0">
-      <span class="fa fa-upload"></span> Upload all
-    </button>
+      <button type="button" class="btn btn-success btn-s mr-2" (click)="uploader.uploadAll()"
+        [disabled]="!uploader.getNotUploadedItems().length || currentIdForAddPhoto === 0">
+        <span class="fa fa-upload"></span> Upload all
+      </button>
+    </div>
   </ng-container>
 </div>
