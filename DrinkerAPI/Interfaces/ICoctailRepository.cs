@@ -70,6 +70,6 @@ namespace DrinkerAPI.Interfaces
         Task<bool> DeleteFromFavouritesAsync(FavouriteCoctail favouriteCoctail);
         Task<FavouriteCoctail> GetFavouriteCoctailAsync(int userId, int cocktailId);
         Task<bool> IsCocktailFavouriteAsync(int userId, int cocktailId);
-        Task<bool> AddPhotoToCocktail(IFormFile photo, int cocktailId);
+        Task<bool> AddPhotoToCocktail(byte[] destinationData, string filename, int cocktailId);
     }
 }
