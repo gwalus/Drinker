@@ -1,0 +1,13 @@
+{
+  "ConnectionStrings": {
+    "DefaultConnection": "Server=localhost; Port=5432; User Id=drinker-app-user; Password=Passw0rd; Database=drinkerdb"
+  },
+  "JwtSettings": {
+    "Secret": "3BC6F9C6A0E462D63BE94E373DE63C0C8B3CEAC3BB2D256F7F99A0950919D973"
+  },
+  "CloudinarySettings": {
+    "CloudName": "drinker-api",
+    "ApiKey": "865982832527545",
+    "ApiSecret": "BwX7JL1xoRb51FOflzW0WZV9CDs"
+  }
+}

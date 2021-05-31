@@ -7,24 +7,26 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System;
 using System.IO;
 
-namespace DrinkerApiTests
+namespace DrinkerAPI.Tests.Integration
 {
-    public class DependencySetupFixture
+    public class DependencySetupFixtureForPostgres
     {
         IConfigurationRoot _configurationRoot;
 
-        public DependencySetupFixture()
+        public DependencySetupFixtureForPostgres()
         {
             _configurationRoot = new ConfigurationBuilder()
             .SetBasePath(Directory.GetCurrentDirectory())
-            .AddJsonFile("appsettings.json")
+            .AddJsonFile("testsSettings.json")
             .Build();
 
             var serviceCollection = new ServiceCollection();
-            serviceCollection.AddDbContext<CoctailContext>(options => options.UseInMemoryDatabase(Guid.NewGuid().ToString()));
+            var connStr = _configurationRoot.GetConnectionString("DefaultConnection");
+
+            serviceCollection.AddDbContext<CoctailContext>(options => options.UseNpgsql(connStr));
+
 
             serviceCollection.AddScoped<ICoctailRepository, CoctailRepository>();
             serviceCollection.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);
@@ -36,7 +38,7 @@ namespace DrinkerApiTests
                 .AddRoleManager<RoleManager<IdentityRole<int>>>()
                 .AddSignInManager<SignInManager<AppUser>>()
                 .AddRoleValidator<RoleValidator<IdentityRole<int>>>()
-              .AddEntityFrameworkStores<CoctailContext>();            
+              .AddEntityFrameworkStores<CoctailContext>();
 
             ServiceProvider = serviceCollection.BuildServiceProvider();
         }
