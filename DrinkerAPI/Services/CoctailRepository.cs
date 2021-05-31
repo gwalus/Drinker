@@ -206,13 +206,13 @@ namespace DrinkerAPI.Services
             return await _context.FavouriteCoctails.AnyAsync(fc => fc.AppUserId == userId && fc.CoctailId == cocktailId);
         }
 
-        public async Task<bool> AddPhotoToCocktail(IFormFile photo, int cocktailId)
+        public async Task<bool> AddPhotoToCocktail(byte[] destinationData, string filename, int cocktailId)
         {
             var cocktail = await _context.Coctails.SingleOrDefaultAsync(x => x.Id == cocktailId);
 
             if (cocktail != null)
             {
-                var publicPhotoUrl = await _cloudinary.UploadFile(photo);
+                var publicPhotoUrl = await _cloudinary.UploadFile(destinationData, filename);
 
                 if (!string.IsNullOrEmpty(publicPhotoUrl))
                 {

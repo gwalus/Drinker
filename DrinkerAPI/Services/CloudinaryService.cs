@@ -2,7 +2,6 @@
 using CloudinaryDotNet.Actions;
 using DrinkerAPI.Helpers;
 using DrinkerAPI.Interfaces;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
 using System.IO;
 using System.Net;
@@ -23,21 +22,15 @@ namespace DrinkerAPI.Services
             );
             _cloudinary = new Cloudinary(_account);
         }
-        public async Task<string> UploadFile(IFormFile file)
+        public async Task<string> UploadFile(byte[] destinationData, string filename)
         {
-            byte[] destinationData;
-            using (var ms = new MemoryStream())
-            {
-                await file.CopyToAsync(ms);
-                destinationData = ms.ToArray();
-            }
             ImageUploadResult uploadResult = null;
             using (var ms = new MemoryStream(destinationData))
             {
                 ImageUploadParams uploadParams = new ImageUploadParams
                 {
                     Folder = "coctails",
-                    File = new FileDescription(file.Name, ms),
+                    File = new FileDescription(filename, ms),
                     Transformation = new Transformation().Height(700).Width(700),
                 };
                 uploadResult = _cloudinary.Upload(uploadParams);

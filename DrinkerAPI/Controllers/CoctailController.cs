@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.IO;
 using System.Text.Json;
 using System.Threading.Tasks;
 
@@ -131,11 +132,20 @@ namespace DrinkerAPI.Controllers
 
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpPost(ApiRoutes.Coctails.addPhotoToCocktail)]
-        public async Task<ActionResult<bool>> AddCoctail([FromForm] PhotoToAdd photoToAdd)
+        public async Task<ActionResult<bool>> AddPhotoToCoctail([FromForm] PhotoToAdd photoToAdd)
         {
             if (photoToAdd.File.Length > 0)
             {
-                return await _coctailRepository.AddPhotoToCocktail(photoToAdd.File, photoToAdd.CocktailId);
+                byte[] destinationData;
+                string photoName = photoToAdd.File.FileName;
+
+                using (var ms = new MemoryStream())
+                {
+                    await photoToAdd.File.CopyToAsync(ms);
+                    destinationData = ms.ToArray();
+                }
+
+                return await _coctailRepository.AddPhotoToCocktail(destinationData, photoName, photoToAdd.CocktailId);
             }
 
             return BadRequest("Something went wrong...");
