@@ -2,6 +2,7 @@
 using CloudinaryDotNet.Actions;
 using DrinkerAPI.Interfaces;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Options;
 using System.IO;
 using System.Net;
 using System.Threading.Tasks;
