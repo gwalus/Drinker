@@ -81,14 +81,14 @@ namespace DrinkerApiTests
         public async Task AddCoctail_ShouldReturnCorrectIdFromDatabase()
         {
             //Arrange
-            const int extectedIdResult = 11023;
+            const int expectedIdResult = 11023;
             var coctailToAdd = _fixture.Create<CoctailToAdd>();
 
             //Act
             var actualIdResult = await _coctailRepository.AddCoctail(coctailToAdd, 1);
 
             //Assert
-            Assert.Equal(extectedIdResult, actualIdResult);
+            Assert.Equal(expectedIdResult, actualIdResult);
         }
 
         [Fact]
@@ -96,7 +96,7 @@ namespace DrinkerApiTests
         {
             //Arrange
             const int id = 11000;
-            var extectedIdResult = new CoctailDto
+            var expectedIdResult = new CoctailDto
             {
                 Id = 11000,
                 Name = "Mojito",
@@ -140,20 +140,115 @@ namespace DrinkerApiTests
             var actualIdResult = await _coctailRepository.GetCoctailDtoByIdAsync(id);
 
             //Assert
-            Assert.Equal(extectedIdResult.Id, actualIdResult.Id);
-            Assert.Equal(extectedIdResult.Name, actualIdResult.Name);
-            Assert.Equal(extectedIdResult.Category, actualIdResult.Category);
-            Assert.Equal(extectedIdResult.Alcoholic, actualIdResult.Alcoholic);
-            Assert.Equal(extectedIdResult.Glass, actualIdResult.Glass);
-            Assert.Equal(extectedIdResult.Instructions, actualIdResult.Instructions);
-            Assert.Equal(extectedIdResult.PhotoUrl, actualIdResult.PhotoUrl);
-            Assert.Equal(extectedIdResult.DateModified, actualIdResult.DateModified);
+            Assert.Equal(expectedIdResult.Id, actualIdResult.Id);
+            Assert.Equal(expectedIdResult.Name, actualIdResult.Name);
+            Assert.Equal(expectedIdResult.Category, actualIdResult.Category);
+            Assert.Equal(expectedIdResult.Alcoholic, actualIdResult.Alcoholic);
+            Assert.Equal(expectedIdResult.Glass, actualIdResult.Glass);
+            Assert.Equal(expectedIdResult.Instructions, actualIdResult.Instructions);
+            Assert.Equal(expectedIdResult.PhotoUrl, actualIdResult.PhotoUrl);
+            Assert.Equal(expectedIdResult.DateModified, actualIdResult.DateModified);
 
-            for (int i = 0; i < extectedIdResult.Ingradients.Count; i++)
+            for (int i = 0; i < expectedIdResult.Ingradients.Count; i++)
             {
-                Assert.Equal(extectedIdResult.Ingradients[i].Name, actualIdResult.Ingradients[i].Name);
-                Assert.Equal(extectedIdResult.Ingradients[i].Measure, actualIdResult.Ingradients[i].Measure);
+                Assert.Equal(expectedIdResult.Ingradients[i].Name, actualIdResult.Ingradients[i].Name);
+                Assert.Equal(expectedIdResult.Ingradients[i].Measure, actualIdResult.Ingradients[i].Measure);
             }
+        }
+        [Fact]
+        public async Task GetRandomCoctailsAsync_ShouldNotBeEmpty()
+        {
+            //Arrange
+            //Act
+            var randomElement = await _coctailRepository.GetRandomCoctailsAsync(20);
+            //Assert
+            Assert.NotNull(randomElement);
+        }
+        [Fact]
+        public async Task GetCoctailDtoByNameAsync_ShouldReturnActualCoctail()
+        {
+            //Arrange
+            var expectedNameResult = new CoctailDto
+            {
+                Id = 11000,
+                Name = "Mojito",
+                Category = "Cocktail",
+                Alcoholic = "Alcoholic",
+                Glass = "Highball glass",
+                Instructions = "Muddle mint leaves with sugar and lime juice. Add a splash of soda water and fill the glass with cracked ice. Pour the rum and top with soda water. Garnish and serve with straw.",
+                PhotoUrl = "https://www.thecocktaildb.com/images/media/drink/metwgh1606770327.jpg",
+                DateModified = "2016-11-04 09:17:09",
+                Ingradients = new List<IngredientDto>
+                {
+                    new IngredientDto
+                    {
+                        Name = "Light rum",
+                        Measure = "2-3 oz"
+                    },
+                    new IngredientDto
+                    {
+                        Name = "Lime",
+                        Measure = "Juice of 1"
+                    },
+                    new IngredientDto
+                    {
+                        Name = "Sugar",
+                        Measure = "2 tsp"
+                    },
+                    new IngredientDto
+                    {
+                        Name = "Mint",
+                        Measure = "2-4"
+                    },
+                    new IngredientDto
+                    {
+                        Name = "Soda water",
+                        Measure = null
+                    }
+                }
+            };
+
+            //Act
+            var actualNameResult = await _coctailRepository.GetCoctailsByNameAsync("Mojito");
+            var actualResult = actualNameResult[0];
+
+            //Assert
+            Assert.Equal(expectedNameResult.Id, actualResult.Id);
+            Assert.Equal(expectedNameResult.Name, actualResult.Name);
+            Assert.Equal(expectedNameResult.Category, actualResult.Category);
+            Assert.Equal(expectedNameResult.Alcoholic, actualResult.Alcoholic);
+            Assert.Equal(expectedNameResult.Glass, actualResult.Glass);
+            Assert.Equal(expectedNameResult.Instructions, actualResult.Instructions);
+            Assert.Equal(expectedNameResult.PhotoUrl, actualResult.PhotoUrl);
+            Assert.Equal(expectedNameResult.DateModified, actualResult.DateModified);
+            for (int i = 0; i < expectedNameResult.Ingradients.Count; i++)
+            {
+                Assert.Equal(expectedNameResult.Ingradients[i].Name, actualResult.Ingradients[i].Name);
+                Assert.Equal(expectedNameResult.Ingradients[i].Measure, actualResult.Ingradients[i].Measure);
+            }
+        }
+        [Fact]
+        public async Task GetCoctailCategories_ShouldNotBeEmpty()
+        {
+            //Arrange
+            //Act
+            var actualResult = await _coctailRepository.GetCoctailCategories();
+            //Assert
+            Assert.NotNull(actualResult);
+            Assert.NotEmpty(actualResult);
+        }
+        [Fact]
+        public async Task GetCoctailGlasses_ShouldNotBeNull()
+        {
+            //Arrange
+            const int expectedAmmount = 5;
+            //Act
+            var actualResult = await _coctailRepository.GetCoctailGlasses();
+            //Assert
+            Assert.NotNull(actualResult);
+            Assert.NotEmpty(actualResult);
+            Assert.Equal(expectedAmmount, actualResult.Count);
+
         }
     }
 }
