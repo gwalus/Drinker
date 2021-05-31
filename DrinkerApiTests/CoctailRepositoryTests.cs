@@ -231,24 +231,14 @@ namespace DrinkerApiTests
         public async Task GetCoctailCategories_ShouldNotBeEmpty()
         {
             //Arrange
+            const int expectedAmmount = 3;
             //Act
             var actualResult = await _coctailRepository.GetCoctailCategories();
             //Assert
             Assert.NotNull(actualResult);
             Assert.NotEmpty(actualResult);
-        }
-        [Fact]
-        public async Task GetCoctailGlasses_ShouldNotBeNull()
-        {
-            //Arrange
-            const int expectedAmmount = 5;
-            //Act
-            var actualResult = await _coctailRepository.GetCoctailGlasses();
-            //Assert
-            Assert.NotNull(actualResult);
-            Assert.NotEmpty(actualResult);
             Assert.Equal(expectedAmmount, actualResult.Count);
-
         }
+
     }
 }
