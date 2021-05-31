@@ -14,7 +14,7 @@ using Xunit;
 
 namespace DrinkerApiTests
 {
-    public class CoctailRepositoryTests : IClassFixture<DependencySetupFixture>
+    public class CoctailRepositoryTests : IClassFixture<DependencySetupFixtureForInMemory>
     {
         private readonly IServiceScope _serviceScope;
         private readonly ServiceProvider _serviceProvide;
@@ -24,7 +24,7 @@ namespace DrinkerApiTests
         private readonly UserManager<AppUser> _userManager;
         private readonly RoleManager<IdentityRole<int>> _roleManager;
 
-        public CoctailRepositoryTests(DependencySetupFixture dependencySetupFixture)
+        public CoctailRepositoryTests(DependencySetupFixtureForInMemory dependencySetupFixture)
         {
             _serviceProvide = dependencySetupFixture.ServiceProvider;
             _serviceScope = _serviceProvide.CreateScope();
