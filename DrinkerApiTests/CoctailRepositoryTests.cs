@@ -1,6 +1,7 @@
 ﻿using AutoFixture;
 using AutoFixture.AutoMoq;
 using DrinkerAPI.Data;
+using DrinkerAPI.Dtos;
 using DrinkerAPI.Interfaces;
 using DrinkerAPI.Models;
 using Microsoft.AspNetCore.Identity;
@@ -88,6 +89,71 @@ namespace DrinkerApiTests
 
             //Assert
             Assert.Equal(extectedIdResult, actualIdResult);
-        }        
+        }
+
+        [Fact]
+        public async Task GetCoctailDtoByIdAsync_ShouldReturnExpectedValues()
+        {
+            //Arrange
+            const int id = 11000;
+            var extectedIdResult = new CoctailDto
+            {
+                Id = 11000,
+                Name = "Mojito",
+                Category = "Cocktail",
+                Alcoholic = "Alcoholic",
+                Glass = "Highball glass",
+                Instructions = "Muddle mint leaves with sugar and lime juice. Add a splash of soda water and fill the glass with cracked ice. Pour the rum and top with soda water. Garnish and serve with straw.",
+                PhotoUrl = "https://www.thecocktaildb.com/images/media/drink/metwgh1606770327.jpg",
+                DateModified = "2016-11-04 09:17:09",
+                Ingradients = new List<IngredientDto>
+                {
+                    new IngredientDto
+                    {
+                        Name = "Light rum",
+                        Measure = "2-3 oz"
+                    },
+                    new IngredientDto
+                    {
+                        Name = "Lime",
+                        Measure = "Juice of 1"
+                    },
+                    new IngredientDto
+                    {
+                        Name = "Sugar",
+                        Measure = "2 tsp"
+                    },
+                    new IngredientDto
+                    {
+                        Name = "Mint",
+                        Measure = "2-4"
+                    },
+                    new IngredientDto
+                    {
+                        Name = "Soda water",
+                        Measure = null
+                    }
+                }
+            };
+
+            //Act
+            var actualIdResult = await _coctailRepository.GetCoctailDtoByIdAsync(id);
+
+            //Assert
+            Assert.Equal(extectedIdResult.Id, actualIdResult.Id);
+            Assert.Equal(extectedIdResult.Name, actualIdResult.Name);
+            Assert.Equal(extectedIdResult.Category, actualIdResult.Category);
+            Assert.Equal(extectedIdResult.Alcoholic, actualIdResult.Alcoholic);
+            Assert.Equal(extectedIdResult.Glass, actualIdResult.Glass);
+            Assert.Equal(extectedIdResult.Instructions, actualIdResult.Instructions);
+            Assert.Equal(extectedIdResult.PhotoUrl, actualIdResult.PhotoUrl);
+            Assert.Equal(extectedIdResult.DateModified, actualIdResult.DateModified);
+
+            for (int i = 0; i < extectedIdResult.Ingradients.Count; i++)
+            {
+                Assert.Equal(extectedIdResult.Ingradients[i].Name, actualIdResult.Ingradients[i].Name);
+                Assert.Equal(extectedIdResult.Ingradients[i].Measure, actualIdResult.Ingradients[i].Measure);
+            }
+        }
     }
 }
