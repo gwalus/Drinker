@@ -106,22 +106,12 @@ namespace DrinkerAPI.Services
         {
             count = Math.Abs(count) > 8 ? 8 : count;
 
-            // SQLITE DOESN'T SUPPORT ORDERING BY NEW GUID
+            //SQLITE DOESN'T SUPPORT ORDERING BY NEW GUID
             return await _context.Coctails
-                .FromSqlRaw($"SELECT * FROM Coctails ORDER BY RANDOM() LIMIT {count}")
+                .FromSqlRaw($"SELECT * FROM public.\"Coctails\" ORDER BY RANDOM() LIMIT {count}")
                 .Where(x => x.IsAccepted)
                 .ProjectTo<CoctailDto>(_mapper.ConfigurationProvider)
                 .ToListAsync();
-
-            // QUERY FOR POSTRESS
-            //var postgresquery = _context.Coctails
-            //    .Where(r => r.IsAccepted)
-            //    .OrderBy(r => Guid.NewGuid())
-            //    .ProjectTo<CoctailDto>(_mapper.ConfigurationProvider)
-            //    .Take(count)
-            //    .ToListAsync();
-
-            //return await PagedList<CoctailDto>.CreateAsync(postgresquery, paginationParams.PageNumber, paginationParams.PageSize);
         }
 
         public async Task<int> AddCoctail(CoctailToAdd coctailToAdd, int userId)

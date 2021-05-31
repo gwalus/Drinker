@@ -85,9 +85,7 @@ namespace DrinkerAPI.Extensions
                     };
            });
             //AddControllers
-            services.AddControllers();
-
-        
+            services.AddControllers();      
         }
     }
 }
