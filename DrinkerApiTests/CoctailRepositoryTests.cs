@@ -155,5 +155,18 @@ namespace DrinkerApiTests
                 Assert.Equal(extectedIdResult.Ingradients[i].Measure, actualIdResult.Ingradients[i].Measure);
             }
         }
+
+        [Fact]
+        public async Task GetCoctailGlasses_ShouldNotBeNull()
+        {
+            //Arrange
+            const int expectedAmmount = 5;
+            //Act
+            var actualResult = await _coctailRepository.GetCoctailGlasses();
+            //Assert
+            Assert.NotNull(actualResult);
+            Assert.NotEmpty(actualResult);
+            Assert.Equal(expectedAmmount, actualResult.Count);
+        }
     }
 }
