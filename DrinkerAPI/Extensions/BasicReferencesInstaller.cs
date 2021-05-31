@@ -52,6 +52,8 @@ namespace DrinkerAPI.Extensions
                     }
                 });
             });
+            //CloudinarySettings
+            services.Configure<CloudinarySettings>(configuration.GetSection("CloudinarySettings"));
             //Mapper
             services.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);
             //Lowercase routing

@@ -1,5 +1,6 @@
 ﻿using CloudinaryDotNet;
 using CloudinaryDotNet.Actions;
+using DrinkerAPI.Helpers;
 using DrinkerAPI.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
@@ -12,9 +13,14 @@ namespace DrinkerAPI.Services
     {
         public readonly Account _account;
         public readonly Cloudinary _cloudinary;
-        public CloudinaryService()
+        public CloudinaryService(IOptions<CloudinarySettings> config)
         {
-            _account = new Account("drinker-api", "865982832527545", "BwX7JL1xoRb51FOflzW0WZV9CDs");
+            _account = new Account
+            (
+                config.Value.CloudName,
+                config.Value.ApiKey,
+                config.Value.ApiSecret
+            );
             _cloudinary = new Cloudinary(_account);
         }
         public async Task<string> UploadFile(IFormFile file)
