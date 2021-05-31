@@ -26,6 +26,34 @@ namespace DrinkerAPI.Tests.Integration
 
             _coctailRepository = _serviceScope.ServiceProvider.GetRequiredService<ICoctailRepository>();
             _fixture = new Fixture().Customize(new AutoMoqCustomization());
-        }        
+        }
+
+        [Fact]
+        public async Task ShouldAddNewCoctailAndUploadPhotoToCloudinary()
+        {
+            //Arrange
+            const int notAdded = 0;
+            const int userId = 1;
+            var coctailToAdd = _fixture.Create<CoctailToAdd>();
+
+            //Act
+            const string photoName = "spider.png";
+            string path = Path.Combine(Directory.GetCurrentDirectory(), photoName);
+
+            byte[] destinationData;
+
+            using (FileStream fs = new FileStream(photoName, FileMode.Open, FileAccess.Read))
+            {
+                destinationData = File.ReadAllBytes(path);
+                fs.Read(destinationData, 0, System.Convert.ToInt32(fs.Length));
+            }
+
+            int idFromDatabase = await _coctailRepository.AddCoctail(coctailToAdd, userId);
+            bool isUploaded = await _coctailRepository.AddPhotoToCocktail(destinationData, photoName, idFromDatabase);
+
+            //Act
+            Assert.NotEqual(notAdded, idFromDatabase);
+            Assert.True(isUploaded);
+        }
     }
 }
