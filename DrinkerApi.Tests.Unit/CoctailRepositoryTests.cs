@@ -37,7 +37,7 @@ namespace DrinkerApiTests
 
             _fixture = new Fixture().Customize(new AutoMoqCustomization());
 
-            var coctailsData = Task.Run(() => File.ReadAllTextAsync(Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.Parent.FullName, "DrinkerApiTests/SeedForTesting.json"))).Result;
+            var coctailsData = Task.Run(() => File.ReadAllTextAsync(Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.Parent.FullName, @"DrinkerApi.Tests.Unit\SeedForTesting.json"))).Result;
 
             var options = new JsonSerializerOptions
             {
