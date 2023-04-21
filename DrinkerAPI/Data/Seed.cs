@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
 using System.Text.Json;
 using System.Threading.Tasks;
 
@@ -15,9 +16,12 @@ namespace DrinkerAPI.Data
         //public static async Task SeedData(CoctailContext context, UserManager<IdentityUser> userManager)
         public static async Task SeedData(CoctailContext context, UserManager<AppUser> userManager, RoleManager<IdentityRole<int>> roleManager)
         {
-            if (await context.Coctails.AnyAsync()) return;
+            if (await context.Coctails.AnyAsync()) 
+                return;
 
-            var coctailsData = await File.ReadAllTextAsync(Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory()).FullName, "DataDownloader/Coctails.json"));
+            // CHANGES FOR FLY.IO DEPLOYMENT            
+            var workingDirectory = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+            var coctailsData = await File.ReadAllTextAsync(Path.Combine(workingDirectory, "Coctails.json"));
 
             var options = new JsonSerializerOptions
             {
@@ -25,7 +29,7 @@ namespace DrinkerAPI.Data
             };
 
             var coctails = JsonSerializer.Deserialize<List<Coctail>>(coctailsData, options);
-
+            
             if (coctails == null) return;
 
             foreach (var item in coctails)
